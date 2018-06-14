@@ -1,0 +1,539 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF88C20D2EC6700E26175 /* AppDelegate.swift */; };
+		1A0AF88F20D2EC6700E26175 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF88E20D2EC6700E26175 /* ViewController.swift */; };
+		1A0AF89220D2EC6700E26175 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AF89020D2EC6700E26175 /* Main.storyboard */; };
+		1A0AF89420D2EC6700E26175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AF89320D2EC6700E26175 /* Assets.xcassets */; };
+		1A0AF89720D2EC6700E26175 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */; };
+		1A0AF8A220D2EC6800E26175 /* DeeGeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8A120D2EC6800E26175 /* DeeGeeTests.swift */; };
+		1A0AF8AD20D2EC6800E26175 /* DeeGeeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8AC20D2EC6800E26175 /* DeeGeeUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1A0AF89E20D2EC6700E26175 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A0AF88120D2EC6700E26175 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A0AF88820D2EC6700E26175;
+			remoteInfo = DeeGee;
+		};
+		1A0AF8A920D2EC6800E26175 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A0AF88120D2EC6700E26175 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A0AF88820D2EC6700E26175;
+			remoteInfo = DeeGee;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1A0AF88920D2EC6700E26175 /* DeeGee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeeGee.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0AF88C20D2EC6700E26175 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1A0AF88E20D2EC6700E26175 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1A0AF89120D2EC6700E26175 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1A0AF89320D2EC6700E26175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A0AF89620D2EC6700E26175 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1A0AF89820D2EC6700E26175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A0AF89D20D2EC6700E26175 /* DeeGeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeeGeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0AF8A120D2EC6800E26175 /* DeeGeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeGeeTests.swift; sourceTree = "<group>"; };
+		1A0AF8A320D2EC6800E26175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A0AF8A820D2EC6800E26175 /* DeeGeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeeGeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0AF8AC20D2EC6800E26175 /* DeeGeeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeGeeUITests.swift; sourceTree = "<group>"; };
+		1A0AF8AE20D2EC6800E26175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A0AF88620D2EC6700E26175 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0AF89A20D2EC6700E26175 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0AF8A520D2EC6800E26175 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A0AF88020D2EC6700E26175 = {
+			isa = PBXGroup;
+			children = (
+				1A0AF88B20D2EC6700E26175 /* DeeGee */,
+				1A0AF8A020D2EC6700E26175 /* DeeGeeTests */,
+				1A0AF8AB20D2EC6800E26175 /* DeeGeeUITests */,
+				1A0AF88A20D2EC6700E26175 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1A0AF88A20D2EC6700E26175 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AF88920D2EC6700E26175 /* DeeGee.app */,
+				1A0AF89D20D2EC6700E26175 /* DeeGeeTests.xctest */,
+				1A0AF8A820D2EC6800E26175 /* DeeGeeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A0AF88B20D2EC6700E26175 /* DeeGee */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AF88C20D2EC6700E26175 /* AppDelegate.swift */,
+				1A0AF88E20D2EC6700E26175 /* ViewController.swift */,
+				1A0AF89020D2EC6700E26175 /* Main.storyboard */,
+				1A0AF89320D2EC6700E26175 /* Assets.xcassets */,
+				1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */,
+				1A0AF89820D2EC6700E26175 /* Info.plist */,
+			);
+			path = DeeGee;
+			sourceTree = "<group>";
+		};
+		1A0AF8A020D2EC6700E26175 /* DeeGeeTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AF8A120D2EC6800E26175 /* DeeGeeTests.swift */,
+				1A0AF8A320D2EC6800E26175 /* Info.plist */,
+			);
+			path = DeeGeeTests;
+			sourceTree = "<group>";
+		};
+		1A0AF8AB20D2EC6800E26175 /* DeeGeeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AF8AC20D2EC6800E26175 /* DeeGeeUITests.swift */,
+				1A0AF8AE20D2EC6800E26175 /* Info.plist */,
+			);
+			path = DeeGeeUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A0AF88820D2EC6700E26175 /* DeeGee */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A0AF8B120D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGee" */;
+			buildPhases = (
+				1A0AF88520D2EC6700E26175 /* Sources */,
+				1A0AF88620D2EC6700E26175 /* Frameworks */,
+				1A0AF88720D2EC6700E26175 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeeGee;
+			productName = DeeGee;
+			productReference = 1A0AF88920D2EC6700E26175 /* DeeGee.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1A0AF89C20D2EC6700E26175 /* DeeGeeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A0AF8B420D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGeeTests" */;
+			buildPhases = (
+				1A0AF89920D2EC6700E26175 /* Sources */,
+				1A0AF89A20D2EC6700E26175 /* Frameworks */,
+				1A0AF89B20D2EC6700E26175 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A0AF89F20D2EC6700E26175 /* PBXTargetDependency */,
+			);
+			name = DeeGeeTests;
+			productName = DeeGeeTests;
+			productReference = 1A0AF89D20D2EC6700E26175 /* DeeGeeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1A0AF8A720D2EC6800E26175 /* DeeGeeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A0AF8B720D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGeeUITests" */;
+			buildPhases = (
+				1A0AF8A420D2EC6800E26175 /* Sources */,
+				1A0AF8A520D2EC6800E26175 /* Frameworks */,
+				1A0AF8A620D2EC6800E26175 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A0AF8AA20D2EC6800E26175 /* PBXTargetDependency */,
+			);
+			name = DeeGeeUITests;
+			productName = DeeGeeUITests;
+			productReference = 1A0AF8A820D2EC6800E26175 /* DeeGeeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A0AF88120D2EC6700E26175 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = AaronMotayne;
+				TargetAttributes = {
+					1A0AF88820D2EC6700E26175 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 22ZGT27U85;
+						ProvisioningStyle = Automatic;
+					};
+					1A0AF89C20D2EC6700E26175 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 22ZGT27U85;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 1A0AF88820D2EC6700E26175;
+					};
+					1A0AF8A720D2EC6800E26175 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 22ZGT27U85;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 1A0AF88820D2EC6700E26175;
+					};
+				};
+			};
+			buildConfigurationList = 1A0AF88420D2EC6700E26175 /* Build configuration list for PBXProject "DeeGee" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1A0AF88020D2EC6700E26175;
+			productRefGroup = 1A0AF88A20D2EC6700E26175 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1A0AF88820D2EC6700E26175 /* DeeGee */,
+				1A0AF89C20D2EC6700E26175 /* DeeGeeTests */,
+				1A0AF8A720D2EC6800E26175 /* DeeGeeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1A0AF88720D2EC6700E26175 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0AF89720D2EC6700E26175 /* LaunchScreen.storyboard in Resources */,
+				1A0AF89420D2EC6700E26175 /* Assets.xcassets in Resources */,
+				1A0AF89220D2EC6700E26175 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0AF89B20D2EC6700E26175 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0AF8A620D2EC6800E26175 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A0AF88520D2EC6700E26175 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0AF88F20D2EC6700E26175 /* ViewController.swift in Sources */,
+				1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0AF89920D2EC6700E26175 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0AF8A220D2EC6800E26175 /* DeeGeeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0AF8A420D2EC6800E26175 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0AF8AD20D2EC6800E26175 /* DeeGeeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A0AF89F20D2EC6700E26175 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A0AF88820D2EC6700E26175 /* DeeGee */;
+			targetProxy = 1A0AF89E20D2EC6700E26175 /* PBXContainerItemProxy */;
+		};
+		1A0AF8AA20D2EC6800E26175 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A0AF88820D2EC6700E26175 /* DeeGee */;
+			targetProxy = 1A0AF8A920D2EC6800E26175 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1A0AF89020D2EC6700E26175 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A0AF89120D2EC6700E26175 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A0AF89620D2EC6700E26175 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1A0AF8AF20D2EC6800E26175 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1A0AF8B020D2EC6800E26175 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1A0AF8B220D2EC6800E26175 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 22ZGT27U85;
+				INFOPLIST_FILE = DeeGee/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGee;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		1A0AF8B320D2EC6800E26175 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 22ZGT27U85;
+				INFOPLIST_FILE = DeeGee/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGee;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		1A0AF8B520D2EC6800E26175 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 22ZGT27U85;
+				INFOPLIST_FILE = DeeGeeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGeeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeeGee.app/DeeGee";
+			};
+			name = Debug;
+		};
+		1A0AF8B620D2EC6800E26175 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 22ZGT27U85;
+				INFOPLIST_FILE = DeeGeeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGeeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeeGee.app/DeeGee";
+			};
+			name = Release;
+		};
+		1A0AF8B820D2EC6800E26175 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 22ZGT27U85;
+				INFOPLIST_FILE = DeeGeeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGeeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = DeeGee;
+			};
+			name = Debug;
+		};
+		1A0AF8B920D2EC6800E26175 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 22ZGT27U85;
+				INFOPLIST_FILE = DeeGeeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGeeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = DeeGee;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A0AF88420D2EC6700E26175 /* Build configuration list for PBXProject "DeeGee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A0AF8AF20D2EC6800E26175 /* Debug */,
+				1A0AF8B020D2EC6800E26175 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A0AF8B120D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A0AF8B220D2EC6800E26175 /* Debug */,
+				1A0AF8B320D2EC6800E26175 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1A0AF8B420D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGeeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A0AF8B520D2EC6800E26175 /* Debug */,
+				1A0AF8B620D2EC6800E26175 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1A0AF8B720D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGeeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A0AF8B820D2EC6800E26175 /* Debug */,
+				1A0AF8B920D2EC6800E26175 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1A0AF88120D2EC6700E26175 /* Project object */;
+}
