@@ -1,0 +1,118 @@
+//
+//  ProfileVC.swift
+//  DeeGee
+//
+//  Created by amota511 on 6/14/18.
+//  Copyright © 2018 AaronMotayne. All rights reserved.
+//
+
+import UIKit
+
+class ProfileVC: UIViewController {
+
+    lazy var profilePhoto: UIImageView  = {
+        let profilePhoto = UIImageView()
+        profilePhoto.image = #imageLiteral(resourceName: "CarltonBanks")
+        profilePhoto.contentMode = .scaleAspectFill
+        profilePhoto.layer.borderWidth = 1
+        profilePhoto.layer.borderColor = UIColor.black.cgColor
+        profilePhoto.layer.cornerRadius = 3
+        profilePhoto.clipsToBounds = true
+        profilePhoto.translatesAutoresizingMaskIntoConstraints = false
+        return profilePhoto
+    }()
+    
+    lazy var editProfileButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Edit Profile", for: .normal)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        button.backgroundColor = UIColor.clear
+        button.addTarget(self, action: #selector(editProfileButtonClicked), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var matchesButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("See Matches", for: .normal)
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor//UIColor(r: 230, g: 230, b: 230).cgColor
+        button.setTitleColor(UIColor.blue, for: .normal)
+        button.backgroundColor = UIColor.white
+        button.addTarget(self, action: #selector(seeMatchesButtonClicked), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    lazy var logoutButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Logout", for: .normal)
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor//UIColor(r: 230, g: 230, b: 230).cgColor
+        button.setTitleColor(UIColor.blue, for: .normal)
+        button.backgroundColor = UIColor.white
+        button.addTarget(self, action: #selector(logoutButtonClicked), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+        self.title = "Profile"
+        
+        view.addSubview(profilePhoto)
+        view.addSubview(editProfileButton)
+        view.addSubview(matchesButton)
+        view.addSubview(logoutButton)
+        
+        setProfilePhotoView()
+        setEditProfileButton()
+        setSeeMatchesButton()
+        setLogoutButton()
+        
+    }
+    
+    func setProfilePhotoView() {
+        let navBarHeight = view.frame.height * 0.1
+        profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: navBarHeight + 12).isActive = true
+        profilePhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        profilePhoto.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
+        profilePhoto.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
+    }
+    
+    func setEditProfileButton() {
+        editProfileButton.topAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 3).isActive = true
+        editProfileButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        editProfileButton.widthAnchor.constraint(equalTo: profilePhoto.widthAnchor).isActive = true
+        editProfileButton.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
+    }
+    
+    func setSeeMatchesButton() {
+        matchesButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -6).isActive = true
+        matchesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        matchesButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        matchesButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/14).isActive = true
+    }
+    
+    func setLogoutButton() {
+        logoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -12).isActive = true
+        logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoutButton.heightAnchor.constraint(equalTo: matchesButton.heightAnchor).isActive = true
+        logoutButton.widthAnchor.constraint(equalTo: matchesButton.widthAnchor).isActive = true
+    }
+    
+    @objc func seeMatchesButtonClicked() {
+        print("matches button clicked")
+    }
+    
+    @objc func logoutButtonClicked() {
+        print("logout button clicked")
+    }
+    
+    
+    @objc func editProfileButtonClicked() {
+        print("edit button clicked")
+    }
+}

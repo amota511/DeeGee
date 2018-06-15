@@ -14,6 +14,10 @@
 		1A0AF89720D2EC6700E26175 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */; };
 		1A0AF8A220D2EC6800E26175 /* DeeGeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8A120D2EC6800E26175 /* DeeGeeTests.swift */; };
 		1A0AF8AD20D2EC6800E26175 /* DeeGeeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8AC20D2EC6800E26175 /* DeeGeeUITests.swift */; };
+		1A0AF8BF20D2EDDC00E26175 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8BE20D2EDDC00E26175 /* UserInfoViewController.swift */; };
+		1A0AF8C120D301E800E26175 /* MatchVotingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */; };
+		1A0AF8C320D3056100E26175 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C220D3056100E26175 /* ProfileVC.swift */; };
+		1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C420D31BB800E26175 /* RegisterVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		1A0AF8A820D2EC6800E26175 /* DeeGeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeeGeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A0AF8AC20D2EC6800E26175 /* DeeGeeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeGeeUITests.swift; sourceTree = "<group>"; };
 		1A0AF8AE20D2EC6800E26175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A0AF8BE20D2EDDC00E26175 /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchVotingVC.swift; sourceTree = "<group>"; };
+		1A0AF8C220D3056100E26175 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		1A0AF8C420D31BB800E26175 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,10 @@
 				1A0AF89320D2EC6700E26175 /* Assets.xcassets */,
 				1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */,
 				1A0AF89820D2EC6700E26175 /* Info.plist */,
+				1A0AF8BE20D2EDDC00E26175 /* UserInfoViewController.swift */,
+				1A0AF8C420D31BB800E26175 /* RegisterVC.swift */,
+				1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */,
+				1A0AF8C220D3056100E26175 /* ProfileVC.swift */,
 			);
 			path = DeeGee;
 			sourceTree = "<group>";
@@ -262,8 +274,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A0AF8C320D3056100E26175 /* ProfileVC.swift in Sources */,
 				1A0AF88F20D2EC6700E26175 /* ViewController.swift in Sources */,
+				1A0AF8BF20D2EDDC00E26175 /* UserInfoViewController.swift in Sources */,
+				1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */,
 				1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */,
+				1A0AF8C120D301E800E26175 /* MatchVotingVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +532,7 @@
 				1A0AF8B320D2EC6800E26175 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1A0AF8B420D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGeeTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +541,7 @@
 				1A0AF8B620D2EC6800E26175 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1A0AF8B720D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGeeUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +550,7 @@
 				1A0AF8B920D2EC6800E26175 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
