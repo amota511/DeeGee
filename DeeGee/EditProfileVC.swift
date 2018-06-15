@@ -1,15 +1,15 @@
 //
-//  RegisterVC.swift
+//  EditProfileVC.swift
 //  DeeGee
 //
-//  Created by amota511 on 6/14/18.
+//  Created by amota511 on 6/15/18.
 //  Copyright © 2018 AaronMotayne. All rights reserved.
 //
 
 import UIKit
 
-class RegisterVC: UIViewController {
-
+class EditProfileVC: UIViewController {
+    
     lazy var profilePhoto: UIImageView = {
         let profilePhoto = UIImageView()
         profilePhoto.image = #imageLiteral(resourceName: "afro_user_photo")
@@ -19,38 +19,20 @@ class RegisterVC: UIViewController {
         profilePhoto.layer.cornerRadius = 3
         profilePhoto.clipsToBounds = true
         profilePhoto.translatesAutoresizingMaskIntoConstraints = false
-    
+        
         profilePhoto.isUserInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profilePhotoButtonClicked))
         profilePhoto.addGestureRecognizer(gestureRecognizer)
         return profilePhoto
     }()
-
-     lazy var editProfilePhotoLabel: UILabel = {
+    
+    lazy var editProfilePhotoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Add A Photo"
+        label.text = "Change Photo"
         label.textColor = .black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-     }()
-    
-    lazy var emailField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Email Address"
-        textField.textAlignment = .left
-        textField.backgroundColor = UIColor.white
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
-    lazy var passwordField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Password"
-        textField.textAlignment = .left
-        textField.backgroundColor = UIColor.white
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
     }()
     
     lazy var nameField: UITextField = {
@@ -83,7 +65,7 @@ class RegisterVC: UIViewController {
     lazy var registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 50, g: 50, b: 50)
-        button.setTitle("REGISTER", for: .normal)
+        button.setTitle("Edit", for: .normal)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -101,18 +83,13 @@ class RegisterVC: UIViewController {
         
         view.addSubview(profilePhoto)
         view.addSubview(editProfilePhotoLabel)
-        view.addSubview(emailField)
-        view.addSubview(passwordField)
         view.addSubview(nameField)
         view.addSubview(ageField)
         view.addSubview(cityField)
         view.addSubview(registerButton)
         
-        
         setProfilePhoto()
         setEditProfilePhotoLabel()
-        setEmailField()
-        setPasswordField()
         setNameField()
         setAgeField()
         setCityField()
@@ -134,22 +111,8 @@ class RegisterVC: UIViewController {
         editProfilePhotoLabel.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/5).isActive = true
     }
     
-    func setEmailField() {
-        emailField.topAnchor.constraint(equalTo: editProfilePhotoLabel.bottomAnchor, constant: 36).isActive = true
-        emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.90).isActive = true
-        emailField.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
-    }
-    
-    func setPasswordField() {
-        passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 1).isActive = true
-        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.90).isActive = true
-        passwordField.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
-    }
-    
     func setNameField() {
-        nameField.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 24).isActive = true
+        nameField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
         nameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.90).isActive = true
         nameField.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
@@ -178,7 +141,7 @@ class RegisterVC: UIViewController {
         registerButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.075).isActive = true
         
     }
-
+    
     @objc func profilePhotoButtonClicked() {
         print("photo button clicked")
     }

@@ -18,6 +18,7 @@
 		1A0AF8C120D301E800E26175 /* MatchVotingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */; };
 		1A0AF8C320D3056100E26175 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C220D3056100E26175 /* ProfileVC.swift */; };
 		1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C420D31BB800E26175 /* RegisterVC.swift */; };
+		1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchVotingVC.swift; sourceTree = "<group>"; };
 		1A0AF8C220D3056100E26175 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		1A0AF8C420D31BB800E26175 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				1A0AF89820D2EC6700E26175 /* Info.plist */,
 				1A0AF8BE20D2EDDC00E26175 /* UserInfoViewController.swift */,
 				1A0AF8C420D31BB800E26175 /* RegisterVC.swift */,
+				1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */,
 				1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */,
 				1A0AF8C220D3056100E26175 /* ProfileVC.swift */,
 			);
@@ -278,6 +281,7 @@
 				1A0AF88F20D2EC6700E26175 /* ViewController.swift in Sources */,
 				1A0AF8BF20D2EDDC00E26175 /* UserInfoViewController.swift in Sources */,
 				1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */,
+				1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */,
 				1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */,
 				1A0AF8C120D301E800E26175 /* MatchVotingVC.swift in Sources */,
 			);
