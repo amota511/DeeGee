@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F2073" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Lun-KZ-chJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F2073" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -42,13 +42,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="PHT-R0-cQy">
-                        <barButtonItem key="rightBarButtonItem" image="comment_bubble" id="tmc-bh-gqf">
-                            <connections>
-                                <action selector="profileButton:" destination="mnU-vl-KtU" id="4TI-KG-eVx"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="PHT-R0-cQy"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BXL-Zc-EyG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,7 +62,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="DpL-2q-MhI" kind="presentation" id="eyi-zQ-EkH"/>
+                        <segue destination="DpL-2q-MhI" kind="presentation" identifier="Login" id="eyi-zQ-EkH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qP5-5T-DHD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -112,9 +106,6 @@
             <point key="canvasLocation" x="1328.8" y="60.719640179910051"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="comment_bubble" width="100" height="100"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="eyi-zQ-EkH"/>
     </inferredMetricsTieBreakers>

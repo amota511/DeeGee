@@ -97,6 +97,7 @@ class RegisterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Register"
         view.backgroundColor = UIColor(r: 240, g: 240, b: 240)
         
         view.addSubview(profilePhoto)
@@ -185,6 +186,7 @@ class RegisterVC: UIViewController {
     
     @objc func handleRegister() {
         print("register button clicked")
+        self.performSegue(withIdentifier:"Login", sender: self)
     }
     
 }

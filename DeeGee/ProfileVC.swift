@@ -109,10 +109,17 @@ class ProfileVC: UIViewController {
     
     @objc func logoutButtonClicked() {
         print("logout button clicked")
+        
+        //self.navigationController?.view.removeFromSuperview()
+        self.navigationController?.popToRootViewController(animated: true)
+        print("hey")
+        self.navigationController?.removeFromParentViewController()
     }
     
     
     @objc func editProfileButtonClicked() {
         print("edit button clicked")
+        let editProfileVC = EditProfileVC()
+        self.navigationController?.pushViewController(editProfileVC, animated: true)
     }
 }

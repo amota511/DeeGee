@@ -79,6 +79,7 @@ class EditProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Edit Profile"
         view.backgroundColor = UIColor(r: 240, g: 240, b: 240)
         
         view.addSubview(profilePhoto)
@@ -98,7 +99,7 @@ class EditProfileVC: UIViewController {
     }
     
     func setProfilePhoto() {
-        profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1).isActive = true
+        profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.15).isActive = true
         profilePhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profilePhoto.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
         profilePhoto.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
