@@ -12,7 +12,7 @@ import UIKit
 //import FirebaseAuth
 
 
-class UserInfoViewController: UIViewController, UITextFieldDelegate {
+class LoginVC: UIViewController, UITextFieldDelegate {
     
     lazy var loginRegisterSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["Login", "Register"])
@@ -48,7 +48,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         let label = UILabel()
         label.text = "Sign Up By Clicking Here"
         label.adjustsFontSizeToFitWidth = true
-        label.textColor = .white
+        label.textColor = UIColor(red: 204/255, green: 47/255, blue: 40/255, alpha: 1.0)
         //label.backgroundColor = .green
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -123,7 +123,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 204/255, green: 47/255, blue: 40/255, alpha: 1.0)
+        //view.backgroundColor = UIColor(red: 204/255, green: 47/255, blue: 40/255, alpha: 1.0)
         
         //view.addSubview(refridgerdata)
         //setRefridgerdata()

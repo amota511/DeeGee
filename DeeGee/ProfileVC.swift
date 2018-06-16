@@ -37,7 +37,7 @@ class ProfileVC: UIViewController {
         button.setTitle("See Matches", for: .normal)
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor//UIColor(r: 230, g: 230, b: 230).cgColor
-        button.setTitleColor(UIColor.blue, for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
         button.backgroundColor = UIColor.white
         button.addTarget(self, action: #selector(seeMatchesButtonClicked), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +49,7 @@ class ProfileVC: UIViewController {
         button.setTitle("Logout", for: .normal)
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor//UIColor(r: 230, g: 230, b: 230).cgColor
-        button.setTitleColor(UIColor.blue, for: .normal)
+        button.setTitleColor(UIColor.red, for: .normal)
         button.backgroundColor = UIColor.white
         button.addTarget(self, action: #selector(logoutButtonClicked), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -110,10 +110,12 @@ class ProfileVC: UIViewController {
     @objc func logoutButtonClicked() {
         print("logout button clicked")
         
-        //self.navigationController?.view.removeFromSuperview()
-        self.navigationController?.popToRootViewController(animated: true)
-        print("hey")
-        self.navigationController?.removeFromParentViewController()
+        
+        //self.navigationController?.popToRootViewController(animated: true)
+        
+        
+        self.navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
+
     }
     
     

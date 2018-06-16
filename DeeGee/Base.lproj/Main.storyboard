@@ -6,13 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--User Info View Controller-->
+        <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="UserInfoViewController" customModule="DeeGee" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="DeeGee" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -20,7 +21,18 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DeeGee_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="KIE-q0-hzi">
+                                <rect key="frame" x="67" y="61" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="KIE-q0-hzi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="19a-84-Qcg"/>
+                            <constraint firstItem="KIE-q0-hzi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="41" id="Ofo-z8-fcJ"/>
+                            <constraint firstItem="KIE-q0-hzi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="cez-qw-VdK"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KIE-q0-hzi" secondAttribute="bottom" constant="478" id="j4h-aK-9IY"/>
+                        </constraints>
                     </view>
                     <connections>
                         <segue destination="DpL-2q-MhI" kind="presentation" identifier="Login" id="zue-BJ-tOx"/>
@@ -106,7 +118,10 @@
             <point key="canvasLocation" x="1328.8" y="60.719640179910051"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="DeeGee_Logo" width="275" height="178"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eyi-zQ-EkH"/>
+        <segue reference="zue-BJ-tOx"/>
     </inferredMetricsTieBreakers>
 </document>

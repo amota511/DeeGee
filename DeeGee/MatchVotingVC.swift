@@ -20,6 +20,7 @@ class MatchVotingVC: UIViewController {
         //set image for button
         button.setImage(#imageLiteral(resourceName: "afro_user_photo"), for: .normal)
         button.addTarget(self, action: #selector(profileButton), for: .touchUpInside)
+        button.contentMode = .scaleAspectFill
         //set frame
         button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         
