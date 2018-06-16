@@ -8,12 +8,32 @@
 
 import UIKit
 
-class MatchVotingVC: UIViewController {
+class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet weak var matchesCV: UICollectionView!
     
     override func viewDidLoad() {
         self.title = "Matches"
         
+        setRightBarButton()
         
+        matchesCV.register(MatchCVC.self, forCellWithReuseIdentifier: "matchCell")
+        matchesCV.backgroundColor = .green
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchCell", for: indexPath)
+        cell.backgroundColor = .black
+        return cell
+    }
+
+    
+    func setRightBarButton() {
         //create a new button
         let button: UIButton = UIButton(type: .custom)
         
@@ -29,7 +49,7 @@ class MatchVotingVC: UIViewController {
         //assign button to navigationbar
         self.navigationItem.rightBarButtonItem = barButton
     }
-
+    
     @objc func profileButton() {
         print("sup")
         let profileVC = ProfileVC()

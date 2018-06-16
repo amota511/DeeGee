@@ -122,7 +122,7 @@ class RegisterVC: UIViewController {
     }
     
     func setProfilePhoto() {
-        profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1).isActive = true
+        profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6).isActive = true
         profilePhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profilePhoto.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
         profilePhoto.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
@@ -187,6 +187,8 @@ class RegisterVC: UIViewController {
     @objc func handleRegister() {
         print("register button clicked")
         self.performSegue(withIdentifier:"Login", sender: self)
+        self.navigationController?.popToRootViewController(animated: true)
+        
     }
     
 }

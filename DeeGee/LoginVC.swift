@@ -44,15 +44,15 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         return button
     }()
     
-    lazy var signUpLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Sign Up By Clicking Here"
-        label.adjustsFontSizeToFitWidth = true
-        label.textColor = UIColor(red: 204/255, green: 47/255, blue: 40/255, alpha: 1.0)
-        //label.backgroundColor = .green
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        return label
+    lazy var signUpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Sign Up By Clicking Here", for: .normal)
+        button.setTitleColor(UIColor(red: 204/255, green: 47/255, blue: 40/255, alpha: 1.0), for: .normal)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(12)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
+        return button
     }()
     
     lazy var emailTextField:UITextField = {
@@ -136,7 +136,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         inputsContainerView.addSubview(emailSeparatorView)
         inputsContainerView.addSubview(passwordTextField)
         inputsContainerView.addSubview(passwordSeparatorView)
-        view.addSubview(signUpLabel)
+        view.addSubview(signUpButton)
         
         //setloginRegisterSegmentedControl()
         setInputContainerView()
@@ -145,7 +145,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         setEmailSeparatorView()
         setPasswordTextField()
         setPaswordSeparatorView()
-        setSignUpLabel()
+        setSignUpButton()
         
     }
     
@@ -325,11 +325,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
     }
     
-    func setSignUpLabel() {
-        signUpLabel.centerXAnchor.constraint(equalTo: loginRegisterButton.centerXAnchor).isActive = true
-        signUpLabel.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 12).isActive = true
-        signUpLabel.widthAnchor.constraint(equalTo: loginRegisterButton.widthAnchor, multiplier: 1/3).isActive = true
-        signUpLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    func setSignUpButton() {
+        signUpButton.centerXAnchor.constraint(equalTo: loginRegisterButton.centerXAnchor).isActive = true
+        signUpButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 12).isActive = true
+        signUpButton.widthAnchor.constraint(equalTo: loginRegisterButton.widthAnchor, multiplier: 1/2).isActive = true
+        signUpButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     func dissmissKeyboard(){
@@ -359,6 +359,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         //            passwordTextField.resignFirstResponder()
         //        }
         
+    }
+    
+    @objc func signUpButtonClicked() {
+        print("howdy")
+        //let registerVC = RegisterVC()
+        //self.navigationController?.pushViewController(registerVC, animated: true)
+        self.performSegue(withIdentifier:"loginToRegister", sender: self)
     }
     
 }

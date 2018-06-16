@@ -62,7 +62,7 @@ class EditProfileVC: UIViewController {
         return textField
     }()
     
-    lazy var registerButton: UIButton = {
+    lazy var editButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 50, g: 50, b: 50)
         button.setTitle("Edit", for: .normal)
@@ -71,7 +71,7 @@ class EditProfileVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleEdit), for: .touchUpInside)
         return button
     }()
     
@@ -87,14 +87,14 @@ class EditProfileVC: UIViewController {
         view.addSubview(nameField)
         view.addSubview(ageField)
         view.addSubview(cityField)
-        view.addSubview(registerButton)
+        view.addSubview(editButton)
         
         setProfilePhoto()
         setEditProfilePhotoLabel()
         setNameField()
         setAgeField()
         setCityField()
-        setRegisterButton()
+        setEditButton()
         
     }
     
@@ -134,12 +134,12 @@ class EditProfileVC: UIViewController {
     }
     
     
-    func setRegisterButton(){
+    func setEditButton(){
         //need x, y, width, height constraints
-        registerButton.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        registerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24).isActive = true
-        registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9).isActive = true
-        registerButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.075).isActive = true
+        editButton.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
+        editButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24).isActive = true
+        editButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9).isActive = true
+        editButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.075).isActive = true
         
     }
     
@@ -147,8 +147,8 @@ class EditProfileVC: UIViewController {
         print("photo button clicked")
     }
     
-    @objc func handleRegister() {
-        print("register button clicked")
+    @objc func handleEdit() {
+        print("edit button clicked")
     }
     
 }
