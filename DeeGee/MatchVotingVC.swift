@@ -80,7 +80,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             cell.addSubview(separator)
             
             //Set User Img 1
-            let uImg1 = cell.userOneImg
+            let uImg1 = cell.userImgOne
             
             uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
             uImg1.contentMode = .scaleAspectFill
@@ -92,7 +92,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             cell.addSubview(uImg1)
             
             //Set User Img 2
-            let uImg2 = cell.userTwoImg
+            let uImg2 = cell.userImgTwo
             
             uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
             uImg2.contentMode = .scaleAspectFill
@@ -102,6 +102,48 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             uImg2.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
             
             cell.addSubview(uImg2)
+            
+            //Set Shadow
+            let bottomShadow = cell.frostedBottom
+            
+            bottomShadow.image = #imageLiteral(resourceName: "DeeGee_bottomShadow")
+            //bottomShadow.alpha = 0.5
+            bottomShadow.contentMode = .scaleAspectFill
+            bottomShadow.clipsToBounds = true
+            
+            bottomShadow.frame.origin = CGPoint(x: 0, y: cell.bounds.height - cell.bounds.height * 0.25)
+            bottomShadow.frame.size = CGSize(width: cell.bounds.width, height: cell.bounds.height * 0.25)
+            
+            cell.addSubview(bottomShadow)
+            
+            
+            //Set Username 1
+            let uName1 = cell.userNameOne
+            
+            uName1.text = "Drake"
+            uName1.textAlignment = .left
+            uName1.textColor = .white
+            
+            uName1.frame.origin = CGPoint(x: 2, y: 0)
+            uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.3)
+            
+            uName1.textRect(forBounds: uName1.bounds, limitedToNumberOfLines: 1)
+            
+            bottomShadow.addSubview(uName1)
+            
+            //Set Username 2
+            let uName2 = cell.userNameTwo
+            
+            uName2.text = "Not Drake"
+            uName2.textAlignment = .right
+            uName2.textColor = .white
+            
+            uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: 0)
+            uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.3)
+            
+            uName2.textRect(forBounds: uName2.bounds, limitedToNumberOfLines: 1)
+            
+            bottomShadow.addSubview(uName2)
             
             cell.isSet = true
         } else {

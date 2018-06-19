@@ -11,9 +11,18 @@ import UIKit
 class MatchCVC: UICollectionViewCell {
     
     var isSet: Bool = false
-    let userOneImg = UIImageView()
+    
+    let userImgOne = UIImageView()
     let separator = UIView()
-    let userTwoImg = UIImageView()
+    let userImgTwo = UIImageView()
+    
+    let userNameOne = UILabel()
+    let frostedBottom = UIImageView()
+    let userNameTwo = UILabel()
+    
+    let QuestionLabel = UILabel()
+    let yesButton = UIButton()
+    let noButton = UIButton()
     
     /*
     let userName = UILabel()
