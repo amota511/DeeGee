@@ -150,6 +150,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.title = ""
         super.viewDidAppear(true)
         
 //        if FIRAuth.auth()?.currentUser?.uid != nil {
@@ -160,6 +161,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
 //            let tapOutsideOfTextField = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
 //            self.view.addGestureRecognizer(tapOutsideOfTextField)
 //        }
+        
+        
     }
     
     
@@ -365,6 +368,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         print("howdy")
         //let registerVC = RegisterVC()
         //self.navigationController?.pushViewController(registerVC, animated: true)
+        self.title = "Login"
         self.performSegue(withIdentifier:"loginToRegister", sender: self)
     }
     

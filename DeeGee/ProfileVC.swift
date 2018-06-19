@@ -34,7 +34,7 @@ class ProfileVC: UIViewController {
     
     lazy var matchesButton: UIButton = {
         let button = UIButton()
-        button.setTitle("See Matches", for: .normal)
+        button.setTitle("My Matches", for: .normal)
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor//UIColor(r: 230, g: 230, b: 230).cgColor
         button.setTitleColor(UIColor.black, for: .normal)
@@ -69,7 +69,7 @@ class ProfileVC: UIViewController {
         
         setProfilePhotoView()
         setEditProfileButton()
-        setSeeMatchesButton()
+        setMyMatchesButton()
         setLogoutButton()
         
     }
@@ -89,7 +89,7 @@ class ProfileVC: UIViewController {
         editProfileButton.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
     }
     
-    func setSeeMatchesButton() {
+    func setMyMatchesButton() {
         matchesButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -6).isActive = true
         matchesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         matchesButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true

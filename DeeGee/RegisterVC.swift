@@ -100,6 +100,7 @@ class RegisterVC: UIViewController {
         self.title = "Register"
         view.backgroundColor = UIColor(r: 240, g: 240, b: 240)
         
+        
         view.addSubview(profilePhoto)
         view.addSubview(editProfilePhotoLabel)
         view.addSubview(emailField)
@@ -179,6 +180,7 @@ class RegisterVC: UIViewController {
         registerButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.075).isActive = true
         
     }
+
 
     @objc func profilePhotoButtonClicked() {
         print("photo button clicked")
