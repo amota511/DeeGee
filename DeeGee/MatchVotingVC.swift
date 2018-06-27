@@ -233,11 +233,46 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         guard let cell = matchesCollectionView.cellForItem(at: IndexPath(row: row, section: 0))! as? MatchCVC else { print("morebutton attempt failed"); return }
         print("more button clicked, tag# :", row)
         
-        let cellBlurBackground = UIView()
-        let colors = [UIColor.black, UIColor.blue, UIColor.green]
-        cellBlurBackground.backgroundColor = colors[Int(arc4random_uniform(3))]
-        cellBlurBackground.frame = cell.frame
-        cell.superview!.addSubview(cellBlurBackground)
+        setupVotingView(cell: cell)
+        
+    }
+    
+    func setupVotingView(cell: UIView) {
+        let view = cell.superview!
+        
+        var darkBlur:UIBlurEffect = UIBlurEffect()
+        darkBlur = UIBlurEffect(style: UIBlurEffectStyle.dark)//prominent,regular,extraLight, light, dark
+        let blurView = UIVisualEffectView(effect: darkBlur)
+        blurView.frame = cell.frame //your view that have any objects
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurView)
+        
+        
+        let cancelButton = UIButton(frame: CGRect(origin: CGPoint(x: (blurView.frame.width - 25) - 12, y: 12), size: CGSize(width: 25, height: 25)))
+        cancelButton.setImage(#imageLiteral(resourceName: "white_x"), for: .normal)
+        cancelButton.setTitleColor(.white, for: .normal)
+        cancelButton.tintColor = .white
+        cancelButton.addTarget(self, action: #selector(cancelBlurView(sender:)), for: .touchUpInside)
+        blurView.contentView.addSubview(cancelButton)
+        
+        
+        let question = UILabel()
+        question.text = "Are They DoppleGangers?"
+        question.textAlignment = .center
+        question.textColor = .white
+        question.font = question.font.withSize(30)
+        question.numberOfLines = 2
+        question.frame.size = CGSize(width: blurView.bounds.width * 0.6, height: blurView.bounds.height * 0.5)
+        question.frame.origin = CGPoint(x: blurView.bounds.width / 2 - (question.frame.width / 2), y: blurView.bounds.height * 0.1)
+        blurView.contentView.addSubview(question)
+        
+        
+        let thumbsUpButton = UIButton()
+    }
+    
+    @objc func cancelBlurView(sender: UIButton) {
+        sender.superview?.superview?.removeFromSuperview()
+        //sender.superview = nil
     }
     
     func setRightBarButton() {
@@ -249,7 +284,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         button.addTarget(self, action: #selector(profileButton), for: .touchUpInside)
         button.contentMode = .scaleAspectFill
         //set frame
-        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        button.frame = CGRect(x: 0, y: 0, width: self.view.frame.width * 0.1, height: self.view.frame.width * 0.1)
         
         let barButton = UIBarButtonItem(customView: button)
         
