@@ -20,7 +20,9 @@ class MatchCVC: UICollectionViewCell {
     let frostedBottom = UIImageView()
     let userNameTwo = UILabel()
     
-    let QuestionLabel = UILabel()
+    let moreButton = UIImageView()
+    
+    let questionLabel = UILabel()
     let yesButton = UIButton()
     let noButton = UIButton()
     

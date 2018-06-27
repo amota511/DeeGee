@@ -124,8 +124,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             uName1.textAlignment = .left
             uName1.textColor = .white
             
-            uName1.frame.origin = CGPoint(x: 2, y: 0)
             uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.3)
+            uName1.frame.origin = CGPoint(x: 2, y: bottomShadow.frame.height - uName1.frame.height)
             
             uName1.textRect(forBounds: uName1.bounds, limitedToNumberOfLines: 1)
             
@@ -138,35 +138,82 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             uName2.textAlignment = .right
             uName2.textColor = .white
             
-            uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: 0)
             uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.3)
+            uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: bottomShadow.frame.height - uName2.frame.height)
             
             uName2.textRect(forBounds: uName2.bounds, limitedToNumberOfLines: 1)
             
             bottomShadow.addSubview(uName2)
             
-            cell.isSet = true
+            //Set Question
+            let question = cell.questionLabel
+            
+            question.text = "Are They DoppleGangers?"
+            question.textAlignment = .center
+            question.textColor = .white
+            
+            //question.backgroundColor = .cyan
+            
+            question.frame.size = CGSize(width: bottomShadow.bounds.width * 0.6, height: bottomShadow.bounds.height * 0.3)
+            question.frame.origin = CGPoint(x: bottomShadow.bounds.width / 2 - (question.frame.width / 2), y: bottomShadow.bounds.height * 0.5)
+            
+            //bottomShadow.addSubview(question)
+            
+            //Set Yes Button
+            let yesButton = cell.yesButton
+            
+            yesButton.setTitle("Yes!", for: .normal)
+            yesButton.tintColor = .white
+            yesButton.layer.borderWidth = 1
+            yesButton.layer.borderColor = UIColor.white.cgColor
+            yesButton.clipsToBounds = true
+            yesButton.layer.cornerRadius = 5
+            
+            yesButton.frame.size = CGSize(width: uImg1.frame.size.width * 0.4, height: bottomShadow.bounds.height * 0.4)
+            yesButton.frame.origin = CGPoint(x: 8, y: bottomShadow.bounds.height * 0.4)
+            
+            yesButton.addTarget(self, action: #selector(pressedYes(sender:)), for: .touchUpInside)
+            yesButton.isUserInteractionEnabled = true
+            
+            //bottomShadow.addSubview(yesButton)
+            
+            //Set No Button
+            let noButton = cell.noButton
+            
+            noButton.setTitle("No!", for: .normal)
+            noButton.tintColor = .white
+            noButton.layer.borderWidth = 1
+            noButton.layer.borderColor = UIColor.white.cgColor
+            noButton.clipsToBounds = true
+            noButton.layer.cornerRadius = 5
+            
+            noButton.frame.size = CGSize(width: uImg1.frame.size.width * 0.4, height: bottomShadow.bounds.height * 0.4)
+            noButton.frame.origin = CGPoint(x: cell.bounds.width - noButton.frame.width - 8, y: bottomShadow.bounds.height * 0.4)
+            
+            //bottomShadow.addSubview(noButton)
+            
+            let moreButton = cell.moreButton
+            moreButton.image = #imageLiteral(resourceName: "three_dots")
+            moreButton.contentMode = .scaleAspectFit
+        
+            moreButton.frame.size = CGSize(width: uImg1.frame.size.width * 0.2, height: 30)
+            moreButton.frame.origin = CGPoint(x: cell.bounds.width - moreButton.frame.width - 8, y: bottomShadow.bounds.height * 0.1)
+            
+            moreButton.isUserInteractionEnabled = true
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(moreButtonClicked(_:)))
+            moreButton.addGestureRecognizer(gestureRecognizer)
+            
+            moreButton.tag = indexPath.row
+            print("gestureRecognizer.view!.tag = \(indexPath.row)")
+            
+            cell.addSubview(moreButton)
+            
+            //cell.isSet = true
         } else {
             
         }
         
-        /*
-         cell.isUserInteractionEnabled = true;
-         
-         // User Photo
-         cell.userImg.image = #imageLiteral(resourceName: "sgi-logo")
-         cell.userImg.contentMode = .scaleAspectFit
-         cell.userImg.clipsToBounds = true
-         
-         cell.userImg.frame.origin = CGPoint(x: 6, y: 6)
-         cell.userImg.frame.size = CGSize(width: 30, height: 30)
-         
-         cell.userImg.layer.cornerRadius = cell.userImg.frame.width / 2
-         cell.userImg.layer.borderColor = UIColor.black.cgColor
-         cell.userImg.layer.borderWidth = 1
-         
-         cell.addSubview(cell.userImg)
-         */
+        cell.isUserInteractionEnabled = true
         
         return cell
     }
@@ -176,6 +223,22 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
     }
 
+    @objc func pressedYes(sender: UIButton) {
+        print("we ight")
+    }
+    
+    @IBAction func moreButtonClicked(_ sender: AnyObject?) {
+        
+        let row = (sender as! UITapGestureRecognizer).view!.tag
+        guard let cell = matchesCollectionView.cellForItem(at: IndexPath(row: row, section: 0))! as? MatchCVC else { print("morebutton attempt failed"); return }
+        print("more button clicked, tag# :", row)
+        
+        let cellBlurBackground = UIView()
+        let colors = [UIColor.black, UIColor.blue, UIColor.green]
+        cellBlurBackground.backgroundColor = colors[Int(arc4random_uniform(3))]
+        cellBlurBackground.frame = cell.frame
+        cell.superview!.addSubview(cellBlurBackground)
+    }
     
     func setRightBarButton() {
         //create a new button
