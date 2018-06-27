@@ -267,12 +267,39 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         blurView.contentView.addSubview(question)
         
         
-        let thumbsUpButton = UIButton()
+        let thumbsUpButton = UIImageView(image: #imageLiteral(resourceName: "thumbs_up_outline"), highlightedImage: #imageLiteral(resourceName: "thumbs_up_filled"))
+        thumbsUpButton.frame = CGRect(x: question.frame.midX - 70, y: question.frame.origin.y + question.frame.height + 10, width: 50, height: 50)
+        //thumbsUpButton.isHighlighted = true
+        thumbsUpButton.isUserInteractionEnabled = true
+        var gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(thumbsUpButtonClicked(_:)))
+        thumbsUpButton.addGestureRecognizer(gestureRecognizer)
+        blurView.contentView.addSubview(thumbsUpButton)
+        
+        
+        let thumbsDownButton = UIImageView(image: #imageLiteral(resourceName: "thumbs_down_outline"), highlightedImage: #imageLiteral(resourceName: "thumbs_down_filled"))
+        thumbsDownButton.frame = CGRect(x: question.frame.midX + 20, y: question.frame.origin.y + question.frame.height + 10, width: 50, height: 50)
+        //thumbsUpButton.isHighlighted = true
+        thumbsDownButton.isUserInteractionEnabled = true
+        gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(thumbsDownButtonClicked(_:)))
+        thumbsDownButton.addGestureRecognizer(gestureRecognizer)
+        blurView.contentView.addSubview(thumbsDownButton)
     }
     
     @objc func cancelBlurView(sender: UIButton) {
         sender.superview?.superview?.removeFromSuperview()
         //sender.superview = nil
+    }
+    
+    @objc func thumbsUpButtonClicked(_ sender: AnyObject?) {
+        print("thumbs up highlighted")
+        guard let imageview = (sender! as! UITapGestureRecognizer).view as? UIImageView else {print("error on thumbs up"); return }
+        imageview.isHighlighted = !imageview.isHighlighted
+    }
+    
+    @objc func thumbsDownButtonClicked(_ sender: AnyObject?) {
+        print("thumbs down highlighted")
+        guard let imageview = (sender! as! UITapGestureRecognizer).view as? UIImageView else {print("error on thumbs up"); return }
+        imageview.isHighlighted = !imageview.isHighlighted
     }
     
     func setRightBarButton() {
