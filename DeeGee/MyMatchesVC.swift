@@ -1,41 +1,30 @@
 //
-//  MatchVotingVC.swift
+//  MyMatchesVC.swift
 //  DeeGee
 //
-//  Created by amota511 on 6/14/18.
+//  Created by amota511 on 6/27/18.
 //  Copyright © 2018 AaronMotayne. All rights reserved.
 //
 
 import UIKit
 
-class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+
+class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
     
-    //@IBOutlet weak var matchesCV: UICollectionView!
-    
+
     var matchesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
-        self.title = "Matches"
-        self.view.backgroundColor = .white
-        setRightBarButton()
         
-//        matchesCV.register(MatchCVC.self, forCellWithReuseIdentifier: "matchCell")
-//        matchesCV.backgroundColor = .green
-//        
-//        
-//        let flowlayout = UICollectionViewFlowLayout()
-//        flowlayout.itemSize = CGSize(width: 50, height: 50)
-//        flowlayout.scrollDirection = .vertical
-//        flowlayout.sectionInset = .init(top: 3, left: 3, bottom: 3, right: 3)
-//        
-//        matchesCV.setCollectionViewLayout(flowlayout, animated: true)
-//        
+        self.title = "My Matches"
+        self.view.backgroundColor = .white
+        
         setupMatchCV()
         
     }
     
     func setupMatchCV() {
-       
+        
         let matchLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         matchLayout.sectionInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         matchLayout.minimumInteritemSpacing = 0
@@ -44,7 +33,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         matchLayout.scrollDirection = .vertical
         
         
-        matchesCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height ), collectionViewLayout: matchLayout)
+        matchesCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: matchLayout)
         matchesCollectionView.dataSource = self
         matchesCollectionView.delegate = self
         matchesCollectionView.register(MatchCVC.self, forCellWithReuseIdentifier: "matchCell")
@@ -58,9 +47,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         self.view.addSubview(matchesCollectionView)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -136,7 +124,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             let moreButton = cell.moreButton
             moreButton.image = #imageLiteral(resourceName: "three_dots")
             moreButton.contentMode = .scaleAspectFit
-        
+            
             moreButton.frame.size = CGSize(width: uImg1.frame.size.width * 0.2, height: 30)
             moreButton.frame.origin = CGPoint(x: cell.bounds.width - moreButton.frame.width - 8, y: bottomShadow.bounds.height * 0.1)
             
@@ -162,10 +150,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.row) was selected!")
         
-    }
-
-    @objc func pressedYes(sender: UIButton) {
-        print("we ight")
     }
     
     @IBAction func moreButtonClicked(_ sender: AnyObject?) {
@@ -228,7 +212,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     @objc func cancelBlurView(sender: UIButton) {
         sender.superview?.superview?.removeFromSuperview()
-        //sender.superview = nil
     }
     
     @objc func thumbsUpButtonClicked(_ sender: AnyObject?) {
@@ -241,25 +224,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         print("thumbs down highlighted")
         guard let imageview = (sender! as! UITapGestureRecognizer).view as? UIImageView else {print("error on thumbs up"); return }
         imageview.isHighlighted = !imageview.isHighlighted
-    }
-    
-    func setRightBarButton() {
-        //create a new button
-        let button: UIButton = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "afro_user_photo"), for: .normal)
-        button.addTarget(self, action: #selector(profileButton), for: .touchUpInside)
-        button.contentMode = .scaleAspectFit
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 48).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        let barButton = UIBarButtonItem(customView: button)
-        self.navigationItem.rightBarButtonItem = barButton
-    }
-    
-    @objc func profileButton() {
-        print("sup")
-        let profileVC = ProfileVC()
-        self.navigationController?.pushViewController(profileVC, animated: true)
     }
     
 }

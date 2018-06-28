@@ -20,6 +20,7 @@
 		1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C420D31BB800E26175 /* RegisterVC.swift */; };
 		1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */; };
 		1A0AF94420D598A100E26175 /* MatchCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF94320D598A100E26175 /* MatchCVC.swift */; };
+		1ABEF89820E36E3900F4E004 /* MyMatchesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		1A0AF8C420D31BB800E26175 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		1A0AF94320D598A100E26175 /* MatchCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCVC.swift; sourceTree = "<group>"; };
+		1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchesVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */,
 				1A0AF94320D598A100E26175 /* MatchCVC.swift */,
 				1A0AF8C220D3056100E26175 /* ProfileVC.swift */,
+				1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */,
 				1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */,
 			);
 			path = DeeGee;
@@ -285,6 +288,7 @@
 				1A0AF94420D598A100E26175 /* MatchCVC.swift in Sources */,
 				1A0AF8BF20D2EDDC00E26175 /* LoginVC.swift in Sources */,
 				1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */,
+				1ABEF89820E36E3900F4E004 /* MyMatchesVC.swift in Sources */,
 				1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */,
 				1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */,
 				1A0AF8C120D301E800E26175 /* MatchVotingVC.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RegisterVC: UIViewController {
 
@@ -193,4 +194,9 @@ class RegisterVC: UIViewController {
         
     }
     
+}
+
+extension RegisterVC:  AVCaptureMetadataOutputObjectsDelegate {
+
+
 }

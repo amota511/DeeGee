@@ -105,17 +105,13 @@ class ProfileVC: UIViewController {
     
     @objc func seeMatchesButtonClicked() {
         print("matches button clicked")
+        let myMatchesVC = MyMatchesVC()
+        self.navigationController?.pushViewController(myMatchesVC, animated: true)
     }
     
     @objc func logoutButtonClicked() {
         print("logout button clicked")
-        
-        
-        //self.navigationController?.popToRootViewController(animated: true)
-        
-        
         self.navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
-
     }
     
     
