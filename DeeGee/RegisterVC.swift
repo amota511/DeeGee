@@ -185,6 +185,7 @@ class RegisterVC: UIViewController {
 
     @objc func profilePhotoButtonClicked() {
         print("photo button clicked")
+        showPhotoOptions()
     }
     
     @objc func handleRegister() {
@@ -196,7 +197,67 @@ class RegisterVC: UIViewController {
     
 }
 
-extension RegisterVC:  AVCaptureMetadataOutputObjectsDelegate {
+extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    func showPhotoOptions() {
+        
+        let photoSelectionAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        photoSelectionAlertController.addAction(UIAlertAction(title: "Import From Camera Roll", style: .default, handler: { (UIAlertAction) in
+            
+            
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                
+                //self.selectedCell = collectionView.cellForItem(at: indexPath) as! AddSneakerCVCell?
+                let picker = UIImagePickerController()
+                picker.delegate = self as! UIImagePickerControllerDelegate & UINavigationControllerDelegate
+                picker.sourceType = .photoLibrary
+                picker.allowsEditing = false
+                self.present(picker, animated: true, completion: nil)
+                
+            }else {
+                print("The camera roll is not available")
+            }
+        }))
+        
+        
+        photoSelectionAlertController.addAction(UIAlertAction(title: "Use Camera", style: .default, handler: { (UIAlertAction) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                
+                let picker = UIImagePickerController()
+                picker.delegate = self
+                picker.sourceType = .camera
+                picker.allowsEditing = false
+                self.present(picker, animated: true, completion: nil)
+                
+            }else {
+                print("The camera is not available")
+            }
+        }))
+        
+        
+        photoSelectionAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+            photoSelectionAlertController.dismiss(animated: true)
+        }))
+        
+        self.present(photoSelectionAlertController, animated: true)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        
+        profilePhoto.image = nil
+        profilePhoto.image = image
+        print("Image picked")
+        
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print(info)
+        profilePhoto.image = nil
+        profilePhoto.image = info[UIImagePickerControllerOriginalImage] as! UIImage?
+        picker.dismiss(animated: true) {
+            
+        }
+    }
 
 }
