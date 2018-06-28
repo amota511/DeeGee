@@ -228,7 +228,16 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
                 let picker = UIImagePickerController()
                 picker.delegate = self
                 picker.sourceType = .camera
+                picker.cameraDevice = .front
                 picker.allowsEditing = false
+                
+                let overlay = UIImageView(image: #imageLiteral(resourceName: "face_outline_dark"))
+                overlay.frame = CGRect(x: picker.view.frame.width * 0.1, y: 0, width: picker.view.frame.width * 0.8, height: picker.view.frame.height * 0.75)
+                overlay.contentMode = .scaleAspectFit
+                
+                picker.cameraOverlayView = overlay
+                picker.showsCameraControls = false
+                
                 self.present(picker, animated: true, completion: nil)
                 
             }else {
