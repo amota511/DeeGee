@@ -94,6 +94,7 @@ class RegisterVC: UIViewController {
         return button
     }()
     
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -223,6 +224,15 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         
         photoSelectionAlertController.addAction(UIAlertAction(title: "Use Camera", style: .default, handler: { (UIAlertAction) in
             
+            
+            
+            //self.navigationController?.pushViewController(cameraVC, animated: true)
+            
+            
+            self.performSegue(withIdentifier:"camera", sender: self)
+            
+            
+            /*
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 
                 let picker = UIImagePickerController()
@@ -230,19 +240,22 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
                 picker.sourceType = .camera
                 picker.cameraDevice = .front
                 picker.allowsEditing = false
+                picker.cameraViewTransform = CGAffineTransform(scaleX: -1, y: 1) //(picker.cameraViewTransform, -1, 1)
                 
                 let overlay = UIImageView(image: #imageLiteral(resourceName: "face_outline_dark"))
                 overlay.frame = CGRect(x: picker.view.frame.width * 0.1, y: 0, width: picker.view.frame.width * 0.8, height: picker.view.frame.height * 0.75)
                 overlay.contentMode = .scaleAspectFit
                 
-                picker.cameraOverlayView = overlay
+                //picker.cameraOverlayView = overlay
                 picker.showsCameraControls = false
                 
                 self.present(picker, animated: true, completion: nil)
-                
+             
+            
             }else {
                 print("The camera is not available")
             }
+            */
         }))
         
         
@@ -256,6 +269,8 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         
         profilePhoto.image = nil
+        //let flippedImage = UIImage(CGImage: image.cgImage, scale: image.scale, orientation:)
+        let flippedimage = image.imageFlippedForRightToLeftLayoutDirection()
         profilePhoto.image = image
         print("Image picked")
         
@@ -263,10 +278,14 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print(info)
         profilePhoto.image = nil
-        profilePhoto.image = info[UIImagePickerControllerOriginalImage] as! UIImage?
+        profilePhoto.image = (info[UIImagePickerControllerOriginalImage] as! UIImage?)//?.imageFlippedForRightToLeftLayoutDirection()
         picker.dismiss(animated: true) {
             
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cameraVC = segue.destination as! CameraViewController
+        cameraVC.destinationImageView = self.profilePhoto
+    }
 }

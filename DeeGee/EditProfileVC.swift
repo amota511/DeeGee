@@ -145,6 +145,7 @@ class EditProfileVC: UIViewController {
     
     @objc func profilePhotoButtonClicked() {
         print("photo button clicked")
+        showPhotoOptions()
     }
     
     @objc func handleEdit() {
@@ -152,3 +153,81 @@ class EditProfileVC: UIViewController {
     }
     
 }
+
+extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func showPhotoOptions() {
+        
+        let photoSelectionAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        photoSelectionAlertController.addAction(UIAlertAction(title: "Import From Camera Roll", style: .default, handler: { (UIAlertAction) in
+            
+            
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                
+                //self.selectedCell = collectionView.cellForItem(at: indexPath) as! AddSneakerCVCell?
+                let picker = UIImagePickerController()
+                picker.delegate = self as! UIImagePickerControllerDelegate & UINavigationControllerDelegate
+                picker.sourceType = .photoLibrary
+                picker.allowsEditing = false
+                self.present(picker, animated: true, completion: nil)
+                
+            }else {
+                print("The camera roll is not available")
+            }
+        }))
+        
+        
+        photoSelectionAlertController.addAction(UIAlertAction(title: "Use Camera", style: .default, handler: { (UIAlertAction) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                
+                let picker = UIImagePickerController()
+                picker.delegate = self
+                picker.sourceType = .camera
+                picker.cameraDevice = .front
+                picker.allowsEditing = false
+                picker.cameraViewTransform = CGAffineTransform.init(scaleX: -1, y: 1) //(picker.cameraViewTransform, -1, 1)
+                
+                let overlay = UIImageView(image: #imageLiteral(resourceName: "face_outline_dark"))
+                overlay.frame = CGRect(x: picker.view.frame.width * 0.1, y: 0, width: picker.view.frame.width * 0.8, height: picker.view.frame.height * 0.75)
+                overlay.contentMode = .scaleAspectFit
+                
+                //picker.cameraOverlayView = overlay
+                picker.showsCameraControls = false
+                
+                self.present(picker, animated: true, completion: nil)
+                
+            }else {
+                print("The camera is not available")
+            }
+        }))
+        
+        
+        photoSelectionAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+            photoSelectionAlertController.dismiss(animated: true)
+        }))
+        
+        self.present(photoSelectionAlertController, animated: true)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        
+        profilePhoto.image = nil
+        //let flippedImage = UIImage(CGImage: image.cgImage, scale: image.scale, orientation:)
+        let flippedimage = image.imageFlippedForRightToLeftLayoutDirection()
+        profilePhoto.image = image
+        print("Image picked")
+        
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print(info)
+        profilePhoto.image = nil
+        profilePhoto.image = (info[UIImagePickerControllerOriginalImage] as! UIImage?)//?.imageFlippedForRightToLeftLayoutDirection()
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    
+}
+

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F2073" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ozm-dU-4Er">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ozm-dU-4Er">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -78,6 +78,7 @@
                     </view>
                     <connections>
                         <segue destination="DpL-2q-MhI" kind="presentation" identifier="Login" id="eyi-zQ-EkH"/>
+                        <segue destination="Fp7-uD-Rgv" kind="presentation" identifier="camera" id="Fo0-zX-Cid"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qP5-5T-DHD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -108,7 +109,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DpL-2q-MhI" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="CRa-Mz-IOj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -126,7 +127,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ozm-dU-4Er" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="B49-Go-usV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -138,11 +139,125 @@
             </objects>
             <point key="canvasLocation" x="-910" y="-318"/>
         </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="8OY-KL-uR3">
+            <objects>
+                <viewController id="Fp7-uD-Rgv" customClass="CameraViewController" customModule="DeeGee" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="S0e-sA-PH9"/>
+                        <viewControllerLayoutGuide type="bottom" id="W6S-O7-bot"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fy1-Eu-m1c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izs-4p-JbG">
+                                <rect key="frame" x="160" y="563" width="55" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="NKU-tZ-Vu8"/>
+                                    <constraint firstAttribute="width" constant="55" id="gKO-zS-PvV"/>
+                                </constraints>
+                                <state key="normal" image="button-shutter"/>
+                                <connections>
+                                    <action selector="shutterButtonDidTap" destination="Fp7-uD-Rgv" eventType="touchUpInside" id="dvK-Ug-9Ja"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Izs-4p-JbG" firstAttribute="centerX" secondItem="fy1-Eu-m1c" secondAttribute="centerX" id="6IB-Hf-6OX"/>
+                            <constraint firstItem="W6S-O7-bot" firstAttribute="top" secondItem="Izs-4p-JbG" secondAttribute="bottom" constant="49" id="F6g-Fg-FaL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cameraButton" destination="Izs-4p-JbG" id="F4M-kX-ek2"/>
+                        <segue destination="oKo-4B-bIp" kind="presentation" identifier="showPhoto" id="oZr-NO-SRO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gaY-Ta-7DB" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1401" y="-1107"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="mQZ-0D-IJd">
+            <objects>
+                <viewController id="oKo-4B-bIp" customClass="ImageViewController" customModule="DeeGee" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CTL-vP-uGU"/>
+                        <viewControllerLayoutGuide type="bottom" id="R0l-b3-rC1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="djU-m4-rfb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RlI-do-t7l">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8T-yE-cYv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1P1-aJ-qCf">
+                                        <rect key="frame" x="326" y="21" width="37" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveWithSender:" destination="oKo-4B-bIp" eventType="touchUpInside" id="zlx-v3-XOY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQD-7d-MZD">
+                                        <rect key="frame" x="14" y="27" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="H6v-v4-3ge"/>
+                                            <constraint firstAttribute="width" constant="20" id="ncN-Pw-sY5"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="button-close"/>
+                                        <connections>
+                                            <action selector="closeButtonDidTap" destination="oKo-4B-bIp" eventType="touchUpInside" id="IMe-fk-3Ej"/>
+                                            <segue destination="mb5-Ad-VHP" kind="unwind" unwindAction="unwindToCameraViewWithSegue:" id="dFD-bl-nUH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="1P1-aJ-qCf" firstAttribute="top" secondItem="e8T-yE-cYv" secondAttribute="top" constant="21" id="7F9-6q-IDn"/>
+                                    <constraint firstAttribute="trailing" secondItem="1P1-aJ-qCf" secondAttribute="trailing" constant="12" id="KvH-LP-pFO"/>
+                                    <constraint firstItem="dQD-7d-MZD" firstAttribute="leading" secondItem="e8T-yE-cYv" secondAttribute="leading" constant="14" id="M6h-sn-wvM"/>
+                                    <constraint firstItem="dQD-7d-MZD" firstAttribute="top" secondItem="e8T-yE-cYv" secondAttribute="top" constant="27" id="a8V-zE-Kur"/>
+                                    <constraint firstAttribute="height" constant="60" id="tF5-Mo-vtS"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="e8T-yE-cYv" firstAttribute="trailing" secondItem="RlI-do-t7l" secondAttribute="trailing" id="6cS-Nb-Oqf"/>
+                            <constraint firstItem="e8T-yE-cYv" firstAttribute="leading" secondItem="RlI-do-t7l" secondAttribute="leading" id="G4Q-gz-OOZ"/>
+                            <constraint firstItem="R0l-b3-rC1" firstAttribute="top" secondItem="RlI-do-t7l" secondAttribute="bottom" id="Iwr-t3-7aX"/>
+                            <constraint firstItem="e8T-yE-cYv" firstAttribute="top" secondItem="RlI-do-t7l" secondAttribute="top" id="NbD-O1-nIx"/>
+                            <constraint firstItem="RlI-do-t7l" firstAttribute="top" secondItem="djU-m4-rfb" secondAttribute="top" id="az1-fr-6Ep"/>
+                            <constraint firstItem="RlI-do-t7l" firstAttribute="leading" secondItem="djU-m4-rfb" secondAttribute="leading" id="kGl-15-yjq"/>
+                            <constraint firstAttribute="trailing" secondItem="RlI-do-t7l" secondAttribute="trailing" id="w7e-Ga-HFi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="RlI-do-t7l" id="Dlm-sj-lqZ"/>
+                        <segue destination="mb5-Ad-VHP" kind="unwind" identifier="unwindToRegister" unwindAction="unwindToVC1WithSegue:" id="H3Q-rq-duF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lNc-pv-SpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mb5-Ad-VHP" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2198" y="-1107"/>
+        </scene>
     </scenes>
     <resources>
         <image name="DeeGee_Logo" width="275" height="178"/>
+        <image name="button-close" width="40" height="40"/>
+        <image name="button-shutter" width="122" height="122"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zue-BJ-tOx"/>
+        <segue reference="eyi-zQ-EkH"/>
     </inferredMetricsTieBreakers>
 </document>
