@@ -39,7 +39,8 @@ class ImageViewController : UIViewController
     func performFaceDetection() {
         print("inside function")
         let img = imageView.image!.fixOrientation()!
-        
+        print("img width: \(img.size.width) - ", "img height: \(img.size.height)")
+        print("view width: \(view.frame.size.width) - ", "view height: \(view.frame.size.height)")
         let landmarkRequest = VNDetectFaceLandmarksRequest(completionHandler: { (req, err) in
             
             if let err = err {
@@ -50,14 +51,23 @@ class ImageViewController : UIViewController
             req.results?.forEach({ (res) in
                 print(res)
                 guard let faceObservation = res as? VNFaceObservation else { return }
-                print("Landmarks:", faceObservation.landmarks!)
-
-                faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: self.imageView.frame.size.width * 1.3, height: self.imageView.frame.size.height) ).forEach({ (point) in
+                //print("Landmarks:", faceObservation.landmarks!)
+                //let scaledHeight = self.view.frame.width / img.size.width * img.size.height
+                let scaledWidth = self.imageView.frame.width / img.size.width
+                let scaledHeight = self.view.frame.height / img.size.width * img.size.height
+                var count = 1
+                faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: scaledWidth, height: self.imageView.frame.size.height)).forEach({ (point) in
+                    print("point \(count):", point.x, " ", point.y)
+                    
+                    
+                    let x = self.imageView.frame.width * point.x
+                    let y = scaledHeight * (1 - point.y) - 4
                     
                     let redView = UIView()
                     redView.backgroundColor = .red
-                    redView.frame = CGRect(x: point.x - self.imageView.frame.size.width * 0.16, y: self.imageView.frame.height - point.y, width: 4, height: 4)
+                    redView.frame = CGRect(x: point.x, y: self.imageView.frame.height - point.y , width: 4, height: 4)
                     self.view.addSubview(redView)
+                    count += 1
                 })
             })
         })
