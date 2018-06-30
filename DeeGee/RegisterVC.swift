@@ -285,7 +285,9 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cameraVC = segue.destination as! CameraViewController
-        cameraVC.destinationImageView = self.profilePhoto
+        if segue.identifier == "camera" {
+            let cameraVC = segue.destination as! CameraViewController
+            cameraVC.destinationImageView = self.profilePhoto
+        }
     }
 }

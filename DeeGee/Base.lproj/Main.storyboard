@@ -162,11 +162,21 @@
                                     <action selector="shutterButtonDidTap" destination="Fp7-uD-Rgv" eventType="touchUpInside" id="dvK-Ug-9Ja"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSd-bp-o6S">
+                                <rect key="frame" x="70" y="161" width="235" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="pdh-ol-QXC"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Izs-4p-JbG" firstAttribute="centerX" secondItem="fy1-Eu-m1c" secondAttribute="centerX" id="6IB-Hf-6OX"/>
+                            <constraint firstItem="uSd-bp-o6S" firstAttribute="leading" secondItem="fy1-Eu-m1c" secondAttribute="leadingMargin" constant="54" id="BbK-av-77w"/>
                             <constraint firstItem="W6S-O7-bot" firstAttribute="top" secondItem="Izs-4p-JbG" secondAttribute="bottom" constant="49" id="F6g-Fg-FaL"/>
+                            <constraint firstItem="uSd-bp-o6S" firstAttribute="top" secondItem="S0e-sA-PH9" secondAttribute="bottom" constant="141" id="hij-1e-wY7"/>
+                            <constraint firstItem="uSd-bp-o6S" firstAttribute="centerX" secondItem="Izs-4p-JbG" secondAttribute="centerX" id="qcg-p0-DPm"/>
                         </constraints>
                     </view>
                     <connections>
@@ -176,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gaY-Ta-7DB" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1401" y="-1107"/>
+            <point key="canvasLocation" x="1400.8" y="-1107.7961019490256"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="mQZ-0D-IJd">
