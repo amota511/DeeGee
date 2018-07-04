@@ -39,6 +39,7 @@ class ImageViewController : UIViewController
     func performFaceDetection() {
         print("inside function")
         let img = imageView.image!.fixOrientation()!
+        //let croppedcgimage = img.cgImage?.cropping(to: CGRect(origin: CGPoint(x: <#T##CGFloat#>, y: 0), size: CGSize(width: <#T##CGFloat#>, height: img.size.height)))
         print("img width: \(img.size.width) - ", "img height: \(img.size.height)")
         print("view width: \(view.frame.size.width) - ", "view height: \(view.frame.size.height)")
         let landmarkRequest = VNDetectFaceLandmarksRequest(completionHandler: { (req, err) in
@@ -47,16 +48,17 @@ class ImageViewController : UIViewController
                 print("Failed to detect landmarks:", err)
                 return
             }
-            
+            //0.2159974093
+            //501
             req.results?.forEach({ (res) in
                 print(res)
                 guard let faceObservation = res as? VNFaceObservation else { return }
                 //print("Landmarks:", faceObservation.landmarks!)
                 //let scaledHeight = self.view.frame.width / img.size.width * img.size.height
-                let scaledWidth = self.imageView.frame.width / img.size.width
-                let scaledHeight = self.view.frame.height / img.size.width * img.size.height
+                let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
+                let scaledHeight = self.view.frame.height / img.size.width
                 var count = 1
-                faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: scaledWidth, height: self.imageView.frame.size.height)).forEach({ (point) in
+                faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: 501, height: self.imageView.frame.size.height)).forEach({ (point) in
                     print("point \(count):", point.x, " ", point.y)
                     
                     
@@ -65,7 +67,8 @@ class ImageViewController : UIViewController
                     
                     let redView = UIView()
                     redView.backgroundColor = .red
-                    redView.frame = CGRect(x: point.x, y: self.imageView.frame.height - point.y , width: 4, height: 4)
+                    redView.frame = CGRect(x: point.x - ((501 - self.imageView.frame.width) / 2), y: self.imageView.frame.height - point.y , width: 3, height: 3)
+                    redView.layer.cornerRadius = redView.frame.size.height / 2
                     self.view.addSubview(redView)
                     count += 1
                 })
