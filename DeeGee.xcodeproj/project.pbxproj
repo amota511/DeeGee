@@ -20,9 +20,13 @@
 		1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C420D31BB800E26175 /* RegisterVC.swift */; };
 		1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */; };
 		1A0AF94420D598A100E26175 /* MatchCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF94320D598A100E26175 /* MatchCVC.swift */; };
+		1A5FA07B20EC605400C875FE /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5FA07A20EC605400C875FE /* awsconfiguration.json */; };
 		1ABEF89820E36E3900F4E004 /* MyMatchesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */; };
 		1ABEF89D20E6A78900F4E004 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89B20E6A78800F4E004 /* CameraViewController.swift */; };
 		1ABEF89E20E6A78900F4E004 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89C20E6A78800F4E004 /* ImageViewController.swift */; };
+		1E3D1D7EF892507EB60C07C6 /* Pods_DeeGeeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3813FF4310AC0CD03C493E50 /* Pods_DeeGeeTests.framework */; };
+		93EA5E13B93CC571B026ECD9 /* Pods_DeeGeeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8A0BFE9F7E14849D9538EE /* Pods_DeeGeeUITests.framework */; };
+		BBFBAB930DC329D3CF5D6349 /* Pods_DeeGee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9904D0506FBFB9D64702C0C6 /* Pods_DeeGee.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,9 +66,19 @@
 		1A0AF8C420D31BB800E26175 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		1A0AF94320D598A100E26175 /* MatchCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCVC.swift; sourceTree = "<group>"; };
+		1A5FA07A20EC605400C875FE /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchesVC.swift; sourceTree = "<group>"; };
 		1ABEF89B20E6A78800F4E004 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		1ABEF89C20E6A78800F4E004 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		29F1CF7330F5EF570D46B51D /* Pods-DeeGeeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGeeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGeeUITests/Pods-DeeGeeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3003B3698499DC266C6EE052 /* Pods-DeeGee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGee.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee.release.xcconfig"; sourceTree = "<group>"; };
+		3813FF4310AC0CD03C493E50 /* Pods_DeeGeeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeeGeeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C6087CB7D260FAEEC838786 /* Pods-DeeGee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee.debug.xcconfig"; sourceTree = "<group>"; };
+		9904D0506FBFB9D64702C0C6 /* Pods_DeeGee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeeGee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDD637FFF6E27A554A48EFB8 /* Pods-DeeGeeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGeeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGeeTests/Pods-DeeGeeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CEA9B2C7F7EB0551218854E2 /* Pods-DeeGeeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGeeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGeeTests/Pods-DeeGeeTests.release.xcconfig"; sourceTree = "<group>"; };
+		EE8A0BFE9F7E14849D9538EE /* Pods_DeeGeeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeeGeeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F70D5649D7D4B7B6D89E2EB2 /* Pods-DeeGeeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGeeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGeeUITests/Pods-DeeGeeUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBFBAB930DC329D3CF5D6349 /* Pods_DeeGee.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E3D1D7EF892507EB60C07C6 /* Pods_DeeGeeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93EA5E13B93CC571B026ECD9 /* Pods_DeeGeeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +116,8 @@
 				1A0AF8A020D2EC6700E26175 /* DeeGeeTests */,
 				1A0AF8AB20D2EC6800E26175 /* DeeGeeUITests */,
 				1A0AF88A20D2EC6700E26175 /* Products */,
+				AADC7A7351DD1D7803B93792 /* Pods */,
+				77FA86FA201CE8B727916D8C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,16 +139,12 @@
 				1A0AF89020D2EC6700E26175 /* Main.storyboard */,
 				1A0AF89320D2EC6700E26175 /* Assets.xcassets */,
 				1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */,
+				1A5FA07A20EC605400C875FE /* awsconfiguration.json */,
 				1A0AF89820D2EC6700E26175 /* Info.plist */,
-				1A0AF8BE20D2EDDC00E26175 /* LoginVC.swift */,
-				1A0AF8C420D31BB800E26175 /* RegisterVC.swift */,
-				1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */,
-				1A0AF94320D598A100E26175 /* MatchCVC.swift */,
-				1A0AF8C220D3056100E26175 /* ProfileVC.swift */,
-				1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */,
-				1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */,
-				1ABEF89B20E6A78800F4E004 /* CameraViewController.swift */,
-				1ABEF89C20E6A78800F4E004 /* ImageViewController.swift */,
+				1A5FA07C20F2BBB500C875FE /* User Info */,
+				1A5FA07E20F2BC0900C875FE /* Photo Capturing */,
+				1A5FA08020F2BC4400C875FE /* Profile */,
+				1A5FA07D20F2BBE200C875FE /* Match */,
 			);
 			path = DeeGee;
 			sourceTree = "<group>";
@@ -152,6 +167,66 @@
 			path = DeeGeeUITests;
 			sourceTree = "<group>";
 		};
+		1A5FA07C20F2BBB500C875FE /* User Info */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AF8BE20D2EDDC00E26175 /* LoginVC.swift */,
+				1A0AF8C420D31BB800E26175 /* RegisterVC.swift */,
+				1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */,
+			);
+			path = "User Info";
+			sourceTree = "<group>";
+		};
+		1A5FA07D20F2BBE200C875FE /* Match */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */,
+				1A0AF94320D598A100E26175 /* MatchCVC.swift */,
+				1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */,
+			);
+			path = Match;
+			sourceTree = "<group>";
+		};
+		1A5FA07E20F2BC0900C875FE /* Photo Capturing */ = {
+			isa = PBXGroup;
+			children = (
+				1ABEF89C20E6A78800F4E004 /* ImageViewController.swift */,
+				1ABEF89B20E6A78800F4E004 /* CameraViewController.swift */,
+			);
+			path = "Photo Capturing";
+			sourceTree = "<group>";
+		};
+		1A5FA08020F2BC4400C875FE /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AF8C220D3056100E26175 /* ProfileVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		77FA86FA201CE8B727916D8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9904D0506FBFB9D64702C0C6 /* Pods_DeeGee.framework */,
+				3813FF4310AC0CD03C493E50 /* Pods_DeeGeeTests.framework */,
+				EE8A0BFE9F7E14849D9538EE /* Pods_DeeGeeUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AADC7A7351DD1D7803B93792 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6C6087CB7D260FAEEC838786 /* Pods-DeeGee.debug.xcconfig */,
+				3003B3698499DC266C6EE052 /* Pods-DeeGee.release.xcconfig */,
+				CDD637FFF6E27A554A48EFB8 /* Pods-DeeGeeTests.debug.xcconfig */,
+				CEA9B2C7F7EB0551218854E2 /* Pods-DeeGeeTests.release.xcconfig */,
+				29F1CF7330F5EF570D46B51D /* Pods-DeeGeeUITests.debug.xcconfig */,
+				F70D5649D7D4B7B6D89E2EB2 /* Pods-DeeGeeUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,9 +234,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1A0AF8B120D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGee" */;
 			buildPhases = (
+				9A5A7C0750B928921E8781B6 /* [CP] Check Pods Manifest.lock */,
 				1A0AF88520D2EC6700E26175 /* Sources */,
 				1A0AF88620D2EC6700E26175 /* Frameworks */,
 				1A0AF88720D2EC6700E26175 /* Resources */,
+				C24E157102540749529ED373 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +253,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1A0AF8B420D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGeeTests" */;
 			buildPhases = (
+				012DB90099F2B0116F46DAD0 /* [CP] Check Pods Manifest.lock */,
 				1A0AF89920D2EC6700E26175 /* Sources */,
 				1A0AF89A20D2EC6700E26175 /* Frameworks */,
 				1A0AF89B20D2EC6700E26175 /* Resources */,
@@ -194,6 +272,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1A0AF8B720D2EC6800E26175 /* Build configuration list for PBXNativeTarget "DeeGeeUITests" */;
 			buildPhases = (
+				733EA4CD0A564D73E5CFF899 /* [CP] Check Pods Manifest.lock */,
 				1A0AF8A420D2EC6800E26175 /* Sources */,
 				1A0AF8A520D2EC6800E26175 /* Frameworks */,
 				1A0AF8A620D2EC6800E26175 /* Resources */,
@@ -262,6 +341,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A5FA07B20EC605400C875FE /* awsconfiguration.json in Resources */,
 				1A0AF89720D2EC6700E26175 /* LaunchScreen.storyboard in Resources */,
 				1A0AF89420D2EC6700E26175 /* Assets.xcassets in Resources */,
 				1A0AF89220D2EC6700E26175 /* Main.storyboard in Resources */,
@@ -283,6 +363,85 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		012DB90099F2B0116F46DAD0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DeeGeeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		733EA4CD0A564D73E5CFF899 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DeeGeeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A5A7C0750B928921E8781B6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DeeGee-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C24E157102540749529ED373 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSMobileClient/AWSMobileClient.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileClient.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1A0AF88520D2EC6700E26175 /* Sources */ = {
@@ -451,6 +610,7 @@
 		};
 		1A0AF8B220D2EC6800E26175 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C6087CB7D260FAEEC838786 /* Pods-DeeGee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
@@ -465,6 +625,7 @@
 		};
 		1A0AF8B320D2EC6800E26175 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3003B3698499DC266C6EE052 /* Pods-DeeGee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
@@ -479,6 +640,7 @@
 		};
 		1A0AF8B520D2EC6800E26175 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CDD637FFF6E27A554A48EFB8 /* Pods-DeeGeeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -494,6 +656,7 @@
 		};
 		1A0AF8B620D2EC6800E26175 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEA9B2C7F7EB0551218854E2 /* Pods-DeeGeeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -509,6 +672,7 @@
 		};
 		1A0AF8B820D2EC6800E26175 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29F1CF7330F5EF570D46B51D /* Pods-DeeGeeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
@@ -523,6 +687,7 @@
 		};
 		1A0AF8B920D2EC6800E26175 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F70D5649D7D4B7B6D89E2EB2 /* Pods-DeeGeeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 22ZGT27U85;

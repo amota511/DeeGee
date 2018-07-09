@@ -9,27 +9,14 @@
 import UIKit
 
 class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    //@IBOutlet weak var matchesCV: UICollectionView!
-    
+        
     var matchesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         self.title = "Matches"
         self.view.backgroundColor = .white
-        setRightBarButton()
         
-//        matchesCV.register(MatchCVC.self, forCellWithReuseIdentifier: "matchCell")
-//        matchesCV.backgroundColor = .green
-//        
-//        
-//        let flowlayout = UICollectionViewFlowLayout()
-//        flowlayout.itemSize = CGSize(width: 50, height: 50)
-//        flowlayout.scrollDirection = .vertical
-//        flowlayout.sectionInset = .init(top: 3, left: 3, bottom: 3, right: 3)
-//        
-//        matchesCV.setCollectionViewLayout(flowlayout, animated: true)
-//        
+        setRightBarButton()
         setupMatchCV()
         
     }
