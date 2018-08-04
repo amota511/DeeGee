@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
         
@@ -19,6 +20,13 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         setRightBarButton()
         setupMatchCV()
         
+        
+        let firebase = Database.database().reference()
+        
+        let user1 = User(image: UIImage(), name: "Aaron", age: "21", location: "San Francisco")
+        
+        firebase.child("User").childByAutoId().setValue(user1.toAnyObject())
+        print("should have went through")
     }
     
     func setupMatchCV() {

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF88C20D2EC6700E26175 /* AppDelegate.swift */; };
-		1A0AF88F20D2EC6700E26175 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF88E20D2EC6700E26175 /* ViewController.swift */; };
 		1A0AF89220D2EC6700E26175 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AF89020D2EC6700E26175 /* Main.storyboard */; };
 		1A0AF89420D2EC6700E26175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AF89320D2EC6700E26175 /* Assets.xcassets */; };
 		1A0AF89720D2EC6700E26175 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */; };
@@ -20,7 +19,9 @@
 		1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C420D31BB800E26175 /* RegisterVC.swift */; };
 		1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */; };
 		1A0AF94420D598A100E26175 /* MatchCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF94320D598A100E26175 /* MatchCVC.swift */; };
-		1A5FA07B20EC605400C875FE /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5FA07A20EC605400C875FE /* awsconfiguration.json */; };
+		1A5FA08220F3077F00C875FE /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5FA08120F3077F00C875FE /* Match.swift */; };
+		1A81B2E8210C4E9100F48822 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A81B2E7210C4E9100F48822 /* User.swift */; };
+		1A81B2EA210C518600F48822 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A81B2E9210C518600F48822 /* GoogleService-Info.plist */; };
 		1ABEF89820E36E3900F4E004 /* MyMatchesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */; };
 		1ABEF89D20E6A78900F4E004 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89B20E6A78800F4E004 /* CameraViewController.swift */; };
 		1ABEF89E20E6A78900F4E004 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89C20E6A78800F4E004 /* ImageViewController.swift */; };
@@ -49,7 +50,6 @@
 /* Begin PBXFileReference section */
 		1A0AF88920D2EC6700E26175 /* DeeGee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeeGee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A0AF88C20D2EC6700E26175 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1A0AF88E20D2EC6700E26175 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1A0AF89120D2EC6700E26175 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1A0AF89320D2EC6700E26175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A0AF89620D2EC6700E26175 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -66,7 +66,9 @@
 		1A0AF8C420D31BB800E26175 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		1A0AF94320D598A100E26175 /* MatchCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCVC.swift; sourceTree = "<group>"; };
-		1A5FA07A20EC605400C875FE /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		1A5FA08120F3077F00C875FE /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Match.swift; path = /Users/amota511/Coding/DeeGee/DeeGee/Match.swift; sourceTree = "<absolute>"; };
+		1A81B2E7210C4E9100F48822 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1A81B2E9210C518600F48822 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchesVC.swift; sourceTree = "<group>"; };
 		1ABEF89B20E6A78800F4E004 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		1ABEF89C20E6A78800F4E004 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				1A0AF88B20D2EC6700E26175 /* DeeGee */,
+				1A0AF89320D2EC6700E26175 /* Assets.xcassets */,
 				1A0AF8A020D2EC6700E26175 /* DeeGeeTests */,
 				1A0AF8AB20D2EC6800E26175 /* DeeGeeUITests */,
 				1A0AF88A20D2EC6700E26175 /* Products */,
@@ -135,16 +138,10 @@
 			isa = PBXGroup;
 			children = (
 				1A0AF88C20D2EC6700E26175 /* AppDelegate.swift */,
-				1A0AF88E20D2EC6700E26175 /* ViewController.swift */,
-				1A0AF89020D2EC6700E26175 /* Main.storyboard */,
-				1A0AF89320D2EC6700E26175 /* Assets.xcassets */,
-				1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */,
-				1A5FA07A20EC605400C875FE /* awsconfiguration.json */,
-				1A0AF89820D2EC6700E26175 /* Info.plist */,
-				1A5FA07C20F2BBB500C875FE /* User Info */,
-				1A5FA07E20F2BC0900C875FE /* Photo Capturing */,
-				1A5FA08020F2BC4400C875FE /* Profile */,
-				1A5FA07D20F2BBE200C875FE /* Match */,
+				1A5FA08720F307DE00C875FE /* Storyboards */,
+				1A5FA08520F3079C00C875FE /* Data Models */,
+				1A5FA08820F3081300C875FE /* User Interface */,
+				1A5FA08620F307C600C875FE /* Configuration */,
 			);
 			path = DeeGee;
 			sourceTree = "<group>";
@@ -202,6 +199,44 @@
 				1A0AF8C220D3056100E26175 /* ProfileVC.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		1A5FA08520F3079C00C875FE /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				1A81B2E7210C4E9100F48822 /* User.swift */,
+				1A5FA08120F3077F00C875FE /* Match.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		1A5FA08620F307C600C875FE /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				1A81B2E9210C518600F48822 /* GoogleService-Info.plist */,
+				1A0AF89820D2EC6700E26175 /* Info.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		1A5FA08720F307DE00C875FE /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AF89020D2EC6700E26175 /* Main.storyboard */,
+				1A0AF89520D2EC6700E26175 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		1A5FA08820F3081300C875FE /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				1A5FA07D20F2BBE200C875FE /* Match */,
+				1A5FA08020F2BC4400C875FE /* Profile */,
+				1A5FA07E20F2BC0900C875FE /* Photo Capturing */,
+				1A5FA07C20F2BBB500C875FE /* User Info */,
+			);
+			path = "User Interface";
 			sourceTree = "<group>";
 		};
 		77FA86FA201CE8B727916D8C /* Frameworks */ = {
@@ -341,8 +376,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A5FA07B20EC605400C875FE /* awsconfiguration.json in Resources */,
 				1A0AF89720D2EC6700E26175 /* LaunchScreen.storyboard in Resources */,
+				1A81B2EA210C518600F48822 /* GoogleService-Info.plist in Resources */,
 				1A0AF89420D2EC6700E26175 /* Assets.xcassets in Resources */,
 				1A0AF89220D2EC6700E26175 /* Main.storyboard in Resources */,
 			);
@@ -426,15 +461,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSMobileClient/AWSMobileClient.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -448,9 +485,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A81B2E8210C4E9100F48822 /* User.swift in Sources */,
 				1ABEF89D20E6A78900F4E004 /* CameraViewController.swift in Sources */,
 				1A0AF8C320D3056100E26175 /* ProfileVC.swift in Sources */,
-				1A0AF88F20D2EC6700E26175 /* ViewController.swift in Sources */,
 				1A0AF94420D598A100E26175 /* MatchCVC.swift in Sources */,
 				1A0AF8BF20D2EDDC00E26175 /* LoginVC.swift in Sources */,
 				1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */,
@@ -458,6 +495,7 @@
 				1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */,
 				1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */,
 				1ABEF89E20E6A78900F4E004 /* ImageViewController.swift in Sources */,
+				1A5FA08220F3077F00C875FE /* Match.swift in Sources */,
 				1A0AF8C120D301E800E26175 /* MatchVotingVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,7 +652,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
-				INFOPLIST_FILE = DeeGee/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/DeeGee/Configuration/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGee;
@@ -629,7 +667,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
-				INFOPLIST_FILE = DeeGee/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/DeeGee/Configuration/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGee;

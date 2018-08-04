@@ -8,6 +8,9 @@
 
 import UIKit
 import AVFoundation
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
 
 class RegisterVC: UIViewController {
 
@@ -191,8 +194,39 @@ class RegisterVC: UIViewController {
     
     @objc func handleRegister() {
         print("register button clicked")
-        self.performSegue(withIdentifier:"Login", sender: self)
-        self.navigationController?.popToRootViewController(animated: true)
+        
+        guard let email = emailField.text, let password = passwordField.text, let name = nameField.text, let city = cityField.text, let age = ageField.text else{
+            print("Form Is Not Valid")
+            return
+        }
+        
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (usr, err) in
+            
+            if err != nil {
+                let CouldNotRegisterAlert = UIAlertController(title: "Something Went Wrong", message: "Could Not Create User With This Information", preferredStyle: .alert)
+                CouldNotRegisterAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                    CouldNotRegisterAlert.dismiss(animated:false, completion: nil)
+                }))
+                self.present(CouldNotRegisterAlert, animated: true, completion: nil)
+                return
+            }
+            
+            guard let user = usr?.user else{
+                return
+            }
+            let uid = user.uid
+            
+            var rootRef = Database.database().reference()
+            
+            let usersReference = rootRef.child("Users").child(uid)
+            let values = [ "name" : name,
+                           "email" : email,
+                           "friges" : []] as [String : Any]
+        }
+        //Auth.signIn(<#T##Auth#>)
+        //self.performSegue(withIdentifier:"Login", sender: self)
+        //self.navigationController?.popToRootViewController(animated: true)
         
     }
     
