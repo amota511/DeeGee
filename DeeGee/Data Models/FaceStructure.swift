@@ -31,7 +31,13 @@ class FaceStructure {
     var faceHeight: Int! = 0
     
     init() {
-        
+        /*Note to Aaron: the next you should do is finish this class.
+            - Meaning create setter functions for each face landmark. Create
+            - Create init for a uiImage to be passed in
+            - finish the toString method
+         
+            - once thats done the next biggest thing is to start setting up the firebase functions to compare to face structure arrays to see their similarity and only create a match with users that have 50% or more facial similarity and test to see how it works out.
+        */
     }
     
     init(eyeBrowWidth: Int) {
