@@ -55,20 +55,21 @@ class ImageViewController : UIViewController
                 guard let faceObservation = res as? VNFaceObservation else { return }
                 //print("Landmarks:", faceObservation.landmarks!)
                 //let scaledHeight = self.view.frame.width / img.size.width * img.size.height
-                let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
-                let scaledHeight = self.view.frame.height / img.size.width
+                //let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
+                //let scaledHeight = self.view.frame.height / img.size.width
                 var count = 1
                 faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: 501, height: self.imageView.frame.size.height)).forEach({ (point) in
                     print("point \(count):", point.x, " ", point.y)
                     
                     
-                    let x = self.imageView.frame.width * point.x
-                    let y = scaledHeight * (1 - point.y) - 4
+                    //let x = self.imageView.frame.width * point.x
+                    //let y = scaledHeight * (1 - point.y) - 4
                     
-                    let redView = UIView()
+                    let redView = UILabel()
                     redView.backgroundColor = .red
+                    redView.text = String(count)
                     redView.frame = CGRect(x: point.x - ((501 - self.imageView.frame.width) / 2), y: self.imageView.frame.height - point.y , width: 3, height: 3)
-                    redView.layer.cornerRadius = redView.frame.size.height / 2
+                    //redView.layer.cornerRadius = redView.frame.size.height / 2
                     self.view.addSubview(redView)
                     count += 1
                 })

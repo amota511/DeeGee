@@ -10,21 +10,25 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-struct User {
+class User {
     
     var uid: String! = nil
     var image: UIImage! = nil
     var name: String! = nil
     var age: String! = nil
     var location: String! = nil
-    var matches: [String]! = nil
+    var faceStructure: FaceStructure! = nil
+    var matches: [String]! = []
     
-    init(image: UIImage, name: String, age: String, location: String) {
-        self.name = name
+    init(image: UIImage, name: String, age: String, location: String, uid: String, faceStructure: FaceStructure) {
+        self.uid = uid
         self.image = image
+        self.name = name
         self.age = age
         self.location = location
+        self.faceStructure = faceStructure
     }
+    
     init (referenceKey: String, childNumber: String) {
         let ref = Database.database().reference().child("Match").child(referenceKey).child(childNumber)
         
@@ -32,7 +36,13 @@ struct User {
             
             let value = snapshot.value as? NSDictionary
             
-            /*if let name = value?["name"] as? String{
+            if let uid = value?["uid"] as? String{
+                self.uid = uid
+            }else{
+                self.uid = ""
+            }
+            
+            if let name = value?["name"] as? String{
                 self.name = name
             }else{
                 self.name = ""
@@ -48,16 +58,20 @@ struct User {
                 self.location = location
             }else{
                 self.location = ""
-            }*/
+            }
         })
         
     }
     
     init(snapshot:DataSnapshot) {
         
-        uid = snapshot.key
-        
         let value = snapshot.value as? NSDictionary
+        
+        if let uid = value?["uid"] as? String{
+            self.uid = uid
+        }else{
+            self.uid = ""
+        }
         
         if let name = value?["name"] as? String{
             self.name = name
@@ -80,6 +94,6 @@ struct User {
     }
 
     func toAnyObject()-> [String : AnyObject] {
-        return ["name": name as AnyObject, "age": age as AnyObject, "location": location as AnyObject]
+        return ["name": name as AnyObject, "age": age as AnyObject, "location": location as AnyObject, "uid": uid as AnyObject, "faceStructure" : faceStructure.toAnyObject() as AnyObject]
     }
 }

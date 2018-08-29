@@ -10,6 +10,9 @@ import UIKit
 
 class ProfileVC: UIViewController {
 
+    //myUser set while segueing into this view controller from MatchVotingVC
+    var myUser: User! = nil
+    
     lazy var profilePhoto: UIImageView  = {
         let profilePhoto = UIImageView()
         profilePhoto.image = #imageLiteral(resourceName: "CarltonBanks")

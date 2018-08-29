@@ -7,9 +7,9 @@
 //
 
 import UIKit
-//import Firebase
-//import FirebaseDatabase
-//import FirebaseAuth
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
 
 
 class LoginVC: UIViewController, UITextFieldDelegate {
@@ -153,16 +153,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         self.title = ""
         super.viewDidAppear(true)
         
-//        if FIRAuth.auth()?.currentUser?.uid != nil {
-//            self.performSegue(withIdentifier:"Login", sender: self)
-//
-//        }else{
-//            print("User is not logged in")
-//            let tapOutsideOfTextField = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
-//            self.view.addGestureRecognizer(tapOutsideOfTextField)
-//        }
-        
-        
+        if Auth.auth().currentUser?.uid != nil {
+            self.performSegue(withIdentifier:"Login", sender: self)
+        }else{
+            print("User is not logged in")
+            let tapOutsideOfTextField = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
+            self.view.addGestureRecognizer(tapOutsideOfTextField)
+        }
     }
     
     
@@ -228,24 +225,31 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     func handleLogin(){
         guard let email = emailTextField.text, let password = passwordTextField.text else{
             print("Form Is Not Valid")
+            
+            let invalidLoginCredentialsAlert = UIAlertController(title: "Enter an Email and Password", message: "Could Not Login With This Information", preferredStyle: .alert)
+            invalidLoginCredentialsAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                invalidLoginCredentialsAlert.dismiss(animated:false, completion: nil)
+            }))
+            self.present(invalidLoginCredentialsAlert, animated: true, completion: nil)
             return
         }
         
-        self.performSegue(withIdentifier:"Login", sender: self)
+        //self.performSegue(withIdentifier:"Login", sender: self)
         
-//        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
-//            if error != nil {
-//                print(error!)
-//                let invalidLoginCredentialsAlert = UIAlertController(title: "Something Went Wrong", message: "Could Not Login With This Information", preferredStyle: .alert)
-//                invalidLoginCredentialsAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
-//                    invalidLoginCredentialsAlert.dismiss(animated:false, completion: nil)
-//                }))
-//                self.present(invalidLoginCredentialsAlert, animated: true, completion: nil)
-//                return
-//            }
-//            print("Successfully logged in user")
-//            self.performSegue(withIdentifier: "Login", sender: self)
-//        })
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
+            
+            if error != nil {
+                print(error!)
+                let invalidLoginCredentialsAlert = UIAlertController(title: "Something Went Wrong", message: "Could Not Login With This Information", preferredStyle: .alert)
+                invalidLoginCredentialsAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                    invalidLoginCredentialsAlert.dismiss(animated:false, completion: nil)
+                }))
+                self.present(invalidLoginCredentialsAlert, animated: true, completion: nil)
+                return
+            }
+            print("Successfully logged in user")
+            self.performSegue(withIdentifier: "Login", sender: self)
+        })
     }
     
     func handleRegister(){
@@ -370,6 +374,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         //self.navigationController?.pushViewController(registerVC, animated: true)
         self.title = "Login"
         self.performSegue(withIdentifier:"loginToRegister", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "Login") {
+            let user1 = User(image: UIImage(), name: "Aaron", age: "21", location: "San Francisco", uid: (Auth.auth().currentUser?.uid)!, faceStructure: FaceStructure())
+            let dest = segue.destination as! MatchVotingVC
+            dest.myUser = user1
+        }
     }
     
 }

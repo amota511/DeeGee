@@ -97,6 +97,8 @@ class RegisterVC: UIViewController {
         return button
     }()
     
+    var uid: String! = nil
+    
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
     
     override func viewDidLoad() {
@@ -215,19 +217,24 @@ class RegisterVC: UIViewController {
             guard let user = usr?.user else{
                 return
             }
-            let uid = user.uid
             
-            var rootRef = Database.database().reference()
+            self.uid = user.uid
             
-            let usersReference = rootRef.child("Users").child(uid)
-            let values = [ "name" : name,
-                           "email" : email,
-                           "friges" : []] as [String : Any]
+            
+            
+//            let usersReference = rootRef.child("Users").child(uid)
+//            let values = [ "name" : name,
+//                           "uid" : uid,
+//                           "location" : city,
+//                           "age" : age,
+//                           "matches" : []] as [String : Any]
+//            usersReference.setValue(values)
+            
+            
+            self.performSegue(withIdentifier:"Login", sender: self)
+            self.navigationController?.popToRootViewController(animated: true)
         }
-        //Auth.signIn(<#T##Auth#>)
-        //self.performSegue(withIdentifier:"Login", sender: self)
-        //self.navigationController?.popToRootViewController(animated: true)
-        
+ 
     }
     
 }
@@ -309,6 +316,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         print("Image picked")
         
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print(info)
         profilePhoto.image = nil
@@ -322,6 +330,24 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         if segue.identifier == "camera" {
             let cameraVC = segue.destination as! CameraViewController
             cameraVC.destinationImageView = self.profilePhoto
+        } else if segue.identifier == "Login" {
+            let matchesVC = segue.destination as! MatchVotingVC
+            
+            let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: uid, faceStructure: FaceStructure())
+            
+            let rootRef = Database.database().reference()
+            
+            let usersReference = rootRef.child("Users").child(myUser.uid)
+            
+            let values = [ "name" : myUser.name,
+                           "uid" : myUser.uid,
+                           "location" : myUser.location,
+                           "age" : myUser.age,
+                           "faceStructure" : myUser.faceStructure,
+                           "matches" : myUser.matches] as [String : Any]
+            usersReference.setValue(values)
+            
+            matchesVC.myUser = myUser
         }
     }
 }

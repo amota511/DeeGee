@@ -8,10 +8,16 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-        
+    
+    let firDatabase = Database.database().reference()
+    
     var matchesCollectionView: UICollectionView!
+    
+    //myUser set while segueing into this view controller from either LoginVC or RegisterVC
+    var myUser: User! = nil
     
     override func viewDidLoad() {
         self.title = "Matches"
@@ -21,11 +27,11 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         setupMatchCV()
         
         
-        let firebase = Database.database().reference()
         
-        let user1 = User(image: UIImage(), name: "Aaron", age: "21", location: "San Francisco")
+
         
-        firebase.child("User").childByAutoId().setValue(user1.toAnyObject())
+        
+        //firebase.child("User").child(myUser.uid).setValue(user1.toAnyObject())
         print("should have went through")
     }
     
@@ -255,6 +261,12 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         print("sup")
         let profileVC = ProfileVC()
         self.navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //Assume all segues go to profileVC for now
+        let dest = segue.destination as! ProfileVC
+        dest.myUser = myUser
     }
     
 }
