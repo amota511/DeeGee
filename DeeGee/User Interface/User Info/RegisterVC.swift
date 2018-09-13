@@ -97,6 +97,8 @@ class RegisterVC: UIViewController {
         return button
     }()
     
+    var faceStructurePoints = [CGPoint]()
+    
     var uid: String! = nil
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
@@ -333,7 +335,9 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         } else if segue.identifier == "Login" {
             let matchesVC = segue.destination as! MatchVotingVC
             
-            let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: uid, faceStructure: FaceStructure())
+            let facestructure = FaceStructure(faceLandmarks: faceStructurePoints)
+            
+            let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: uid, faceStructure: facestructure)
             
             let rootRef = Database.database().reference()
             
@@ -343,7 +347,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
                            "uid" : myUser.uid,
                            "location" : myUser.location,
                            "age" : myUser.age,
-                           "faceStructure" : myUser.faceStructure,
+                           "faceStructure" : myUser.faceStructure.toAnyObject(),
                            "matches" : myUser.matches] as [String : Any]
             usersReference.setValue(values)
             

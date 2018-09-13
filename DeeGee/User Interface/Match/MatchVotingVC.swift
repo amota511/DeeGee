@@ -27,12 +27,23 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         setupMatchCV()
         
         
-        
+        createTestUser()
 
         
         
         //firebase.child("User").child(myUser.uid).setValue(user1.toAnyObject())
         print("should have went through")
+    }
+    
+    
+    /* create this user function and start trying out the firebase functions
+ 
+    */
+    func createTestUser() {
+        let usr = User(image: myUser.image, name: myUser.name, age: myUser.age, location: myUser.location, uid: myUser.uid, faceStructure: myUser.faceStructure)
+        
+        
+        //firebase.child("User").child(myUser.uid).setValue(user1.toAnyObject())
     }
     
     func setupMatchCV() {

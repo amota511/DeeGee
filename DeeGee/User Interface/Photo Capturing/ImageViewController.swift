@@ -16,6 +16,7 @@ class ImageViewController : UIViewController
     @IBOutlet weak var imageView: UIImageView!
     
     var image: UIImage?
+    var faceStructurePoints = [CGPoint]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class ImageViewController : UIViewController
         guard let imageToSave = image else {
             return
         }
-        destinationImageView.image = imageToSave
+        //destinationImageView.image = imageToSave
         performSegue(withIdentifier: "unwindToRegister", sender: self)
     }
     
@@ -57,21 +58,23 @@ class ImageViewController : UIViewController
                 //let scaledHeight = self.view.frame.width / img.size.width * img.size.height
                 //let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
                 //let scaledHeight = self.view.frame.height / img.size.width
-                var count = 1
+                
+                self.faceStructurePoints = faceObservation.landmarks!.allPoints!.normalizedPoints
+                var count = 1    
                 faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: 501, height: self.imageView.frame.size.height)).forEach({ (point) in
-                    print("point \(count):", point.x, " ", point.y)
+                        print("point \(count):", point.x, " ", point.y)
                     
                     
-                    //let x = self.imageView.frame.width * point.x
-                    //let y = scaledHeight * (1 - point.y) - 4
+                        //let x = self.imageView.frame.width * point.x
+                        //let y = scaledHeight * (1 - point.y) - 4
                     
-                    let redView = UILabel()
-                    redView.backgroundColor = .red
-                    redView.text = String(count)
-                    redView.frame = CGRect(x: point.x - ((501 - self.imageView.frame.width) / 2), y: self.imageView.frame.height - point.y , width: 3, height: 3)
-                    //redView.layer.cornerRadius = redView.frame.size.height / 2
-                    self.view.addSubview(redView)
-                    count += 1
+                        let redView = UILabel()
+                        redView.backgroundColor = .red
+                        redView.text = String(count)
+                        redView.frame = CGRect(x: point.x - ((501 - self.imageView.frame.width) / 2), y: self.imageView.frame.height - point.y , width: 3, height: 3)
+                        //redView.layer.cornerRadius = redView.frame.size.height / 2
+                        self.view.addSubview(redView)
+                        count += 1
                 })
             })
         })
@@ -83,6 +86,15 @@ class ImageViewController : UIViewController
             try lmHandler.perform([landmarkRequest])
         } catch let errPerform {
             print("Failed to perform request: ", errPerform)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "unwindToRegister" {
+            let registerVC = segue.destination as! RegisterVC
+            registerVC.profilePhoto.image = image
+            registerVC.faceStructurePoints = faceStructurePoints
+            //imageViewController.destinationImageView = destinationImageView
         }
     }
 }
