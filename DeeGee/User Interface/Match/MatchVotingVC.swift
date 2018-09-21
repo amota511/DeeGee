@@ -40,7 +40,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
  
     */
     func createTestUser() {
-        let usr = User(image: myUser.image, name: myUser.name, age: myUser.age, location: myUser.location, uid: myUser.uid, faceStructure: myUser.faceStructure)
+        //let usr = User(image: myUser.image, name: myUser.name, age: myUser.age, location: myUser.location, uid: myUser.uid, faceStructure: myUser.faceStructure)
         
         
         //firebase.child("User").child(myUser.uid).setValue(user1.toAnyObject())

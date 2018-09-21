@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileVC: UIViewController {
 
@@ -114,9 +115,21 @@ class ProfileVC: UIViewController {
     
     @objc func logoutButtonClicked() {
         print("logout button clicked")
+        
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("failed to sign out")
+            let invalidLoginCredentialsAlert = UIAlertController(title: "Something Went Wrong", message: "Could Not Log Out At This Time", preferredStyle: .alert)
+            invalidLoginCredentialsAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                invalidLoginCredentialsAlert.dismiss(animated:false, completion: nil)
+            }))
+            self.present(invalidLoginCredentialsAlert, animated: true, completion: nil)
+            return
+        }
+        
         self.navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    
     
     @objc func editProfileButtonClicked() {
         print("edit button clicked")

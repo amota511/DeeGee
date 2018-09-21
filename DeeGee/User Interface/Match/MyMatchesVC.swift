@@ -23,6 +23,11 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        print(UIApplication.shared.applicationIconBadgeNumber, "badge numbers")
+    }
+    
     func setupMatchCV() {
         
         let matchLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()

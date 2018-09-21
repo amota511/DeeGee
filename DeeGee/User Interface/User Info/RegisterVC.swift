@@ -11,6 +11,7 @@ import AVFoundation
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 
 class RegisterVC: UIViewController {
 
@@ -198,14 +199,20 @@ class RegisterVC: UIViewController {
     
     @objc func handleRegister() {
         print("register button clicked")
-        
-        guard let email = emailField.text, let password = passwordField.text, let name = nameField.text, let city = cityField.text, let age = ageField.text else{
+        /*
+        guard let email = emailField.text, let password = passwordField.text, let _ = nameField.text, let _ = cityField.text, let _ = ageField.text else{
+            
             print("Form Is Not Valid")
+            let CouldNotRegisterAlert = UIAlertController(title: "Missing Information", message: "Fill Out All Information", preferredStyle: .alert)
+            CouldNotRegisterAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                CouldNotRegisterAlert.dismiss(animated:false, completion: nil)
+            }))
+            self.present(CouldNotRegisterAlert, animated: true, completion: nil)
             return
         }
+        */
         
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (usr, err) in
+        Auth.auth().createUser(withEmail: "aaron2@gmail.com", password: "qqqqqq") { (usr, err) in
             
             if err != nil {
                 let CouldNotRegisterAlert = UIAlertController(title: "Something Went Wrong", message: "Could Not Create User With This Information", preferredStyle: .alert)
@@ -233,7 +240,7 @@ class RegisterVC: UIViewController {
 //            usersReference.setValue(values)
             
             
-            self.performSegue(withIdentifier:"Login", sender: self)
+            self.performSegue(withIdentifier:"RegisterSuccessful", sender: self)
             self.navigationController?.popToRootViewController(animated: true)
         }
  
@@ -332,12 +339,14 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         if segue.identifier == "camera" {
             let cameraVC = segue.destination as! CameraViewController
             cameraVC.destinationImageView = self.profilePhoto
-        } else if segue.identifier == "Login" {
-            let matchesVC = segue.destination as! MatchVotingVC
+        } else if segue.identifier == "RegisterSuccessful" {
+            //let matchesVC = segue.destination as! MatchVotingVC
             
             let facestructure = FaceStructure(faceLandmarks: faceStructurePoints)
             
-            let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: uid, faceStructure: facestructure)
+            //let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: uid, faceStructure: facestructure)
+            
+            let myUser = User(image: profilePhoto.image!, name: "Aaron", age: "21", location: "San Fran", uid: "VdRz6VoLnQgwdxzAYMQf9NUiJBK2", faceStructure: facestructure)
             
             let rootRef = Database.database().reference()
             
@@ -351,7 +360,51 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
                            "matches" : myUser.matches] as [String : Any]
             usersReference.setValue(values)
             
-            matchesVC.myUser = myUser
+            // File located on disk
+            let localFile = URL(string: "path/to/image")!
+            
+            // Create a reference to the file you want to upload
+            let storageRef = Storage.storage().reference()
+            let userImgRef = storageRef.child("Users/\(myUser.uid).jpg")
+            
+            // Upload the file to the path "Users/\(myUser.uid).jpg"
+            let uploadTask = userImgRef.putFile(from: localFile, metadata: nil) { metadata, error in
+                guard let metadata = metadata else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                // Metadata contains file metadata such as size, content-type.
+                let size = metadata.size
+                
+                /*
+                // You can also access to download URL after upload.
+                userImgRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                        // Uh-oh, an error occurred!
+                        return
+                    }
+                }
+                 
+                 // Add a progress observer to an upload task
+                 let observer = uploadTask.observe(.progress) { snapshot in
+                 // A progress event occured
+                 }
+                 
+                 uploadTask.observe(.progress) { snapshot in
+                 // Upload reported progress
+                 let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
+                 / Double(snapshot.progress!.totalUnitCount)
+                 }
+                 
+                 uploadTask.observe(.success) { snapshot in
+                 // Upload completed successfully
+                 }
+                 
+                 
+                */
+            }
+            
+            //matchesVC.myUser = myUser
         }
     }
 }
