@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 
 class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -72,7 +73,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -89,8 +90,25 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             
             cell.addSubview(separator)
             
-            //Set User Img 1
+            
+            let storageRef = Storage.storage().reference()
+            //let userImgRef = storageRef.child("\(myUser.uid!).jpg")
+            let userImgRef = storageRef.child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.jpg")
             let uImg1 = cell.userImgOne
+            
+            userImgRef.getData(maxSize: 4 * 1024 * 1024) { data, error in
+                    if let error = error {
+                        // Uh-oh, an error occurred!
+                        print(error)
+                    } else {
+                        // Data for "images/island.jpg" is returned
+                        uImg1.image = UIImage(data: data!)
+                        uImg1.image = uImg1.image?.fixOrientation()
+                    }
+            }
+            
+            //Set User Img 1
+            
             uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
             uImg1.contentMode = .scaleAspectFill
             uImg1.clipsToBounds = true

@@ -39,6 +39,9 @@ class ImageViewController : UIViewController
     
     func performFaceDetection() {
         print("inside function")
+        //        imageView.image = imageView.image!.fixOrientation()!
+        //        let img = imageView.image!.fixOrientation()!
+        
         let img = imageView.image!.fixOrientation()!
         //let croppedcgimage = img.cgImage?.cropping(to: CGRect(origin: CGPoint(x: <#T##CGFloat#>, y: 0), size: CGSize(width: <#T##CGFloat#>, height: img.size.height)))
         print("img width: \(img.size.width) - ", "img height: \(img.size.height)")

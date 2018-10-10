@@ -343,14 +343,26 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
             //let matchesVC = segue.destination as! MatchVotingVC
             
             let facestructure = FaceStructure(faceLandmarks: faceStructurePoints)
-            
+            facestructure.bottomLipHeight = 3
             //let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: uid, faceStructure: facestructure)
+            var instanceIDToken: String = ""
+            
+            InstanceID.instanceID().instanceID { (result, error) in
+                if let error = error {
+                    print("Error fetching remote instange ID: \(error)")
+                } else if let result = result {
+                    print("Remote instance ID token: \(result.token)")
+                    instanceIDToken = result.token
+                }
+            }
             
             let myUser = User(image: profilePhoto.image!, name: "Aaron", age: "21", location: "San Fran", uid: "VdRz6VoLnQgwdxzAYMQf9NUiJBK2", faceStructure: facestructure)
             
             let rootRef = Database.database().reference()
             
             let usersReference = rootRef.child("Users").child(myUser.uid)
+            
+            //rootRef.child("UIDs").updateChildValues([myUser.uid: 0])
             
             let values = [ "name" : myUser.name,
                            "uid" : myUser.uid,
@@ -361,12 +373,33 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
             usersReference.setValue(values)
             
             // File located on disk
-            let localFile = URL(string: "path/to/image")!
+            //let localFile = URL(string: "path/to/image")!
+            
+            let dataObj: Data = UIImagePNGRepresentation(self.profilePhoto.image!)!
             
             // Create a reference to the file you want to upload
             let storageRef = Storage.storage().reference()
-            let userImgRef = storageRef.child("Users/\(myUser.uid).jpg")
+            let userImgRef = storageRef.child("\(myUser.uid!).png")
             
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/png"
+            
+            let uploadTask = userImgRef.putData(dataObj, metadata: metadata) { (metadata, err) in
+                if err != nil {
+                    print("There was an err", err.debugDescription)
+                    return
+                }
+                print("File upload worked!")
+                userImgRef.downloadURL(completion: { (url, err) in
+                    if err != nil {
+                        print("There was an err in the url", err.debugDescription)
+                        return
+                    }
+                    print("URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL", url?.absoluteURL, url?.absoluteString)
+                })
+            }
+            
+            /*
             // Upload the file to the path "Users/\(myUser.uid).jpg"
             let uploadTask = userImgRef.putFile(from: localFile, metadata: nil) { metadata, error in
                 guard let metadata = metadata else {
@@ -375,34 +408,38 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
                 }
                 // Metadata contains file metadata such as size, content-type.
                 let size = metadata.size
-                
-                /*
-                // You can also access to download URL after upload.
-                userImgRef.downloadURL { (url, error) in
-                    guard let downloadURL = url else {
-                        // Uh-oh, an error occurred!
-                        return
-                    }
+ 
+            
+            // You can also access to download URL after upload.
+            let uploadTask = userImgRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    // Uh-oh, an error occurred!
+                    
+                    return
                 }
-                 
-                 // Add a progress observer to an upload task
-                 let observer = uploadTask.observe(.progress) { snapshot in
-                 // A progress event occured
-                 }
-                 
-                 uploadTask.observe(.progress) { snapshot in
-                 // Upload reported progress
-                 let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
-                 / Double(snapshot.progress!.totalUnitCount)
-                 }
-                 
-                 uploadTask.observe(.success) { snapshot in
-                 // Upload completed successfully
-                 }
-                 
-                 
-                */
             }
+            */
+ 
+           
+             // Add a progress observer to an upload task
+             let observer = uploadTask.observe(.progress) { snapshot in
+             // A progress event occured
+                print(snapshot.progress?.fileCompletedCount)
+             }
+             /*
+             uploadTask.observe(.progress) { snapshot in
+             // Upload reported progress
+             let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
+             / Double(snapshot.progress!.totalUnitCount)
+             }
+            
+             uploadTask.observe(.success) { snapshot in
+             // Upload completed successfully
+             }
+             */
+                 
+ 
+            
             
             //matchesVC.myUser = myUser
         }

@@ -18,6 +18,7 @@ class User {
     var age: String! = nil
     var location: String! = nil
     var faceStructure: FaceStructure! = nil
+    var imageUrl: String! = nil
     var matches: [String]! = []
     
     init(image: UIImage, name: String, age: String, location: String, uid: String, faceStructure: FaceStructure) {
