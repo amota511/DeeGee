@@ -13,6 +13,9 @@ class CameraViewController : UIViewController
 {
     var destinationImageView: UIImageView!
     
+    let grayLoadingView = UIView()
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    
     @IBOutlet weak var cameraButton: UIButton!
     var captureSession = AVCaptureSession()
     
@@ -33,6 +36,10 @@ class CameraViewController : UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        grayLoadingView.backgroundColor = UIColor.black
+        grayLoadingView.frame = self.view.frame
+        grayLoadingView.alpha = 0.65
         
         captureSession.sessionPreset = AVCaptureSessionPresetPhoto
         
@@ -105,11 +112,14 @@ class CameraViewController : UIViewController
     
     @IBAction func shutterButtonDidTap()
     {
-        let videoConnection = stillImageOutput?.connection(withMediaType: AVMediaTypeVideo)
+        //place loading UI
+        placeLoadingUI()
         
+        let videoConnection = stillImageOutput?.connection(withMediaType: AVMediaTypeVideo)
+
         // capture a still image asynchronously
         stillImageOutput?.captureStillImageAsynchronously(from: videoConnection, completionHandler: { (imageDataBuffer, error) in
-            
+
             if let imageData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: imageDataBuffer!, previewPhotoSampleBuffer: imageDataBuffer!) {
                 self.stillImage = UIImage(data: imageData)
                 self.performSegue(withIdentifier: "showPhoto", sender: self)
@@ -117,32 +127,37 @@ class CameraViewController : UIViewController
         })
     }
     
+    func placeLoadingUI() {
+        self.view.addSubview(grayLoadingView)
+            
+
+        // Add it to the view where you want it to appear
+        self.view.addSubview(activityIndicator)
+        
+        // Set up its size (the super view bounds usually)
+        activityIndicator.frame = view.bounds
+//        activityIndicator.frame.size.height = view.bounds.size.height * 2
+//        activityIndicator.frame.size.width = view.bounds.size.width * 2
+        
+        // Start the loading animation
+        activityIndicator.startAnimating()
+        
+    }
+    
+    func removeLoadingUI() {
+        grayLoadingView.removeFromSuperview()
+        activityIndicator.removeFromSuperview()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto" {
+            //remove spinner
+            removeLoadingUI()
             let imageViewController = segue.destination as! ImageViewController
             imageViewController.image = self.stillImage?.imageFlippedForRightToLeftLayoutDirection()
             imageViewController.destinationImageView = destinationImageView
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

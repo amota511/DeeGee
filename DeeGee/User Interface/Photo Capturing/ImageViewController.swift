@@ -42,7 +42,10 @@ class ImageViewController : UIViewController
         //        imageView.image = imageView.image!.fixOrientation()!
         //        let img = imageView.image!.fixOrientation()!
         
-        let img = imageView.image!.fixOrientation()!
+        imageView.image = imageView.image!.fixOrientation()!.scaleImage(toSize: CGSize(width: 500, height: 500))
+        imageView.contentMode = .scaleAspectFit
+        let img = imageView.image!
+        
         //let croppedcgimage = img.cgImage?.cropping(to: CGRect(origin: CGPoint(x: <#T##CGFloat#>, y: 0), size: CGSize(width: <#T##CGFloat#>, height: img.size.height)))
         print("img width: \(img.size.width) - ", "img height: \(img.size.height)")
         print("view width: \(view.frame.size.width) - ", "view height: \(view.frame.size.height)")
@@ -58,13 +61,14 @@ class ImageViewController : UIViewController
                 print(res)
                 guard let faceObservation = res as? VNFaceObservation else { return }
                 //print("Landmarks:", faceObservation.landmarks!)
-                //let scaledHeight = self.view.frame.width / img.size.width * img.size.height
-                //let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
+                let scaledHeight = self.view.frame.width / img.size.width * img.size.height
+                let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
                 //let scaledHeight = self.view.frame.height / img.size.width
                 
                 self.faceStructurePoints = faceObservation.landmarks!.allPoints!.normalizedPoints
                 var count = 1    
-                faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: 501, height: self.imageView.frame.size.height)).forEach({ (point) in
+                faceObservation.landmarks!.allPoints!.normalizedPoints.forEach({ (point) in
+                    //.pointsInImage(imageSize: CGSize(width: scaledWidth, height: scaledHeight)).forEach({ (point) in
                         print("point \(count):", point.x, " ", point.y)
                     
                     
@@ -72,9 +76,11 @@ class ImageViewController : UIViewController
                         //let y = scaledHeight * (1 - point.y) - 4
                     
                         let redView = UILabel()
-                        redView.backgroundColor = .red
+                        redView.textColor = .red
                         redView.text = String(count)
-                        redView.frame = CGRect(x: point.x - ((501 - self.imageView.frame.width) / 2), y: self.imageView.frame.height - point.y , width: 3, height: 3)
+                        redView.textAlignment = .center
+                        redView.font = redView.font.withSize(8)
+                        redView.frame = CGRect(x: point.x , y: self.imageView.frame.height - point.y , width: 15, height: 15)
                         //redView.layer.cornerRadius = redView.frame.size.height / 2
                         self.view.addSubview(redView)
                         count += 1
@@ -95,7 +101,7 @@ class ImageViewController : UIViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToRegister" {
             let registerVC = segue.destination as! RegisterVC
-            registerVC.profilePhoto.image = image
+            registerVC.profilePhoto.image = imageView.image
             registerVC.faceStructurePoints = faceStructurePoints
             //imageViewController.destinationImageView = destinationImageView
         }
@@ -159,6 +165,23 @@ extension UIImage {
         }
         
         return nil
+    }
+    
+    func scaleImage(toSize newSize: CGSize) -> UIImage? {
+        var newImage: UIImage?
+        let newRect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height).integral
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
+        if let context = UIGraphicsGetCurrentContext(), let cgImage = self.cgImage {
+            context.interpolationQuality = .high
+            let flipVertical = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: newSize.height)
+            context.concatenate(flipVertical)
+            context.draw(cgImage, in: newRect)
+            if let img = context.makeImage() {
+                newImage = UIImage(cgImage: img)
+            }
+            UIGraphicsEndImageContext()
+        }
+        return newImage
     }
     
 }
