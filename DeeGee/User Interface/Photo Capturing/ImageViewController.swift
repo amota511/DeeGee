@@ -42,8 +42,17 @@ class ImageViewController : UIViewController
         //        imageView.image = imageView.image!.fixOrientation()!
         //        let img = imageView.image!.fixOrientation()!
         
-        imageView.image = imageView.image!.fixOrientation()!.scaleImage(toSize: CGSize(width: 500, height: 500))
-        imageView.contentMode = .scaleAspectFit
+        //let scaledWidth = imageView.image!.size.width * 0.1
+        //let scaledHeight = imageView.image!.size.height * 0.1
+        
+        
+        
+        imageView.image = imageView.image!.fixOrientation()!
+        let scaledHeight = (4096 / imageView.image!.size.height) * imageView.image!.size.height
+        
+        imageView.image = imageView.image!.scaleImage(toSize: CGSize(width: 4096, height: scaledHeight))
+        //imageView.contentMode = .scaleAspectFit
+        //imageView.contentMode = .right
         let img = imageView.image!
         
         //let croppedcgimage = img.cgImage?.cropping(to: CGRect(origin: CGPoint(x: <#T##CGFloat#>, y: 0), size: CGSize(width: <#T##CGFloat#>, height: img.size.height)))
@@ -61,8 +70,8 @@ class ImageViewController : UIViewController
                 print(res)
                 guard let faceObservation = res as? VNFaceObservation else { return }
                 //print("Landmarks:", faceObservation.landmarks!)
-                let scaledHeight = self.view.frame.width / img.size.width * img.size.height
-                let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
+                //let scaledHeight = self.view.frame.width / img.size.width * img.size.height
+                //let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
                 //let scaledHeight = self.view.frame.height / img.size.width
                 
                 self.faceStructurePoints = faceObservation.landmarks!.allPoints!.normalizedPoints
@@ -80,7 +89,7 @@ class ImageViewController : UIViewController
                         redView.text = String(count)
                         redView.textAlignment = .center
                         redView.font = redView.font.withSize(8)
-                        redView.frame = CGRect(x: point.x , y: self.imageView.frame.height - point.y , width: 15, height: 15)
+                        redView.frame = CGRect(x: point.x  * self.imageView.frame.width, y: self.imageView.frame.height - (point.y * self.imageView.frame.height), width: 15, height: 15)
                         //redView.layer.cornerRadius = redView.frame.size.height / 2
                         self.view.addSubview(redView)
                         count += 1

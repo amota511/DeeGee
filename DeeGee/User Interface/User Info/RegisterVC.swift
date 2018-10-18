@@ -364,6 +364,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
             
             //rootRef.child("UIDs").updateChildValues([myUser.uid: 0])
             
+            
             let values = [ "name" : myUser.name,
                            "uid" : myUser.uid,
                            "location" : myUser.location,
@@ -374,6 +375,14 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
             
             // File located on disk
             //let localFile = URL(string: "path/to/image")!
+            var token = ""
+            InstanceID.instanceID().instanceID { (res, err) in
+                if err != nil {
+                    //something bad happend
+                } else {
+                    token = res!.token
+                }
+            }
             
             let dataObj: Data = UIImagePNGRepresentation(self.profilePhoto.image!)!
             
@@ -395,7 +404,10 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
                         print("There was an err in the url", err.debugDescription)
                         return
                     }
-                    print("URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL", url?.absoluteURL, url?.absoluteString)
+                    print("URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL", url!.absoluteURL, url!.absoluteString)
+                    usersReference.child("imageUrl").setValue(url!.absoluteString)
+                    rootRef.child("UIDs").child(myUser.uid!).child("imageURL").setValue(url!.absoluteString)
+                    rootRef.child("UIDs").child(myUser.uid!).child("pushNotif").setValue(token)
                 })
             }
             

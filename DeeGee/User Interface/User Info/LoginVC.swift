@@ -12,9 +12,29 @@ import FirebaseDatabase
 import FirebaseAuth
 
 
-class LoginVC: UIViewController, UITextFieldDelegate {
+class LoginVC: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
 
-    @IBOutlet weak var logoView: UIImageView!
+    //@IBOutlet weak var oldlogoView: UIImageView!
+    //@IBOutlet weak var oldLogoView: UIImageView!
+    
+    lazy var logoView: UIImageView = {
+        let logoView = UIImageView()
+        logoView.image = UIImage.init(named: "DeeGee_Logo")
+        logoView.contentMode = .scaleAspectFit
+        logoView.layer.borderWidth = 1
+        logoView.layer.borderColor = UIColor.black.cgColor
+        logoView.layer.cornerRadius = 3
+        logoView.clipsToBounds = true
+        logoView.translatesAutoresizingMaskIntoConstraints = false
+        /*
+        profilePhoto.isUserInteractionEnabled = true
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profilePhotoButtonClicked))
+        profilePhoto.addGestureRecognizer(gestureRecognizer)
+        */
+        return logoView
+    }()
+    
+
     
     let inputsContainerView: UIView  = {
         let view = UIView()
@@ -31,6 +51,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.returnKeyType = .next
         tf.delegate = self
+        tf.restorationIdentifier = "email"
         return tf
     }()
     
@@ -48,6 +69,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         tf.isSecureTextEntry = true
         tf.returnKeyType = .go
         tf.delegate = self
+        tf.restorationIdentifier = "password"
         return tf
     }()
     
@@ -80,15 +102,25 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    lazy var scrollView: UIScrollView = {
+       let sv = UIScrollView()
+        sv.bounces = true
+        sv.delegate = self
+        sv.contentSize = self.view.bounds.size
+        sv.isScrollEnabled = false
+        return sv
+    }()
+    
     var name = String()
     
-    var inputsContainerViewYAnchor: NSLayoutConstraint?
+    var logoViewYAnchor: NSLayoutConstraint?
     var emailTextFieldHeightAnchor: NSLayoutConstraint?
     var passwordTextFieldHeightAnchor: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(logoView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginButton)
         inputsContainerView.addSubview(emailTextField)
@@ -97,6 +129,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         inputsContainerView.addSubview(passwordSeparatorView)
         view.addSubview(registerButton)
         
+        setlogo()
         setInputContainerView()
         setLoginButton()
         setEmailTextField()
@@ -111,20 +144,27 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         self.title = ""
         super.viewDidAppear(true)
         
-        if Auth.auth().currentUser?.uid != nil {
-            self.performSegue(withIdentifier:"login", sender: self)
-        }else{
+       // if Auth.auth().currentUser?.uid != nil {
+       //     self.performSegue(withIdentifier:"login", sender: self)
+       // }else{
             print("User is not logged in")
             let tapOutsideOfTextField = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
             self.view.addGestureRecognizer(tapOutsideOfTextField)
-        }
+       // }
+    }
+    
+    func setlogo() {
+        logoViewYAnchor = logoView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
+        logoViewYAnchor?.isActive = true
+        logoView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
+        logoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
     }
 
     func setInputContainerView(){
         //need x, y, width, height constraints
         inputsContainerView.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        inputsContainerViewYAnchor = inputsContainerView.centerYAnchor.constraint(equalTo:view.centerYAnchor, constant: -36)
-        inputsContainerViewYAnchor?.isActive = true
+        inputsContainerView.topAnchor.constraint(equalTo:logoView.bottomAnchor, constant: 50).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo:view.widthAnchor,constant: -24).isActive = true
         inputsContainerView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.205).isActive = true
     }
@@ -135,7 +175,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         loginButton.topAnchor.constraint(equalTo:inputsContainerView.bottomAnchor, constant: 12).isActive = true
         loginButton.widthAnchor.constraint(equalTo:inputsContainerView.widthAnchor).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant:view.frame.height * 0.06833).isActive = true
-        
     }
     
     @objc func handleLogin(){
@@ -215,10 +254,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     func dissmissKeyboard(){
         
         if  emailTextField.isEditing || passwordTextField.isEditing {
-            inputsContainerViewYAnchor?.isActive = false
-            inputsContainerViewYAnchor = inputsContainerView.centerYAnchor.constraint(equalTo:view.centerYAnchor, constant: -36)
-            inputsContainerViewYAnchor?.isActive = true
-        
+            
+            logoViewYAnchor?.isActive = false
+            logoViewYAnchor = logoView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
+            logoViewYAnchor?.isActive = true
+            
             emailTextField.resignFirstResponder()
             passwordTextField.resignFirstResponder()
             
@@ -228,17 +268,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 
             }
         }
-        
-        //        if nameTextField.isEditing {
-        //            nameTextField.resignFirstResponder()
-        //            return
-        //        }else if emailTextField.isEditing {
-        //            emailTextField.resignFirstResponder()
-        //            return
-        //        }else if passwordTextField.isEditing {
-        //            passwordTextField.resignFirstResponder()
-        //        }
-        
     }
     
     @objc func signUpButtonClicked() {
@@ -258,20 +287,35 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(_ state: UITextField) -> Bool {
-        inputsContainerViewYAnchor?.isActive = false
-        inputsContainerViewYAnchor = inputsContainerView.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 0)
-        inputsContainerViewYAnchor?.isActive = true
+
+        if state.restorationIdentifier == "email" {
+           
+            logoViewYAnchor?.isActive = false
+            logoViewYAnchor = logoView.topAnchor.constraint(equalTo: view.topAnchor)
+            logoViewYAnchor?.isActive = true
+        } else if state.restorationIdentifier == "password" {
+
+            logoViewYAnchor?.isActive = false
+            logoViewYAnchor = logoView.topAnchor.constraint(equalTo: view.topAnchor, constant: -view.frame.height * 0.05)
+            logoViewYAnchor?.isActive = true
+        }
         
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
             self.view.layoutIfNeeded()
         }) { (completed) in
             
         }
+
         return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        handleLogin()
+        if textField.restorationIdentifier == "email" {
+            passwordTextField.becomeFirstResponder()
+        } else if textField.restorationIdentifier == "password" {
+            passwordTextField.resignFirstResponder()
+            handleLogin()
+        }
         return true
     }
 }

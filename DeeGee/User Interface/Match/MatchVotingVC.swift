@@ -52,8 +52,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         let matchLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         matchLayout.sectionInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         matchLayout.minimumInteritemSpacing = 0
-        matchLayout.minimumLineSpacing = 2
-        matchLayout.itemSize = CGSize(width: view.frame.width, height: view.frame.height * 0.45)
+        matchLayout.minimumLineSpacing = 8
+        matchLayout.itemSize = CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.35)
         matchLayout.scrollDirection = .vertical
         
         
@@ -73,7 +73,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -90,22 +90,31 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             
             cell.addSubview(separator)
             
+            cell.layer.shadowOffset = CGSize(width: 3, height: 3)
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.cornerRadius = 20
+            cell.clipsToBounds = true
             
             let storageRef = Storage.storage().reference()
             //let userImgRef = storageRef.child("\(myUser.uid!).jpg")
-            let userImgRef = storageRef.child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.jpg")
+            let userImgRef = storageRef.child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png")
             let uImg1 = cell.userImgOne
             
-            userImgRef.getData(maxSize: 4 * 1024 * 1024) { data, error in
+            
+            userImgRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
                     if let error = error {
                         // Uh-oh, an error occurred!
                         print(error)
                     } else {
                         // Data for "images/island.jpg" is returned
-                        uImg1.image = UIImage(data: data!)
-                        uImg1.image = uImg1.image?.fixOrientation()
+                        //uImg1.image = UIImage(data: data!)
+                        
+                        
+                        //uImg1.image = uImg1.image?.fixOrientation()
                     }
             }
+            
+            
             
             //Set User Img 1
             
@@ -119,6 +128,18 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             
             //Set User Img 2
             let uImg2 = cell.userImgTwo
+            
+            Storage.storage().reference().child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png").getData(maxSize: 2 * 1024 * 1024) { data, error in
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                    print(error)
+                } else {
+                    // Data for "images/island.jpg" is returned
+                    uImg2.image = UIImage(data: data!)
+                    //uImg1.image = uImg1.image?.fixOrientation()
+                }
+            }
+            
             uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
             uImg2.contentMode = .scaleAspectFill
             uImg2.clipsToBounds = true

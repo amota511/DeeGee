@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
             if err != nil {
                 //something bad happend
             } else {
+                
                 //res?.token
                 self.connectToFCM()
             }
