@@ -13,7 +13,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseStorage
 
-class RegisterVC: UIViewController {
+class RegisterVC: UIViewController, UITextFieldDelegate {
 
     lazy var profilePhoto: UIImageView = {
         let profilePhoto = UIImageView()
@@ -34,6 +34,7 @@ class RegisterVC: UIViewController {
      lazy var editProfilePhotoLabel: UILabel = {
         let label = UILabel()
         label.text = "Add A Photo"
+        //label.font = label.font.withSize(20)
         label.textColor = .black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,8 +44,10 @@ class RegisterVC: UIViewController {
     lazy var emailField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email Address"
+        textField.restorationIdentifier = "email"
         textField.textAlignment = .left
         textField.backgroundColor = UIColor.white
+        textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -52,8 +55,10 @@ class RegisterVC: UIViewController {
     lazy var passwordField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Password"
+        textField.restorationIdentifier = "password"
         textField.textAlignment = .left
         textField.backgroundColor = UIColor.white
+        textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -61,8 +66,10 @@ class RegisterVC: UIViewController {
     lazy var nameField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "First Name"
+        textField.restorationIdentifier = "name"
         textField.textAlignment = .left
         textField.backgroundColor = UIColor.white
+        textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -70,8 +77,10 @@ class RegisterVC: UIViewController {
     lazy var ageField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Age"
+        textField.restorationIdentifier = "age"
         textField.textAlignment = .left
         textField.backgroundColor = UIColor.white
+        textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -79,8 +88,10 @@ class RegisterVC: UIViewController {
     lazy var cityField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "City, Country"
+        textField.restorationIdentifier = "city"
         textField.textAlignment = .left
         textField.backgroundColor = UIColor.white
+        textField.returnKeyType = .go
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -103,6 +114,23 @@ class RegisterVC: UIViewController {
     var uid: String! = nil
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
+    
+    var profilePhotoYAnchor: NSLayoutConstraint?
+    
+    /*
+     *
+     *
+     *
+     *
+     var logoViewYAnchor: NSLayoutConstraint?
+     *
+     *
+     *
+     *
+     */
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,8 +160,15 @@ class RegisterVC: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let tapOutsideOfTextField = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
+        self.view.addGestureRecognizer(tapOutsideOfTextField)
+    }
+    
     func setProfilePhoto() {
-        profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6).isActive = true
+        profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
+        profilePhotoYAnchor?.isActive = true
+        //profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6).isActive = true
         profilePhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profilePhoto.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
         profilePhoto.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
@@ -244,6 +279,82 @@ class RegisterVC: UIViewController {
             self.navigationController?.popToRootViewController(animated: true)
         }
  
+    }
+    
+    func dissmissKeyboard(){
+        
+        if emailField.isEditing || passwordField.isEditing || nameField.isEditing || ageField.isEditing || cityField.isEditing {
+            
+            profilePhotoYAnchor?.isActive = false
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
+            profilePhotoYAnchor?.isActive = true
+            
+            emailField.resignFirstResponder()
+            passwordField.resignFirstResponder()
+            nameField.resignFirstResponder()
+            ageField.resignFirstResponder()
+            cityField.resignFirstResponder()
+            
+            UIView.animate(withDuration: 1.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
+                self.view.layoutIfNeeded()
+            }) { (completed) in
+                
+            }
+        }
+    }
+    
+    func textFieldShouldBeginEditing(_ state: UITextField) -> Bool {
+        
+        if state.restorationIdentifier == "email" {
+            
+            profilePhotoYAnchor?.isActive = false
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor)
+            profilePhotoYAnchor?.isActive = true
+        } else if state.restorationIdentifier == "password" {
+            
+            profilePhotoYAnchor?.isActive = false
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: -view.frame.height * 0.05)
+            profilePhotoYAnchor?.isActive = true
+        } else if state.restorationIdentifier == "name" {
+            
+            profilePhotoYAnchor?.isActive = false
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 3)
+            profilePhotoYAnchor?.isActive = true
+        } else if state.restorationIdentifier == "age" {
+            
+            profilePhotoYAnchor?.isActive = false
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 4)
+            profilePhotoYAnchor?.isActive = true
+        } else if state.restorationIdentifier == "city" {
+            
+            profilePhotoYAnchor?.isActive = false
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 5)
+            profilePhotoYAnchor?.isActive = true
+        }
+        
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
+            self.view.layoutIfNeeded()
+        }) { (completed) in
+            
+        }
+        
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.restorationIdentifier == "email" {
+            passwordField.becomeFirstResponder()
+        } else if textField.restorationIdentifier == "password" {
+            nameField.becomeFirstResponder()
+        } else if textField.restorationIdentifier == "name" {
+            ageField.becomeFirstResponder()
+        } else if textField.restorationIdentifier == "age" {
+            cityField.becomeFirstResponder()
+        } else if textField.restorationIdentifier == "city" {
+            //call register fucntion
+            handleRegister()
+        }
+        return true
     }
     
 }
