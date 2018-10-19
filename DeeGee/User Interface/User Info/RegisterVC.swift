@@ -49,6 +49,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         textField.backgroundColor = UIColor.white
         textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         return textField
     }()
     
@@ -60,6 +61,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         textField.backgroundColor = UIColor.white
         textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         return textField
     }()
     
@@ -71,6 +73,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         textField.backgroundColor = UIColor.white
         textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         return textField
     }()
     
@@ -82,6 +85,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         textField.backgroundColor = UIColor.white
         textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         return textField
     }()
     
@@ -93,6 +97,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         textField.backgroundColor = UIColor.white
         textField.returnKeyType = .go
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         return textField
     }()
     
@@ -191,15 +196,15 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     func setPasswordField() {
         passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 1).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.90).isActive = true
-        passwordField.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
+        passwordField.widthAnchor.constraint(equalTo: emailField.widthAnchor).isActive = true
+        passwordField.heightAnchor.constraint(equalTo: emailField.heightAnchor).isActive = true
     }
     
     func setNameField() {
         nameField.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 24).isActive = true
         nameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        nameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.90).isActive = true
-        nameField.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
+        nameField.widthAnchor.constraint(equalTo: emailField.widthAnchor).isActive = true
+        nameField.heightAnchor.constraint(equalTo: passwordField.heightAnchor).isActive = true
     }
     
     func setAgeField() {
@@ -220,7 +225,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     func setRegisterButton(){
         //need x, y, width, height constraints
         registerButton.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        registerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24).isActive = true
+        registerButton.topAnchor.constraint(equalTo: cityField.bottomAnchor, constant: 24).isActive = true
+        //registerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24).isActive = true
         registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9).isActive = true
         registerButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.075).isActive = true
         
