@@ -31,9 +31,6 @@ class CameraViewController : UIViewController
     // camera preview layer
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
-    // double tap to switch from back to front facing camera
-    var toggleCameraGestureRecognizer = UITapGestureRecognizer()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,11 +71,7 @@ class CameraViewController : UIViewController
             view.bringSubview(toFront: cameraButton)
             
             captureSession.startRunning()
-            
-            // toggle the camera
-            toggleCameraGestureRecognizer.numberOfTapsRequired = 2
-            toggleCameraGestureRecognizer.addTarget(self, action: #selector(toggleCamera))
-            view.addGestureRecognizer(toggleCameraGestureRecognizer)
+
         } catch let error {
             print(error)
         }
@@ -151,7 +144,7 @@ class CameraViewController : UIViewController
             //remove spinner
             removeLoadingUI()
             let imageViewController = segue.destination as! ImageViewController
-            imageViewController.image = self.stillImage//?.imageFlippedForRightToLeftLayoutDirection()
+            imageViewController.image = self.stillImage
             imageViewController.destinationImageView = destinationImageView
             printOrientation()
         }

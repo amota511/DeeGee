@@ -329,16 +329,6 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             })
         }
         
-        //rootDBRef.child("Users").child(self.uid!).child("imageUrl").setValue(url!.absoluteString)
-        
-        /*
-        // Add a progress observer to an upload task
-        let observer = uploadTask.observe(.progress) { snapshot in
-            // A progress event occured
-            print(snapshot.progress?.fileCompletedCount)
-        }
-        */
-        
          uploadTask.observe(.progress) { snapshot in
          // Upload reported progress
          let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)

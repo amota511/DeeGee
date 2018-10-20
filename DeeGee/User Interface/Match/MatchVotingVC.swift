@@ -79,7 +79,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchCell", for: indexPath) as! MatchCVC
         cell.backgroundColor = .gray
-        
+        cell.clipsToBounds = true
         //Check for a pre-existing Separator
         if(!cell.isSet) {
             //Set Separator Line
@@ -101,13 +101,13 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             let uImg1 = cell.userImgOne
             
             
-            userImgRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
+            userImgRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
                     if let error = error {
                         // Uh-oh, an error occurred!
                         print(error)
                     } else {
                         // Data for "images/island.jpg" is returned
-                        //uImg1.image = UIImage(data: data!)
+                        uImg1.image = UIImage(data: data!)
                         
                         
                         //uImg1.image = uImg1.image?.fixOrientation()
@@ -129,7 +129,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             //Set User Img 2
             let uImg2 = cell.userImgTwo
             
-            Storage.storage().reference().child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png").getData(maxSize: 2 * 1024 * 1024) { data, error in
+            Storage.storage().reference().child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png").getData(maxSize: 100 * 1024 * 1024) { data, error in
                 if let error = error {
                     // Uh-oh, an error occurred!
                     print(error)

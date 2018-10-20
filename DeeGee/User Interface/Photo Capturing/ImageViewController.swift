@@ -16,13 +16,16 @@ class ImageViewController : UIViewController
     @IBOutlet weak var imageView: UIImageView!
     
     var image: UIImage?
-    var faceStructurePoints = [CGPoint]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imageView.image = image
-        performFaceDetection()
+        imageView.contentMode = .scaleAspectFill
+        
+        imageView.image = imageView.image!.fixOrientation()!
+        imageView.image = imageView.image!.scaleImage(toSize: CGSize(width: imageView.image!.size.width * 0.1, height: imageView.image!.size.height * 0.1))
+
     }
     
     @IBAction func closeButtonDidTap () {
@@ -30,122 +33,16 @@ class ImageViewController : UIViewController
     }
     
     @IBAction func save(sender: UIButton) {
-        guard let imageToSave = image else {
-            return
-        }
-        //destinationImageView.image = imageToSave
         performSegue(withIdentifier: "unwindToRegister", sender: self)
     }
-    
-    func performFaceDetection() {
-        print("inside function")
 
-        //let scaledWidth = imageView.image!.size.width * 0.1
-        //let scaledHeight = imageView.image!.size.height * 0.1
-        
-        printOrientation()
-        
-        imageView.image = imageView.image!.fixOrientation()!
-        let scaledHeight = (4096 / imageView.image!.size.height) * imageView.image!.size.height
-        
-        printOrientation()
-        //imageView.image = UIImage(cgImage: imageView.image!.cgImage!, scale: imageView.image!.scale, orientation: .leftMirrored)
-        
-        //imageView.image = imageView.image!//.scaleImage(toSize: CGSize(width: 4096, height: scaledHeight))
-        imageView.contentMode = .scaleAspectFill
-        //imageView.contentMode = .right
-        
-        let img = imageView.image!
-
-        //let croppedcgimage = img.cgImage?.cropping(to: CGRect(origin: CGPoint(x: <#T##CGFloat#>, y: 0), size: CGSize(width: <#T##CGFloat#>, height: img.size.height)))
-        print("img width: \(img.size.width) - ", "img height: \(img.size.height)")
-        print("view width: \(view.frame.size.width) - ", "view height: \(view.frame.size.height)")
-        let landmarkRequest = VNDetectFaceLandmarksRequest(completionHandler: { (req, err) in
-            
-            if let err = err {
-                print("Failed to detect landmarks:", err)
-                return
-            }
-            //0.2159974093
-            //501
-            req.results?.forEach({ (res) in
-                //print(res)
-                guard let faceObservation = res as? VNFaceObservation else { return }
-                //print("Landmarks:", faceObservation.landmarks!)
-                //let scaledHeight = self.view.frame.width / img.size.width * img.size.height
-                //let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
-                //let scaledHeight = self.view.frame.height / img.size.width
-                let scaledWidth = self.imageView.frame.width
-                let scaledHeight = self.view.frame.height / img.size.width * img.size.height //img.size.width / self.imageView.frame.height
-                
-                self.faceStructurePoints = faceObservation.landmarks!.allPoints!.normalizedPoints
-                var count = 1    
-                faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: scaledWidth, height: scaledHeight)).forEach({ (point) in
-                //.normalizedPoints.forEach({ (point) in
-                    //.pointsInImage(imageSize: CGSize(width: scaledWidth, height: scaledHeight)).forEach({ (point) in
-                        //print("point \(count):", point.x, " ", point.y)
-                    
-                    
-                        //let x = self.imageView.frame.width * point.x
-                        //let y = scaledHeight * (1 - point.y) - 4
-                    
-                        let redView = UILabel()
-                        redView.textColor = .red
-                        redView.text = String(count)
-                        redView.textAlignment = .center
-                        redView.font = redView.font.withSize(8)
-                        redView.frame = CGRect(x: point.x, y: self.imageView.frame.height - point.y, width: 15, height: 15)
-                        //redView.layer.cornerRadius = redView.frame.size.height / 2
-                        self.view.addSubview(redView)
-                        count += 1
-                })
-            })
-        })
-        
-        
-        guard let cgimage = img.cgImage else { return }
-        let lmHandler = VNImageRequestHandler(cgImage: cgimage, options: [:])
-        do {
-            try lmHandler.perform([landmarkRequest])
-        } catch let errPerform {
-            print("Failed to perform request: ", errPerform)
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToRegister" {
-            let registerVC = segue.destination as! RegisterVC
-            registerVC.profilePhoto.image = imageView.image
-            //registerVC.faceStructurePoints = faceStructurePoints
-            //imageViewController.destinationImageView = destinationImageView
+        let registerVC = segue.destination as! RegisterVC
+        registerVC.profilePhoto.image = imageView.image
         }
     }
     
-    func printOrientation() {
-        
-        var orientation = ""
-        let stillImage = imageView.image
-        
-        if stillImage!.imageOrientation == .down {
-            orientation = "down"
-        } else if stillImage!.imageOrientation == .downMirrored {
-            orientation = "downMirrored"
-        } else if stillImage!.imageOrientation == .leftMirrored {
-            orientation = "leftMirrored"
-        } else if stillImage!.imageOrientation == .left {
-            orientation = "left"
-        } else if stillImage!.imageOrientation == .right {
-            orientation = "right"
-        } else if stillImage!.imageOrientation == .rightMirrored {
-            orientation = "rightMirrored"
-        } else if stillImage!.imageOrientation == .up {
-            orientation = "up"
-        } else if stillImage!.imageOrientation == .upMirrored {
-            orientation = "upMirrored"
-        }
-        
-        print("Orientation \(orientation)")
-    }
 }
 
 extension UIImage {
@@ -162,33 +59,6 @@ extension UIImage {
         transform = transform.translatedBy(x: size.height, y: 0.0)
         transform = transform.scaledBy(x: -1.0, y: 1.0)
         
-        /*
-        switch imageOrientation {
-        case .left, .leftMirrored:
-            transform = transform.translatedBy(x: size.width, y: 0.0)
-            transform = transform.rotated(by: .pi / 2.0)
-        case .right, .rightMirrored:
-            transform = transform.translatedBy(x: 0.0, y: size.height)
-            transform = transform.rotated(by: -.pi / 2.0)
-        case .down, .downMirrored:
-            transform = transform.translatedBy(x: size.width, y: size.height)
-            transform = transform.rotated(by: .pi)
-        default:
-            break
-        }
-        
-        switch imageOrientation {
-        case .upMirrored, .downMirrored:
-            transform = transform.translatedBy(x: size.width, y: 0.0)
-            transform = transform.scaledBy(x: -1.0, y: 1.0)
-        case .leftMirrored, .rightMirrored:
-            transform = transform.translatedBy(x: size.height, y: 0.0)
-            transform = transform.scaledBy(x: -1.0, y: 1.0)
-        default:
-            break
-        }
-         */
- 
         guard let cgImg = cgImage else { return nil }
         
         if let context = CGContext(data: nil,
@@ -234,7 +104,140 @@ extension UIImage {
     
 }
 
-
+/*
+ func fixOrientation() -> UIImage? {
+ 
+ if (imageOrientation == .up) { return self }
+ 
+ var transform = CGAffineTransform.identity
+ 
+ transform = transform.translatedBy(x: size.width, y: 0.0)
+ transform = transform.rotated(by: .pi / 2.0)
+ 
+ transform = transform.translatedBy(x: size.height, y: 0.0)
+ transform = transform.scaledBy(x: -1.0, y: 1.0)
+ 
+ //transform = transform.translatedBy(x: size.width, y: size.height)
+ //transform = transform.rotated(by: .pi)
+ 
+ /*
+ switch imageOrientation {
+ case .left, .leftMirrored:
+ transform = transform.translatedBy(x: size.width, y: 0.0)
+ transform = transform.rotated(by: .pi / 2.0)
+ case .right, .rightMirrored:
+ transform = transform.translatedBy(x: 0.0, y: size.height)
+ transform = transform.rotated(by: -.pi / 2.0)
+ case .down, .downMirrored:
+ transform = transform.translatedBy(x: size.width, y: size.height)
+ transform = transform.rotated(by: .pi)
+ default:
+ break
+ }
+ 
+ switch imageOrientation {
+ case .upMirrored, .downMirrored:
+ transform = transform.translatedBy(x: size.width, y: 0.0)
+ transform = transform.scaledBy(x: -1.0, y: 1.0)
+ case .leftMirrored, .rightMirrored:
+ transform = transform.translatedBy(x: size.height, y: 0.0)
+ transform = transform.scaledBy(x: -1.0, y: 1.0)
+ default:
+ break
+ }
+ */
+ 
+ guard let cgImg = cgImage else { return nil }
+ 
+ if let context = CGContext(data: nil,
+ width: Int(size.width), height: Int(size.height),
+ bitsPerComponent: cgImg.bitsPerComponent,
+ bytesPerRow: 0, space: cgImg.colorSpace!,
+ bitmapInfo: cgImg.bitmapInfo.rawValue) {
+ 
+ context.concatenate(transform)
+ 
+ if imageOrientation == .left || imageOrientation == .leftMirrored ||
+ imageOrientation == .right || imageOrientation == .rightMirrored {
+ context.draw(cgImg, in: CGRect(x: 0.0, y: 0.0, width: size.height, height: size.width))
+ } else {
+ context.draw(cgImg, in: CGRect(x: 0.0 , y: 0.0, width: size.width, height: size.height))
+ }
+ 
+ if let contextImage = context.makeImage() {
+ return UIImage(cgImage: contextImage)
+ }
+ 
+ }
+ 
+ return nil
+ }
+ 
+ 
+ 
+ func performFaceDetection() {
+ print("inside function")
+ 
+ //imageView.image = UIImage(cgImage: imageView.image!.cgImage!, scale: imageView.image!.scale, orientation: .leftMirrored)
+ 
+ //imageView.image = imageView.image!.scaleImage(toSize: CGSize(width: imageView.image!.size.width * 0.1, height: imageView.image!.size.height * 0.1))
+ 
+ 
+ let img = imageView.image!
+ 
+ print("img width: \(img.size.width) - ", "img height: \(img.size.height)")
+ print("view width: \(view.frame.size.width) - ", "view height: \(view.frame.size.height)")
+ let landmarkRequest = VNDetectFaceLandmarksRequest(completionHandler: { (req, err) in
+ 
+ if let err = err {
+ print("Failed to detect landmarks:", err)
+ return
+ }
+ //0.2159974093
+ //501
+ req.results?.forEach({ (res) in
+ //print(res)
+ guard let faceObservation = res as? VNFaceObservation else { return }
+ //print("Landmarks:", faceObservation.landmarks!)
+ //let scaledHeight = self.view.frame.width / img.size.width * img.size.height
+ //let scaledWidth = self.imageView.frame.height / img.size.width * img.size.height
+ //let scaledHeight = self.view.frame.height / img.size.width
+ let scaledWidth = self.imageView.frame.width
+ let scaledHeight = self.view.frame.height / img.size.width * img.size.height //img.size.width / self.imageView.frame.height
+ 
+ var count = 1
+ faceObservation.landmarks!.allPoints!.pointsInImage(imageSize: CGSize(width: scaledWidth, height: scaledHeight)).forEach({ (point) in
+ //.normalizedPoints.forEach({ (point) in
+ //.pointsInImage(imageSize: CGSize(width: scaledWidth, height: scaledHeight)).forEach({ (point) in
+ //print("point \(count):", point.x, " ", point.y)
+ 
+ 
+ //let x = self.imageView.frame.width * point.x
+ //let y = scaledHeight * (1 - point.y) - 4
+ 
+ let redView = UILabel()
+ redView.textColor = .red
+ redView.text = String(count)
+ redView.textAlignment = .center
+ redView.font = redView.font.withSize(8)
+ redView.frame = CGRect(x: point.x, y: self.imageView.frame.height - point.y, width: 15, height: 15)
+ //redView.layer.cornerRadius = redView.frame.size.height / 2
+ self.view.addSubview(redView)
+ count += 1
+ })
+ })
+ })
+ 
+ 
+ guard let cgimage = img.cgImage else { return }
+ let lmHandler = VNImageRequestHandler(cgImage: cgimage, options: [:])
+ do {
+ try lmHandler.perform([landmarkRequest])
+ } catch let errPerform {
+ print("Failed to perform request: ", errPerform)
+ }
+ }
+*/
 
 
 

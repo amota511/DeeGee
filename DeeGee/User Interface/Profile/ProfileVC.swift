@@ -23,6 +23,11 @@ class ProfileVC: UIViewController {
         profilePhoto.layer.cornerRadius = 3
         profilePhoto.clipsToBounds = true
         profilePhoto.translatesAutoresizingMaskIntoConstraints = false
+        
+        profilePhoto.isUserInteractionEnabled = true
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewProfile))
+        profilePhoto.addGestureRecognizer(gestureRecognizer)
+        
         return profilePhoto
     }()
     
@@ -31,7 +36,7 @@ class ProfileVC: UIViewController {
         button.setTitle("View Profile", for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
         button.backgroundColor = UIColor.clear
-        button.addTarget(self, action: #selector(viewProfileButtonClicked), for: .touchUpInside)
+        button.addTarget(self, action: #selector(viewProfile), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -131,7 +136,8 @@ class ProfileVC: UIViewController {
         self.navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @objc func viewProfileButtonClicked() {
+    
+    @objc func viewProfile() {
         print("view button clicked")
         let viewProfileVC = ViewProfileVC()
         self.navigationController?.pushViewController(viewProfileVC, animated: true)
