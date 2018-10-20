@@ -26,12 +26,12 @@ class ProfileVC: UIViewController {
         return profilePhoto
     }()
     
-    lazy var editProfileButton: UIButton = {
+    lazy var viewProfileButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Edit Profile", for: .normal)
+        button.setTitle("View Profile", for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
         button.backgroundColor = UIColor.clear
-        button.addTarget(self, action: #selector(editProfileButtonClicked), for: .touchUpInside)
+        button.addTarget(self, action: #selector(viewProfileButtonClicked), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -67,12 +67,12 @@ class ProfileVC: UIViewController {
         self.title = "Profile"
         
         view.addSubview(profilePhoto)
-        view.addSubview(editProfileButton)
+        view.addSubview(viewProfileButton)
         view.addSubview(matchesButton)
         view.addSubview(logoutButton)
         
         setProfilePhotoView()
-        setEditProfileButton()
+        setViewProfileButton()
         setMyMatchesButton()
         setLogoutButton()
         
@@ -86,11 +86,11 @@ class ProfileVC: UIViewController {
         profilePhoto.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
     }
     
-    func setEditProfileButton() {
-        editProfileButton.topAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 3).isActive = true
-        editProfileButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        editProfileButton.widthAnchor.constraint(equalTo: profilePhoto.widthAnchor).isActive = true
-        editProfileButton.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
+    func setViewProfileButton() {
+        viewProfileButton.topAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 3).isActive = true
+        viewProfileButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        viewProfileButton.widthAnchor.constraint(equalTo: profilePhoto.widthAnchor).isActive = true
+        viewProfileButton.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
     }
     
     func setMyMatchesButton() {
@@ -131,9 +131,10 @@ class ProfileVC: UIViewController {
         self.navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @objc func editProfileButtonClicked() {
-        print("edit button clicked")
-        let editProfileVC = EditProfileVC()
-        self.navigationController?.pushViewController(editProfileVC, animated: true)
+    @objc func viewProfileButtonClicked() {
+        print("view button clicked")
+        let viewProfileVC = ViewProfileVC()
+        self.navigationController?.pushViewController(viewProfileVC, animated: true)
     }
+    
 }

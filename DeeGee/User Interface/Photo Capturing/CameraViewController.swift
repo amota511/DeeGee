@@ -130,14 +130,11 @@ class CameraViewController : UIViewController
     func placeLoadingUI() {
         self.view.addSubview(grayLoadingView)
             
-
         // Add it to the view where you want it to appear
         self.view.addSubview(activityIndicator)
         
         // Set up its size (the super view bounds usually)
         activityIndicator.frame = view.bounds
-//        activityIndicator.frame.size.height = view.bounds.size.height * 2
-//        activityIndicator.frame.size.width = view.bounds.size.width * 2
         
         // Start the loading animation
         activityIndicator.startAnimating()
@@ -154,9 +151,35 @@ class CameraViewController : UIViewController
             //remove spinner
             removeLoadingUI()
             let imageViewController = segue.destination as! ImageViewController
-            imageViewController.image = self.stillImage?.imageFlippedForRightToLeftLayoutDirection()
+            imageViewController.image = self.stillImage//?.imageFlippedForRightToLeftLayoutDirection()
             imageViewController.destinationImageView = destinationImageView
+            printOrientation()
         }
+    }
+    
+    func printOrientation() {
+        
+        var orientation = ""
+        
+        if stillImage!.imageOrientation == .down {
+            orientation = "down"
+        } else if stillImage!.imageOrientation == .downMirrored {
+            orientation = "downMirrored"
+        } else if stillImage!.imageOrientation == .leftMirrored {
+            orientation = "leftMirrored"
+        } else if stillImage!.imageOrientation == .left {
+            orientation = "left"
+        } else if stillImage!.imageOrientation == .right {
+            orientation = "right"
+        } else if stillImage!.imageOrientation == .rightMirrored {
+            orientation = "rightMirrored"
+        } else if stillImage!.imageOrientation == .up {
+            orientation = "up"
+        } else if stillImage!.imageOrientation == .upMirrored {
+            orientation = "upMirrored"
+        }
+        
+        print("Orientation \(orientation)")
     }
 }
 

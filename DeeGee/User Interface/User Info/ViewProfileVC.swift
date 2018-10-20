@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseDatabase
 
-class EditProfileVC: UIViewController {
+class ViewProfileVC: UIViewController {
     
     lazy var profilePhoto: UIImageView = {
         let profilePhoto = UIImageView()
@@ -20,12 +22,16 @@ class EditProfileVC: UIViewController {
         profilePhoto.clipsToBounds = true
         profilePhoto.translatesAutoresizingMaskIntoConstraints = false
         
+        /*
         profilePhoto.isUserInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profilePhotoButtonClicked))
         profilePhoto.addGestureRecognizer(gestureRecognizer)
+        */
+        
         return profilePhoto
     }()
     
+    /*
     lazy var editProfilePhotoLabel: UILabel = {
         let label = UILabel()
         label.text = "Change Photo"
@@ -34,12 +40,14 @@ class EditProfileVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    */
     
     lazy var nameField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "First Name"
         textField.textAlignment = .left
         textField.backgroundColor = UIColor.white
+        textField.isUserInteractionEnabled = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -49,6 +57,7 @@ class EditProfileVC: UIViewController {
         textField.placeholder = "Age"
         textField.textAlignment = .left
         textField.backgroundColor = UIColor.white
+        textField.isUserInteractionEnabled = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -58,10 +67,12 @@ class EditProfileVC: UIViewController {
         textField.placeholder = "City, Country"
         textField.textAlignment = .left
         textField.backgroundColor = UIColor.white
+        textField.isUserInteractionEnabled = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
+    /*
     lazy var editButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 50, g: 50, b: 50)
@@ -74,28 +85,32 @@ class EditProfileVC: UIViewController {
         button.addTarget(self, action: #selector(handleEdit), for: .touchUpInside)
         return button
     }()
-    
+    */
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Edit Profile"
-        view.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+        populateFields()
         
+        self.title = "View Profile"
+        view.backgroundColor = UIColor(r: 240, g: 240, b: 240)
         view.addSubview(profilePhoto)
-        view.addSubview(editProfilePhotoLabel)
         view.addSubview(nameField)
         view.addSubview(ageField)
         view.addSubview(cityField)
-        view.addSubview(editButton)
+        
         
         setProfilePhoto()
-        setEditProfilePhotoLabel()
         setNameField()
         setAgeField()
         setCityField()
-        setEditButton()
         
+        /*
+        view.addSubview(editProfilePhotoLabel)
+        view.addSubview(editButton)
+        setEditProfilePhotoLabel()
+        setEditButton()
+         */
     }
     
     func setProfilePhoto() {
@@ -104,14 +119,14 @@ class EditProfileVC: UIViewController {
         profilePhoto.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
         profilePhoto.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
     }
-    
+    /*
     func setEditProfilePhotoLabel() {
         editProfilePhotoLabel.topAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 0).isActive = true
         editProfilePhotoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         editProfilePhotoLabel.widthAnchor.constraint(equalTo: profilePhoto.widthAnchor).isActive = true
         editProfilePhotoLabel.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/5).isActive = true
     }
-    
+    */
     func setNameField() {
         nameField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
         nameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -133,7 +148,12 @@ class EditProfileVC: UIViewController {
         cityField.heightAnchor.constraint(equalTo: nameField.heightAnchor).isActive = true
     }
     
+    func populateFields() {
+        
     
+    }
+    
+    /*
     func setEditButton(){
         //need x, y, width, height constraints
         editButton.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
@@ -142,7 +162,8 @@ class EditProfileVC: UIViewController {
         editButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.075).isActive = true
         
     }
-    
+     */
+    /*
     @objc func profilePhotoButtonClicked() {
         print("photo button clicked")
         showPhotoOptions()
@@ -151,11 +172,11 @@ class EditProfileVC: UIViewController {
     @objc func handleEdit() {
         print("edit button clicked")
     }
-    
+    */
 }
 
-extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+extension ViewProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    /*
     func showPhotoOptions() {
         
         let photoSelectionAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -210,6 +231,7 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
         
         self.present(photoSelectionAlertController, animated: true)
     }
+   
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         
@@ -228,6 +250,6 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
             
         }
     }
-    
+    */
 }
 

@@ -17,7 +17,7 @@
 		1A0AF8C120D301E800E26175 /* MatchVotingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */; };
 		1A0AF8C320D3056100E26175 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C220D3056100E26175 /* ProfileVC.swift */; };
 		1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C420D31BB800E26175 /* RegisterVC.swift */; };
-		1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */; };
+		1A0AF8C720D443BD00E26175 /* ViewProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C620D443BD00E26175 /* ViewProfileVC.swift */; };
 		1A0AF94420D598A100E26175 /* MatchCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF94320D598A100E26175 /* MatchCVC.swift */; };
 		1A4579DD21192287004BAD9B /* FaceStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4579DC21192287004BAD9B /* FaceStructure.swift */; };
 		1A5FA08220F3077F00C875FE /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5FA08120F3077F00C875FE /* Match.swift */; };
@@ -65,7 +65,7 @@
 		1A0AF8C020D301E800E26175 /* MatchVotingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchVotingVC.swift; sourceTree = "<group>"; };
 		1A0AF8C220D3056100E26175 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		1A0AF8C420D31BB800E26175 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
-		1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		1A0AF8C620D443BD00E26175 /* ViewProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewProfileVC.swift; sourceTree = "<group>"; };
 		1A0AF94320D598A100E26175 /* MatchCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCVC.swift; sourceTree = "<group>"; };
 		1A4579DC21192287004BAD9B /* FaceStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceStructure.swift; sourceTree = "<group>"; };
 		1A5FA08120F3077F00C875FE /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Match.swift; path = /Users/amota511/Coding/DeeGee/DeeGee/Match.swift; sourceTree = "<absolute>"; };
@@ -173,7 +173,7 @@
 			children = (
 				1A0AF8BE20D2EDDC00E26175 /* LoginVC.swift */,
 				1A0AF8C420D31BB800E26175 /* RegisterVC.swift */,
-				1A0AF8C620D443BD00E26175 /* EditProfileVC.swift */,
+				1A0AF8C620D443BD00E26175 /* ViewProfileVC.swift */,
 			);
 			path = "User Info";
 			sourceTree = "<group>";
@@ -508,7 +508,7 @@
 				1A0AF8BF20D2EDDC00E26175 /* LoginVC.swift in Sources */,
 				1A0AF8C520D31BB800E26175 /* RegisterVC.swift in Sources */,
 				1ABEF89820E36E3900F4E004 /* MyMatchesVC.swift in Sources */,
-				1A0AF8C720D443BD00E26175 /* EditProfileVC.swift in Sources */,
+				1A0AF8C720D443BD00E26175 /* ViewProfileVC.swift in Sources */,
 				1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */,
 				1ABEF89E20E6A78900F4E004 /* ImageViewController.swift in Sources */,
 				1A5FA08220F3077F00C875FE /* Match.swift in Sources */,

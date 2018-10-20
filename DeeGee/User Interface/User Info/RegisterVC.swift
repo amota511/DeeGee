@@ -114,28 +114,9 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         return button
     }()
     
-    var faceStructurePoints = [CGPoint]()
-    
-    var uid: String! = nil
-    
-    @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
-    
     var profilePhotoYAnchor: NSLayoutConstraint?
-    
-    /*
-     *
-     *
-     *
-     *
-     var logoViewYAnchor: NSLayoutConstraint?
-     *
-     *
-     *
-     *
-     */
-    
-    
-    
+    var instanceIDToken: String = ""
+    var uid: String? = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,7 +154,6 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     func setProfilePhoto() {
         profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
         profilePhotoYAnchor?.isActive = true
-        //profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6).isActive = true
         profilePhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profilePhoto.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
         profilePhoto.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
@@ -270,7 +250,9 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             
             self.uid = user.uid
             
-            
+            self.storeUserData()
+            self.storeUserRemoteNotificationID()
+            self.storeProfilePhoto()
             
 //            let usersReference = rootRef.child("Users").child(uid)
 //            let values = [ "name" : name,
@@ -285,6 +267,90 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             self.navigationController?.popToRootViewController(animated: true)
         }
  
+    }
+    
+    func storeUserData() {
+        //let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: self.uid!)
+        
+        let myUser = User(image: profilePhoto.image!, name: "Aaron", age: "21", location: "San Fran", uid: "VdRz6VoLnQgwdxzAYMQf9NUiJBK2")
+        
+        let usersDBRef = Database.database().reference().child("Users").child(myUser.uid!)
+        
+        //rootRef.child("UIDs").updateChildValues([myUser.uid: 0])
+        
+        
+        let values = [ "name" : myUser.name,
+                       "uid" : myUser.uid,
+                       "location" : myUser.location,
+                       "age" : myUser.age,
+                       "matches" : myUser.matches] as [String : Any]
+        usersDBRef.setValue(values)
+    }
+    
+    func storeUserRemoteNotificationID() {
+        
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+                self.instanceIDToken = result.token
+            }
+        }
+    }
+
+    func storeProfilePhoto() {
+        
+        let dataObj: Data = UIImagePNGRepresentation(self.profilePhoto.image!)!
+        
+        // Create a reference to the file you want to upload
+        let userImgRef = Storage.storage().reference().child("\(self.uid!).png")
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/png"
+        
+        let uploadTask = userImgRef.putData(dataObj, metadata: metadata) { (metadata, err) in
+            if err != nil {
+                print("There was an err", err.debugDescription)
+                return
+            }
+            print("File upload worked!")
+            userImgRef.downloadURL(completion: { (url, err) in
+                if err != nil {
+                    print("There was an err in the url", err.debugDescription)
+                    return
+                }
+                print("URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL", url!.absoluteURL, url!.absoluteString)
+                
+                let rootDBRef = Database.database().reference().child("UIDs").child(self.uid!)
+                
+                rootDBRef.child("imageURL").setValue(url!.absoluteString)
+                rootDBRef.child("pushNotif").setValue(self.instanceIDToken)
+            })
+        }
+        
+        //rootDBRef.child("Users").child(self.uid!).child("imageUrl").setValue(url!.absoluteString)
+        
+        /*
+        // Add a progress observer to an upload task
+        let observer = uploadTask.observe(.progress) { snapshot in
+            // A progress event occured
+            print(snapshot.progress?.fileCompletedCount)
+        }
+        */
+        
+         uploadTask.observe(.progress) { snapshot in
+         // Upload reported progress
+         let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
+         / Double(snapshot.progress!.totalUnitCount)
+            print(percentComplete)
+         }
+         
+         uploadTask.observe(.success) { snapshot in
+         // Upload completed successfully
+            print("Image upload completed")
+         }
+        
     }
     
     func dissmissKeyboard(){
@@ -321,7 +387,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             profilePhotoYAnchor?.isActive = false
             profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: -view.frame.height * 0.05)
             profilePhotoYAnchor?.isActive = true
-        } else if state.restorationIdentifier == "name" {
+        } /*else if state.restorationIdentifier == "name" {
             
             profilePhotoYAnchor?.isActive = false
             profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 3)
@@ -337,6 +403,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 5)
             profilePhotoYAnchor?.isActive = true
         }
+        */
         
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
             self.view.layoutIfNeeded()
@@ -371,60 +438,9 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         
         let photoSelectionAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        photoSelectionAlertController.addAction(UIAlertAction(title: "Import From Camera Roll", style: .default, handler: { (UIAlertAction) in
-            
-            
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                
-                //self.selectedCell = collectionView.cellForItem(at: indexPath) as! AddSneakerCVCell?
-                let picker = UIImagePickerController()
-                picker.delegate = self as! UIImagePickerControllerDelegate & UINavigationControllerDelegate
-                picker.sourceType = .photoLibrary
-                picker.allowsEditing = false
-                self.present(picker, animated: true, completion: nil)
-                
-            }else {
-                print("The camera roll is not available")
-            }
-        }))
-        
-        
         photoSelectionAlertController.addAction(UIAlertAction(title: "Use Camera", style: .default, handler: { (UIAlertAction) in
-            
-            
-            
-            //self.navigationController?.pushViewController(cameraVC, animated: true)
-            
-            
             self.performSegue(withIdentifier:"camera", sender: self)
-            
-            
-            /*
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                
-                let picker = UIImagePickerController()
-                picker.delegate = self
-                picker.sourceType = .camera
-                picker.cameraDevice = .front
-                picker.allowsEditing = false
-                picker.cameraViewTransform = CGAffineTransform(scaleX: -1, y: 1) //(picker.cameraViewTransform, -1, 1)
-                
-                let overlay = UIImageView(image: #imageLiteral(resourceName: "face_outline_dark"))
-                overlay.frame = CGRect(x: picker.view.frame.width * 0.1, y: 0, width: picker.view.frame.width * 0.8, height: picker.view.frame.height * 0.75)
-                overlay.contentMode = .scaleAspectFit
-                
-                //picker.cameraOverlayView = overlay
-                picker.showsCameraControls = false
-                
-                self.present(picker, animated: true, completion: nil)
-             
-            
-            }else {
-                print("The camera is not available")
-            }
-            */
         }))
-        
         
         photoSelectionAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
             photoSelectionAlertController.dismiss(animated: true)
@@ -436,8 +452,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         
         profilePhoto.image = nil
-        //let flippedImage = UIImage(CGImage: image.cgImage, scale: image.scale, orientation:)
-        let flippedimage = image.imageFlippedForRightToLeftLayoutDirection()
+        //let flippedImage = UIImage(CGImage: image.cgImage, scale: image.scale, orientation: .leftMirrored)
         profilePhoto.image = image
         print("Image picked")
         
@@ -446,7 +461,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print(info)
         profilePhoto.image = nil
-        profilePhoto.image = (info[UIImagePickerControllerOriginalImage] as! UIImage?)//?.imageFlippedForRightToLeftLayoutDirection()
+        profilePhoto.image = (info[UIImagePickerControllerOriginalImage] as! UIImage?)
         picker.dismiss(animated: true) {
             
         }
@@ -457,120 +472,8 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
             let cameraVC = segue.destination as! CameraViewController
             cameraVC.destinationImageView = self.profilePhoto
         } else if segue.identifier == "RegisterSuccessful" {
-            //let matchesVC = segue.destination as! MatchVotingVC
-            
-            let facestructure = FaceStructure(faceLandmarks: faceStructurePoints)
-            facestructure.bottomLipHeight = 3
-            //let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: uid, faceStructure: facestructure)
-            var instanceIDToken: String = ""
-            
-            InstanceID.instanceID().instanceID { (result, error) in
-                if let error = error {
-                    print("Error fetching remote instange ID: \(error)")
-                } else if let result = result {
-                    print("Remote instance ID token: \(result.token)")
-                    instanceIDToken = result.token
-                }
-            }
-            
-            let myUser = User(image: profilePhoto.image!, name: "Aaron", age: "21", location: "San Fran", uid: "VdRz6VoLnQgwdxzAYMQf9NUiJBK2", faceStructure: facestructure)
-            
-            let rootRef = Database.database().reference()
-            
-            let usersReference = rootRef.child("Users").child(myUser.uid)
-            
-            //rootRef.child("UIDs").updateChildValues([myUser.uid: 0])
-            
-            
-            let values = [ "name" : myUser.name,
-                           "uid" : myUser.uid,
-                           "location" : myUser.location,
-                           "age" : myUser.age,
-                           "faceStructure" : myUser.faceStructure.toAnyObject(),
-                           "matches" : myUser.matches] as [String : Any]
-            usersReference.setValue(values)
-            
-            // File located on disk
-            //let localFile = URL(string: "path/to/image")!
-            var token = ""
-            InstanceID.instanceID().instanceID { (res, err) in
-                if err != nil {
-                    //something bad happend
-                } else {
-                    token = res!.token
-                }
-            }
-            
-            let dataObj: Data = UIImagePNGRepresentation(self.profilePhoto.image!)!
-            
-            // Create a reference to the file you want to upload
-            let storageRef = Storage.storage().reference()
-            let userImgRef = storageRef.child("\(myUser.uid!).png")
-            
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/png"
-            
-            let uploadTask = userImgRef.putData(dataObj, metadata: metadata) { (metadata, err) in
-                if err != nil {
-                    print("There was an err", err.debugDescription)
-                    return
-                }
-                print("File upload worked!")
-                userImgRef.downloadURL(completion: { (url, err) in
-                    if err != nil {
-                        print("There was an err in the url", err.debugDescription)
-                        return
-                    }
-                    print("URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL", url!.absoluteURL, url!.absoluteString)
-                    usersReference.child("imageUrl").setValue(url!.absoluteString)
-                    rootRef.child("UIDs").child(myUser.uid!).child("imageURL").setValue(url!.absoluteString)
-                    rootRef.child("UIDs").child(myUser.uid!).child("pushNotif").setValue(token)
-                })
-            }
-            
-            /*
-            // Upload the file to the path "Users/\(myUser.uid).jpg"
-            let uploadTask = userImgRef.putFile(from: localFile, metadata: nil) { metadata, error in
-                guard let metadata = metadata else {
-                    // Uh-oh, an error occurred!
-                    return
-                }
-                // Metadata contains file metadata such as size, content-type.
-                let size = metadata.size
  
-            
-            // You can also access to download URL after upload.
-            let uploadTask = userImgRef.downloadURL { (url, error) in
-                guard let downloadURL = url else {
-                    // Uh-oh, an error occurred!
-                    
-                    return
-                }
-            }
-            */
- 
-           
-             // Add a progress observer to an upload task
-             let observer = uploadTask.observe(.progress) { snapshot in
-             // A progress event occured
-                print(snapshot.progress?.fileCompletedCount)
-             }
-             /*
-             uploadTask.observe(.progress) { snapshot in
-             // Upload reported progress
-             let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
-             / Double(snapshot.progress!.totalUnitCount)
-             }
-            
-             uploadTask.observe(.success) { snapshot in
-             // Upload completed successfully
-             }
-             */
-                 
- 
-            
-            
-            //matchesVC.myUser = myUser
         }
     }
+
 }
