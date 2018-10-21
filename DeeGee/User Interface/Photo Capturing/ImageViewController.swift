@@ -29,7 +29,7 @@ class ImageViewController : UIViewController
     }
     
     @IBAction func closeButtonDidTap () {
-        self.dismiss(animated: false, completion: nil)
+        dismiss(animated: false, completion: nil)
     }
     
     @IBAction func save(sender: UIButton) {
@@ -38,8 +38,8 @@ class ImageViewController : UIViewController
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToRegister" {
-        let registerVC = segue.destination as! RegisterVC
-        registerVC.profilePhoto.image = imageView.image
+            let registerVC = segue.destination as! RegisterVC
+            registerVC.profilePhoto.image = imageView.image
         }
     }
     

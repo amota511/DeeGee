@@ -79,6 +79,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchCell", for: indexPath) as! MatchCVC
         cell.backgroundColor = .gray
+        cell.contentView.clipsToBounds = true
         cell.clipsToBounds = true
         //Check for a pre-existing Separator
         if(!cell.isSet) {
@@ -90,10 +91,12 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             
             cell.addSubview(separator)
             
-            cell.layer.shadowOffset = CGSize(width: 3, height: 3)
+            cell.layer.shadowOffset = CGSize(width: 30, height: 30)
             cell.layer.shadowColor = UIColor.black.cgColor
             cell.layer.cornerRadius = 20
             cell.clipsToBounds = true
+            
+            
             
             let storageRef = Storage.storage().reference()
             //let userImgRef = storageRef.child("\(myUser.uid!).jpg")

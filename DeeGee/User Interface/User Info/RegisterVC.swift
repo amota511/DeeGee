@@ -118,6 +118,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     var instanceIDToken: String = ""
     var uid: String? = ""
     
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -377,23 +379,23 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             profilePhotoYAnchor?.isActive = false
             profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: -view.frame.height * 0.05)
             profilePhotoYAnchor?.isActive = true
-        } /*else if state.restorationIdentifier == "name" {
+        } else if state.restorationIdentifier == "name" {
             
             profilePhotoYAnchor?.isActive = false
-            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 3)
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 2)
             profilePhotoYAnchor?.isActive = true
         } else if state.restorationIdentifier == "age" {
             
             profilePhotoYAnchor?.isActive = false
-            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 4)
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 2)
             profilePhotoYAnchor?.isActive = true
         } else if state.restorationIdentifier == "city" {
             
             profilePhotoYAnchor?.isActive = false
-            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 5)
+            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: (-view.frame.height * 0.05) * 2)
             profilePhotoYAnchor?.isActive = true
         }
-        */
+        
         
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
             self.view.layoutIfNeeded()
@@ -438,24 +440,24 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         
         self.present(photoSelectionAlertController, animated: true)
     }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        
-        profilePhoto.image = nil
-        //let flippedImage = UIImage(CGImage: image.cgImage, scale: image.scale, orientation: .leftMirrored)
-        profilePhoto.image = image
-        print("Image picked")
-        
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print(info)
-        profilePhoto.image = nil
-        profilePhoto.image = (info[UIImagePickerControllerOriginalImage] as! UIImage?)
-        picker.dismiss(animated: true) {
-            
-        }
-    }
+//
+//    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+//
+//        profilePhoto.image = nil
+//        //let flippedImage = UIImage(CGImage: image.cgImage, scale: image.scale, orientation: .leftMirrored)
+//        profilePhoto.image = image
+//        print("Image picked")
+//
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        print(info)
+//        profilePhoto.image = nil
+//        profilePhoto.image = (info[UIImagePickerControllerOriginalImage] as! UIImage?)
+//        picker.dismiss(animated: true) {
+//
+//        }
+//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "camera" {
