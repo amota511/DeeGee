@@ -25,7 +25,49 @@ class ImageViewController : UIViewController
         
         imageView.image = imageView.image!.fixOrientation()!
         imageView.image = imageView.image!.scaleImage(toSize: CGSize(width: imageView.image!.size.width * 0.1, height: imageView.image!.size.height * 0.1))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        performFaceDetection()
+    }
+    
+    func performFaceDetection() {
+        let img = imageView.image!
+        
+        let landmarkRequest = VNDetectFaceLandmarksRequest(completionHandler: { (req, err) in
 
+            if let err = err {
+                print("Failed to detect landmarks:", err)
+                return
+            }
+            
+            if req.results?.count == 0 {
+                let CouldNotRegisterAlert = UIAlertController(title: "No Face In The Box", message: "Could Not Find Any Faces", preferredStyle: .alert)
+                CouldNotRegisterAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                    CouldNotRegisterAlert.dismiss(animated: false, completion: nil)
+                    self.closeButtonDidTap()
+                }))
+                self.present(CouldNotRegisterAlert, animated: true, completion: nil)
+                
+            } else if (req.results?.count)! > 1 {
+                let CouldNotRegisterAlert = UIAlertController(title: "Too Many Faces In The Box", message: "Place Only One Face In The Box", preferredStyle: .alert)
+                CouldNotRegisterAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                    CouldNotRegisterAlert.dismiss(animated: false, completion: nil)
+                    self.closeButtonDidTap()
+                }))
+                
+                self.present(CouldNotRegisterAlert, animated: true, completion: nil)
+            }
+            
+        })
+        
+        guard let cgimage = img.cgImage else { return }
+        let lmHandler = VNImageRequestHandler(cgImage: cgimage, options: [:])
+        do {
+            try lmHandler.perform([landmarkRequest])
+        } catch let errPerform {
+            print("Failed to perform request: ", errPerform)
+        }
     }
     
     @IBAction func closeButtonDidTap () {

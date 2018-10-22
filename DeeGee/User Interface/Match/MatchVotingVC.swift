@@ -13,12 +13,9 @@ import FirebaseStorage
 
 class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    let firDatabase = Database.database().reference()
-    
     var matchesCollectionView: UICollectionView!
     
-    //myUser set while segueing into this view controller from either LoginVC or RegisterVC
-    var myUser: User! = nil
+    public var myUser: User? = nil
     
     override func viewDidLoad() {
         self.title = "Matches"
@@ -26,25 +23,21 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         setRightBarButton()
         setupMatchCV()
-        
-        
-        createTestUser()
 
-        
-        
-        //firebase.child("User").child(myUser.uid).setValue(user1.toAnyObject())
-        print("should have went through")
+        if myUser == nil {
+            populateMyUser()
+        }
     }
     
+    func populateMyUser() {
+    Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value) { (snapshot) in
+            print("hey")
+        }
+    }
     
-    /* create this user function and start trying out the firebase functions
- 
-    */
     func createTestUser() {
-        //let usr = User(image: myUser.image, name: myUser.name, age: myUser.age, location: myUser.location, uid: myUser.uid, faceStructure: myUser.faceStructure)
+
         
-        
-        //firebase.child("User").child(myUser.uid).setValue(user1.toAnyObject())
     }
     
     func setupMatchCV() {

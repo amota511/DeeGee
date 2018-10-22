@@ -161,21 +161,48 @@
                                     <action selector="shutterButtonDidTap" destination="Fp7-uD-Rgv" eventType="touchUpInside" id="dvK-Ug-9Ja"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vk-V4-U1y">
+                                <rect key="frame" x="51" y="132" width="312" height="465"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m0X-Ou-Vp8">
+                                <rect key="frame" x="51" y="84" width="312" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Your Head Within The Box" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8r-LE-JvJ">
+                                        <rect key="frame" x="8" y="8" width="296" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Izs-4p-JbG" firstAttribute="centerX" secondItem="fy1-Eu-m1c" secondAttribute="centerX" id="6IB-Hf-6OX"/>
+                            <constraint firstItem="m0X-Ou-Vp8" firstAttribute="top" secondItem="S0e-sA-PH9" secondAttribute="bottom" constant="40" id="84n-9F-hWS"/>
+                            <constraint firstItem="1vk-V4-U1y" firstAttribute="top" secondItem="m0X-Ou-Vp8" secondAttribute="bottom" constant="8" symbolic="YES" id="9J7-zT-AnX"/>
+                            <constraint firstAttribute="bottom" secondItem="1vk-V4-U1y" secondAttribute="bottom" constant="299" id="Ajo-On-1vk"/>
+                            <constraint firstItem="m0X-Ou-Vp8" firstAttribute="trailing" secondItem="1vk-V4-U1y" secondAttribute="trailing" id="B1r-0z-30m"/>
                             <constraint firstItem="W6S-O7-bot" firstAttribute="top" secondItem="Izs-4p-JbG" secondAttribute="bottom" constant="49" id="F6g-Fg-FaL"/>
+                            <constraint firstItem="1vk-V4-U1y" firstAttribute="top" secondItem="S0e-sA-PH9" secondAttribute="bottom" constant="88" id="MBh-vv-9zm"/>
+                            <constraint firstItem="m0X-Ou-Vp8" firstAttribute="leading" secondItem="1vk-V4-U1y" secondAttribute="leading" id="c6u-ex-weN"/>
+                            <constraint firstItem="1vk-V4-U1y" firstAttribute="centerX" secondItem="Izs-4p-JbG" secondAttribute="centerX" id="dGa-f4-xsW"/>
+                            <constraint firstItem="1vk-V4-U1y" firstAttribute="leading" secondItem="fy1-Eu-m1c" secondAttribute="leadingMargin" constant="31" id="uU4-3p-0mY"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraButton" destination="Izs-4p-JbG" id="F4M-kX-ek2"/>
+                        <outlet property="faceSiloutteView" destination="1vk-V4-U1y" id="gq0-eL-raS"/>
+                        <outlet property="instructionsView" destination="m0X-Ou-Vp8" id="pK1-bd-WPe"/>
                         <segue destination="oKo-4B-bIp" kind="presentation" identifier="showPhoto" id="oZr-NO-SRO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gaY-Ta-7DB" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1400.8" y="-1107.7961019490256"/>
+            <point key="canvasLocation" x="1398.5507246376812" y="-1108.2589285714284"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="mQZ-0D-IJd">

@@ -17,6 +17,9 @@ class CameraViewController : UIViewController
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
     @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var faceSiloutteView: UIView!
+    @IBOutlet weak var instructionsView: UIView!
+    
     var captureSession = AVCaptureSession()
     
     // which camera input do we want to use
@@ -70,11 +73,31 @@ class CameraViewController : UIViewController
             
             view.bringSubview(toFront: cameraButton)
             
+            setupFaceSiloutte()
+            view.bringSubview(toFront: faceSiloutteView)
+            
+            setupinstructionsView()
+            view.bringSubview(toFront: instructionsView)
+            
             captureSession.startRunning()
 
         } catch let error {
             print(error)
         }
+    }
+    
+    func setupFaceSiloutte() {
+        
+        faceSiloutteView.layer.borderColor = UIColor.darkGray.cgColor
+        faceSiloutteView.layer.borderWidth = 3
+       
+        faceSiloutteView.clipsToBounds = true
+        faceSiloutteView.layer.cornerRadius = 25
+    }
+    
+    func setupinstructionsView() {
+        instructionsView.clipsToBounds = true
+        instructionsView.layer.cornerRadius = 10
     }
     
     @objc private func toggleCamera() {

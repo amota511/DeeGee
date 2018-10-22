@@ -115,6 +115,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     }()
     
     var profilePhotoYAnchor: NSLayoutConstraint?
+    var myUser: User? = nil
     var instanceIDToken: String = ""
     var uid: String? = ""
     
@@ -222,8 +223,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     
     @objc func handleRegister() {
         print("register button clicked")
-        /*
-        guard let email = emailField.text, let password = passwordField.text, let _ = nameField.text, let _ = cityField.text, let _ = ageField.text else{
+        
+        guard let email = emailField.text, let password = passwordField.text, let _ = nameField.text, let _ = ageField.text, let _ = cityField.text else{
             
             print("Form Is Not Valid")
             let CouldNotRegisterAlert = UIAlertController(title: "Missing Information", message: "Fill Out All Information", preferredStyle: .alert)
@@ -233,9 +234,18 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             self.present(CouldNotRegisterAlert, animated: true, completion: nil)
             return
         }
-        */
         
-        Auth.auth().createUser(withEmail: "aaron2@gmail.com", password: "qqqqqq") { (usr, err) in
+        if password.count < 6 {
+            
+            let CouldNotRegisterAlert = UIAlertController(title: "Password Too Short", message: "Password Has To Be Atleast 6 Characters.", preferredStyle: .alert)
+            CouldNotRegisterAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                CouldNotRegisterAlert.dismiss(animated:false, completion: nil)
+            }))
+            self.present(CouldNotRegisterAlert, animated: true, completion: nil)
+        }
+ 
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (usr, err) in
             
             if err != nil {
                 let CouldNotRegisterAlert = UIAlertController(title: "Something Went Wrong", message: "Could Not Create User With This Information", preferredStyle: .alert)
@@ -253,16 +263,6 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             self.uid = user.uid
             
             self.storeUserData()
-            self.storeUserRemoteNotificationID()
-            self.storeProfilePhoto()
-            
-//            let usersReference = rootRef.child("Users").child(uid)
-//            let values = [ "name" : name,
-//                           "uid" : uid,
-//                           "location" : city,
-//                           "age" : age,
-//                           "matches" : []] as [String : Any]
-//            usersReference.setValue(values)
             
             
             self.performSegue(withIdentifier:"RegisterSuccessful", sender: self)
@@ -272,21 +272,21 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     }
     
     func storeUserData() {
-        //let myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: self.uid!)
+        myUser = User(image: profilePhoto.image!, name: nameField.text!, age: ageField.text!, location: cityField.text!, uid: self.uid!)
         
-        let myUser = User(image: profilePhoto.image!, name: "Aaron", age: "21", location: "San Fran", uid: "VdRz6VoLnQgwdxzAYMQf9NUiJBK2")
+        //let myUser = User(image: profilePhoto.image!, name: "Aaron", age: "21", location: "San Fran", uid: self.uid!)
         
-        let usersDBRef = Database.database().reference().child("Users").child(myUser.uid!)
+        guard let usr = myUser else {return}
         
-        //rootRef.child("UIDs").updateChildValues([myUser.uid: 0])
+        let usersDBRef = Database.database().reference().child("Users").child(usr.uid)
         
-        
-        let values = [ "name" : myUser.name,
-                       "uid" : myUser.uid,
-                       "location" : myUser.location,
-                       "age" : myUser.age,
-                       "matches" : myUser.matches] as [String : Any]
+        let values = [ "name" : usr.name,
+                       "uid" : usr.uid,
+                       "location" : usr.location,
+                       "age" : usr.age] as [String : Any]
         usersDBRef.setValue(values)
+        
+        self.storeUserRemoteNotificationID()
     }
     
     func storeUserRemoteNotificationID() {
@@ -297,52 +297,40 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             } else if let result = result {
                 print("Remote instance ID token: \(result.token)")
                 self.instanceIDToken = result.token
+                self.storeProfilePhoto()
             }
         }
     }
 
     func storeProfilePhoto() {
         
-        let dataObj: Data = UIImagePNGRepresentation(self.profilePhoto.image!)!
+        let dataObj: Data = UIImagePNGRepresentation(myUser!.image)!
         
         // Create a reference to the file you want to upload
-        let userImgRef = Storage.storage().reference().child("\(self.uid!).png")
+        let userImgRef = Storage.storage().reference().child(myUser!.uid + ".png")
         
         let metadata = StorageMetadata()
         metadata.contentType = "image/png"
         
-        let uploadTask = userImgRef.putData(dataObj, metadata: metadata) { (metadata, err) in
+        userImgRef.putData(dataObj, metadata: metadata) { (metadata, err) in
             if err != nil {
-                print("There was an err", err.debugDescription)
+                print("There was an err uploading the image", err.debugDescription)
                 return
             }
-            print("File upload worked!")
+            
             userImgRef.downloadURL(completion: { (url, err) in
                 if err != nil {
-                    print("There was an err in the url", err.debugDescription)
+                    print("There was an err getting the url", err.debugDescription)
                     return
                 }
-                print("URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL", url!.absoluteURL, url!.absoluteString)
+                print("URL", url!.absoluteString)
                 
-                let rootDBRef = Database.database().reference().child("UIDs").child(self.uid!)
+                let rootDBRef = Database.database().reference().child("UIDs").child(self.myUser!.uid)
                 
                 rootDBRef.child("imageURL").setValue(url!.absoluteString)
                 rootDBRef.child("pushNotif").setValue(self.instanceIDToken)
             })
         }
-        
-         uploadTask.observe(.progress) { snapshot in
-         // Upload reported progress
-         let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
-         / Double(snapshot.progress!.totalUnitCount)
-            print(percentComplete)
-         }
-         
-         uploadTask.observe(.success) { snapshot in
-         // Upload completed successfully
-            print("Image upload completed")
-         }
-        
     }
     
     func dissmissKeyboard(){
@@ -396,12 +384,9 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             profilePhotoYAnchor?.isActive = true
         }
         
-        
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
             self.view.layoutIfNeeded()
-        }) { (completed) in
-            
-        }
+        })
         
         return true
     }
@@ -440,31 +425,14 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         
         self.present(photoSelectionAlertController, animated: true)
     }
-//
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-//
-//        profilePhoto.image = nil
-//        //let flippedImage = UIImage(CGImage: image.cgImage, scale: image.scale, orientation: .leftMirrored)
-//        profilePhoto.image = image
-//        print("Image picked")
-//
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        print(info)
-//        profilePhoto.image = nil
-//        profilePhoto.image = (info[UIImagePickerControllerOriginalImage] as! UIImage?)
-//        picker.dismiss(animated: true) {
-//
-//        }
-//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "camera" {
             let cameraVC = segue.destination as! CameraViewController
             cameraVC.destinationImageView = self.profilePhoto
         } else if segue.identifier == "RegisterSuccessful" {
- 
+            let matchVotingVC = segue.destination as! MatchVotingVC
+            MatchVotingVC.
         }
     }
 
