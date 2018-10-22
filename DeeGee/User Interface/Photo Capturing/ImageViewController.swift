@@ -82,6 +82,7 @@ class ImageViewController : UIViewController
         if segue.identifier == "unwindToRegister" {
             let registerVC = segue.destination as! RegisterVC
             registerVC.profilePhoto.image = imageView.image
+            registerVC.profilePhotoTaken = true
         }
     }
     

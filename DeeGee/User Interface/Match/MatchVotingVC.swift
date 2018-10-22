@@ -30,14 +30,9 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     }
     
     func populateMyUser() {
-    Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value) { (snapshot) in
-            print("hey")
-        }
-    }
-    
-    func createTestUser() {
-
-        
+        Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot)  in
+                self.myUser = User(snapshot: snapshot)
+            })
     }
     
     func setupMatchCV() {
@@ -70,136 +65,119 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchCell", for: indexPath) as! MatchCVC
         cell.backgroundColor = .gray
         cell.contentView.clipsToBounds = true
         cell.clipsToBounds = true
-        //Check for a pre-existing Separator
-        if(!cell.isSet) {
-            //Set Separator Line
-            let separator = cell.separator
-            separator.backgroundColor = .gray
-            separator.frame.size = CGSize(width: 2, height: cell.bounds.height)
-            separator.frame.origin = CGPoint(x: cell.center.x - 1, y: 0)
-            
-            cell.addSubview(separator)
-            
-            cell.layer.shadowOffset = CGSize(width: 30, height: 30)
-            cell.layer.shadowColor = UIColor.black.cgColor
-            cell.layer.cornerRadius = 20
-            cell.clipsToBounds = true
-            
-            
-            
-            let storageRef = Storage.storage().reference()
-            //let userImgRef = storageRef.child("\(myUser.uid!).jpg")
-            let userImgRef = storageRef.child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png")
-            let uImg1 = cell.userImgOne
-            
-            
-            userImgRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
-                    if let error = error {
-                        // Uh-oh, an error occurred!
-                        print(error)
-                    } else {
-                        // Data for "images/island.jpg" is returned
-                        uImg1.image = UIImage(data: data!)
-                        
-                        
-                        //uImg1.image = uImg1.image?.fixOrientation()
-                    }
-            }
-            
-            
-            
-            //Set User Img 1
-            
-            uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
-            uImg1.contentMode = .scaleAspectFill
-            uImg1.clipsToBounds = true
-            uImg1.frame.origin = CGPoint(x: 0, y: 0)
-            uImg1.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
-            
-            cell.addSubview(uImg1)
-            
-            //Set User Img 2
-            let uImg2 = cell.userImgTwo
-            
-            Storage.storage().reference().child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png").getData(maxSize: 100 * 1024 * 1024) { data, error in
+
+        //Set Separator Line
+        let separator = cell.separator
+        separator.backgroundColor = .gray
+        separator.frame.size = CGSize(width: 2, height: cell.bounds.height)
+        separator.frame.origin = CGPoint(x: cell.center.x - 1, y: 0)
+        
+        cell.addSubview(separator)
+        
+        cell.layer.shadowOffset = CGSize(width: 30, height: 30)
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.cornerRadius = 20
+        cell.clipsToBounds = true
+        
+        
+        
+        let storageRef = Storage.storage().reference()
+        //let userImgRef = storageRef.child(myUser!.uid + ".png")
+        let userImgRef = storageRef.child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png")
+        let uImg1 = cell.userImgOne
+        
+        userImgRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
                 if let error = error {
-                    // Uh-oh, an error occurred!
                     print(error)
                 } else {
-                    // Data for "images/island.jpg" is returned
+                    
+                    uImg1.image = UIImage(data: data!)
+                }
+        }
+        uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
+        uImg1.contentMode = .scaleAspectFill
+        uImg1.clipsToBounds = true
+        uImg1.frame.origin = CGPoint(x: 0, y: 0)
+        uImg1.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
+        
+        cell.addSubview(uImg1)
+        
+        //Set User Img 2
+        let uImg2 = cell.userImgTwo
+        
+        Storage.storage().reference().child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png").getData(maxSize: 100 * 1024 * 1024)
+            { data, error in
+                if let error = error {
+                    print(error)
+                } else {
                     uImg2.image = UIImage(data: data!)
-                    //uImg1.image = uImg1.image?.fixOrientation()
                 }
             }
-            
-            uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
-            uImg2.contentMode = .scaleAspectFill
-            uImg2.clipsToBounds = true
-            uImg2.frame.origin = CGPoint(x: cell.center.x + 1, y: 0)
-            uImg2.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
-            
-            cell.addSubview(uImg2)
-            
-            //Set Shadow
-            let bottomShadow = cell.frostedBottom
-            bottomShadow.image = #imageLiteral(resourceName: "DeeGee_bottomShadow")
-            bottomShadow.contentMode = .scaleAspectFill
-            bottomShadow.clipsToBounds = true
-            bottomShadow.frame.origin = CGPoint(x: 0, y: cell.bounds.height - cell.bounds.height * 0.25)
-            bottomShadow.frame.size = CGSize(width: cell.bounds.width, height: cell.bounds.height * 0.25)
-            
-            cell.addSubview(bottomShadow)
-            
-            
-            //Set Username 1
-            let uName1 = cell.userNameOne
-            uName1.text = "Drake"
-            uName1.textAlignment = .left
-            uName1.textColor = .white
-            uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
-            uName1.frame.origin = CGPoint(x: 2, y: bottomShadow.frame.height - uName1.frame.height)
-            uName1.textRect(forBounds: uName1.bounds, limitedToNumberOfLines: 1)
-            uName1.font = uName1.font.withSize(25)
-            
-            bottomShadow.addSubview(uName1)
-            
-            //Set Username 2
-            let uName2 = cell.userNameTwo
-            uName2.text = "Not Drake"
-            uName2.textAlignment = .right
-            uName2.textColor = .white
-            uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)
-            uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: bottomShadow.frame.height - uName2.frame.height)
-            uName2.textRect(forBounds: uName2.bounds, limitedToNumberOfLines: 1)
-            uName2.font = uName2.font.withSize(25)
-            
-            bottomShadow.addSubview(uName2)
-            
-            
-            let moreButton = cell.moreButton
-            moreButton.image = #imageLiteral(resourceName: "three_dots")
-            moreButton.contentMode = .scaleAspectFit
         
-            moreButton.frame.size = CGSize(width: uImg1.frame.size.width * 0.2, height: 30)
-            moreButton.frame.origin = CGPoint(x: cell.bounds.width - moreButton.frame.width - 8, y: bottomShadow.bounds.height * 0.1)
-            
-            moreButton.isUserInteractionEnabled = true
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(moreButtonClicked(_:)))
-            moreButton.addGestureRecognizer(gestureRecognizer)
-            
-            moreButton.tag = indexPath.row
-            print("gestureRecognizer.view!.tag = \(indexPath.row)")
-            
-            cell.addSubview(moreButton)
-            
-            //cell.isSet = true
-        } else {
-            
-        }
+        uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
+        uImg2.contentMode = .scaleAspectFill
+        uImg2.clipsToBounds = true
+        uImg2.frame.origin = CGPoint(x: cell.frame.width / 2 + CGFloat(1), y: 0)
+        uImg2.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
+        
+        cell.addSubview(uImg2)
+        
+        //Set Shadow
+        let bottomShadow = cell.frostedBottom
+        bottomShadow.image = #imageLiteral(resourceName: "DeeGee_bottomShadow")
+        bottomShadow.contentMode = .scaleAspectFill
+        bottomShadow.clipsToBounds = true
+        bottomShadow.frame.origin = CGPoint(x: 0, y: cell.bounds.height - cell.bounds.height * 0.25)
+        bottomShadow.frame.size = CGSize(width: cell.bounds.width, height: cell.bounds.height * 0.25)
+        
+        cell.addSubview(bottomShadow)
+        
+        
+        //Set Username 1
+        let uName1 = cell.userNameOne
+        uName1.text = "Drake"
+        uName1.textAlignment = .left
+        uName1.textColor = .white
+        uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
+        uName1.frame.origin = CGPoint(x: 2, y: bottomShadow.frame.height - uName1.frame.height)
+        uName1.textRect(forBounds: uName1.bounds, limitedToNumberOfLines: 1)
+        uName1.font = uName1.font.withSize(25)
+        
+        bottomShadow.addSubview(uName1)
+        
+        //Set Username 2
+        let uName2 = cell.userNameTwo
+        uName2.text = "Not Drake"
+        uName2.textAlignment = .right
+        uName2.textColor = .white
+        uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)
+        uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: bottomShadow.frame.height - uName2.frame.height)
+        uName2.textRect(forBounds: uName2.bounds, limitedToNumberOfLines: 1)
+        uName2.font = uName2.font.withSize(25)
+        
+        bottomShadow.addSubview(uName2)
+        
+        
+        let moreButton = cell.moreButton
+        moreButton.image = #imageLiteral(resourceName: "three_dots")
+        moreButton.contentMode = .scaleAspectFit
+    
+        moreButton.frame.size = CGSize(width: uImg1.frame.size.width * 0.2, height: 30)
+        moreButton.frame.origin = CGPoint(x: cell.bounds.width - moreButton.frame.width - 8, y: bottomShadow.bounds.height * 0.1)
+        
+        moreButton.isUserInteractionEnabled = true
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(moreButtonClicked(_:)))
+        moreButton.addGestureRecognizer(gestureRecognizer)
+        
+        moreButton.tag = indexPath.row
+        print("gestureRecognizer.view!.tag = \(indexPath.row)")
+        
+        cell.addSubview(moreButton)
         
         cell.isUserInteractionEnabled = true
         

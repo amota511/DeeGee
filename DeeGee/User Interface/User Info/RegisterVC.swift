@@ -31,7 +31,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         return profilePhoto
     }()
 
-     lazy var editProfilePhotoLabel: UILabel = {
+     lazy var addProfilePhotoLabel: UILabel = {
         let label = UILabel()
         label.text = "Add A Photo"
         //label.font = label.font.withSize(20)
@@ -114,6 +114,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    var profilePhotoTaken: Bool = false
     var profilePhotoYAnchor: NSLayoutConstraint?
     var myUser: User? = nil
     var instanceIDToken: String = ""
@@ -129,7 +130,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         
         
         view.addSubview(profilePhoto)
-        view.addSubview(editProfilePhotoLabel)
+        view.addSubview(addProfilePhotoLabel)
         view.addSubview(emailField)
         view.addSubview(passwordField)
         view.addSubview(nameField)
@@ -139,7 +140,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         
         
         setProfilePhoto()
-        setEditProfilePhotoLabel()
+        setAddProfilePhotoLabel()
         setEmailField()
         setPasswordField()
         setNameField()
@@ -162,15 +163,15 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         profilePhoto.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
     }
     
-    func setEditProfilePhotoLabel() {
-        editProfilePhotoLabel.topAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 0).isActive = true
-        editProfilePhotoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        editProfilePhotoLabel.widthAnchor.constraint(equalTo: profilePhoto.widthAnchor).isActive = true
-        editProfilePhotoLabel.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/5).isActive = true
+    func setAddProfilePhotoLabel() {
+        addProfilePhotoLabel.topAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 0).isActive = true
+        addProfilePhotoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        addProfilePhotoLabel.widthAnchor.constraint(equalTo: profilePhoto.widthAnchor).isActive = true
+        addProfilePhotoLabel.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/5).isActive = true
     }
     
     func setEmailField() {
-        emailField.topAnchor.constraint(equalTo: editProfilePhotoLabel.bottomAnchor, constant: 36).isActive = true
+        emailField.topAnchor.constraint(equalTo: addProfilePhotoLabel.bottomAnchor, constant: 36).isActive = true
         emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.90).isActive = true
         emailField.heightAnchor.constraint(equalTo: profilePhoto.heightAnchor, multiplier: 1/3).isActive = true
@@ -206,16 +207,12 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     
     
     func setRegisterButton(){
-        //need x, y, width, height constraints
         registerButton.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         registerButton.topAnchor.constraint(equalTo: cityField.bottomAnchor, constant: 24).isActive = true
-        //registerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24).isActive = true
         registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9).isActive = true
         registerButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.075).isActive = true
-        
     }
-
-
+    
     @objc func profilePhotoButtonClicked() {
         print("photo button clicked")
         showPhotoOptions()
@@ -223,6 +220,17 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     
     @objc func handleRegister() {
         print("register button clicked")
+        
+        if profilePhotoTaken {
+            
+            print("No Profile Photo")
+            let CouldNotRegisterAlert = UIAlertController(title: "Take A Profile Photo", message: "Click The Image To Take A Picture", preferredStyle: .alert)
+            CouldNotRegisterAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (UIAlertAction) in
+                CouldNotRegisterAlert.dismiss(animated:false, completion: nil)
+            }))
+            self.present(CouldNotRegisterAlert, animated: true, completion: nil)
+            return
+        }
         
         guard let email = emailField.text, let password = passwordField.text, let _ = nameField.text, let _ = ageField.text, let _ = cityField.text else{
             
@@ -431,8 +439,8 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
             let cameraVC = segue.destination as! CameraViewController
             cameraVC.destinationImageView = self.profilePhoto
         } else if segue.identifier == "RegisterSuccessful" {
-            let matchVotingVC = segue.destination as! MatchVotingVC
-            MatchVotingVC.
+            let matchVotingVC = (segue.destination as! UINavigationController).topViewController as! MatchVotingVC
+            //MatchVotingVC
         }
     }
 

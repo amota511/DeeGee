@@ -10,10 +10,9 @@ import UIKit
 import FirebaseAuth
 
 class ProfileVC: UIViewController {
-
-    //myUser set while segueing into this view controller from MatchVotingVC
-    var myUser: User! = nil
     
+    var myUser: User? = nil
+
     lazy var profilePhoto: UIImageView  = {
         let profilePhoto = UIImageView()
         profilePhoto.image = #imageLiteral(resourceName: "CarltonBanks")
@@ -80,7 +79,6 @@ class ProfileVC: UIViewController {
         setViewProfileButton()
         setMyMatchesButton()
         setLogoutButton()
-        
     }
     
     func setProfilePhotoView() {
@@ -115,6 +113,7 @@ class ProfileVC: UIViewController {
     @objc func seeMatchesButtonClicked() {
         print("matches button clicked")
         let myMatchesVC = MyMatchesVC()
+        myMatchesVC.myUser = myUser
         self.navigationController?.pushViewController(myMatchesVC, animated: true)
     }
     
@@ -140,6 +139,7 @@ class ProfileVC: UIViewController {
     @objc func viewProfile() {
         print("view button clicked")
         let viewProfileVC = ViewProfileVC()
+        viewProfileVC.myUser = myUser
         self.navigationController?.pushViewController(viewProfileVC, animated: true)
     }
     

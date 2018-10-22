@@ -11,7 +11,7 @@ import UIKit
 
 class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
     
-
+    var myUser: User? = nil
     var matchesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -20,7 +20,6 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         self.view.backgroundColor = .white
         
         setupMatchCV()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -140,7 +139,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
             moreButton.tag = indexPath.row
             print("gestureRecognizer.view!.tag = \(indexPath.row)")
             
-            cell.addSubview(moreButton)
+            //cell.addSubview(moreButton)
             
             //cell.isSet = true
         } else {
