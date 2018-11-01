@@ -14,14 +14,21 @@ import FirebaseStorage
 class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var matchesCollectionView: UICollectionView!
+    
     lazy var noMatchesLabel: UILabel! = {
         let lb = UILabel()
-        
+        lb.text = " Loading... "
+        lb.textColor = .lightGray
+        lb.textAlignment = .left
+        lb.layer.borderWidth = 2
+        lb.layer.borderColor = UIColor.lightGray.cgColor
+        lb.layer.cornerRadius = 7
+        lb.adjustsFontSizeToFitWidth = true
+        lb.clipsToBounds = true
+        lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
-    
-    
-    
+
     var myUser: User? = nil
     
     override func viewDidLoad() {
@@ -30,6 +37,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         setRightBarButton()
         setupMatchCV()
+        setupNoMatchesLabel()
+        
         print("checking if myUser == nil")
         if myUser == nil {
             print("going to enter populate user")
@@ -50,20 +59,50 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         Database.database().reference().child("UIDs").child(Auth.auth().currentUser!.uid).child("imageURL").observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) -> Void in
                 if(!snapshot.hasChildren()) {
                     print("error with retrieving image url from database")
+                    return
                 }
                 print("Got user img url")
                 self.myUser?.imageURL = snapshot.value as? String
                 Storage.storage().reference(forURL: self.myUser!.imageURL).getData(maxSize: 10000000, completion: { (data, err) in
                     if(err != nil) {
                         print("error with retrieving image from storage", err.debugDescription)
+                        return
                     }
                     print("Got user img")
-                    self.myUser?.image = UIImage(data: data!)
+                    guard let data = data else {return}
+                    self.myUser?.image = UIImage(data: data)
                     
                     print("data")
                 })
             })
         })
+    }
+    
+    func setupNoMatchesLabel() {
+
+        view.insertSubview(noMatchesLabel, at: view.subviews.count)
+
+        noMatchesLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        noMatchesLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        noMatchesLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/6).isActive = true
+        noMatchesLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        UIView.animate(withDuration: 6.0, delay: 0.0, options: [.repeat,.autoreverse], animations: {
+            self.noMatchesLabel.text = " Loading "
+            self.noMatchesLabel.text = " Loading. "
+        }) { (complete) in
+//            UIView.animate(withDuration: 1.0, animations: {
+//                self.noMatchesLabel.text = " Loading. "
+//            }, completion: { (compl) in
+//                UIView.animate(withDuration: 1.0, animations: {
+//                    self.noMatchesLabel.text = " Loading.. "
+//                }, completion: { (com) in
+//                    UIView.animate(withDuration: 1.0, animations: {
+//                        self.noMatchesLabel.text = " Loading... "
+//                    })
+//                })
+//            })
+        }
     }
     
     func setupMatchCV() {
@@ -76,7 +115,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         matchLayout.scrollDirection = .vertical
         
         
-        matchesCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height ), collectionViewLayout: matchLayout)
+        matchesCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: matchLayout)
         matchesCollectionView.dataSource = self
         matchesCollectionView.delegate = self
         matchesCollectionView.register(MatchCVC.self, forCellWithReuseIdentifier: "matchCell")
@@ -92,7 +131,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
