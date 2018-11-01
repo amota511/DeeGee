@@ -25,6 +25,14 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
     override func viewDidAppear(_ animated: Bool) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         print(UIApplication.shared.applicationIconBadgeNumber, "badge numbers")
+        
+        if myUser == nil {
+            let CouldNotRegisterAlert = UIAlertController(title: "Could Not Connect To The Internet", message: "Check Your Network And Try Again", preferredStyle: .alert)
+            CouldNotRegisterAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (UIAlertAction) in
+                CouldNotRegisterAlert.dismiss(animated: false, completion: nil)
+            }))
+            self.present(CouldNotRegisterAlert, animated: true, completion: nil)
+        }
     }
     
     func setupMatchCV() {
@@ -35,7 +43,6 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         matchLayout.minimumLineSpacing = 2
         matchLayout.itemSize = CGSize(width: view.frame.width, height: view.frame.height * 0.45)
         matchLayout.scrollDirection = .vertical
-        
         
         matchesCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: matchLayout)
         matchesCollectionView.dataSource = self
@@ -163,16 +170,15 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         print("more button clicked, tag# :", row)
         
         setupVotingView(cell: cell)
-        
     }
     
     func setupVotingView(cell: UIView) {
         let view = cell.superview!
         
         var darkBlur:UIBlurEffect = UIBlurEffect()
-        darkBlur = UIBlurEffect(style: UIBlurEffectStyle.dark)//prominent,regular,extraLight, light, dark
+        darkBlur = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurView = UIVisualEffectView(effect: darkBlur)
-        blurView.frame = cell.frame //your view that have any objects
+        blurView.frame = cell.frame
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurView)
         

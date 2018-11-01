@@ -144,13 +144,13 @@ class LoginVC: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
         self.title = ""
         super.viewDidAppear(true)
         
-       // if Auth.auth().currentUser?.uid != nil {
-       //     self.performSegue(withIdentifier:"login", sender: self)
-       // }else{
+        if Auth.auth().currentUser?.uid != nil {
+            self.performSegue(withIdentifier:"login", sender: self)
+        }else{
             print("User is not logged in")
             let tapOutsideOfTextField = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
             self.view.addGestureRecognizer(tapOutsideOfTextField)
-       // }
+        }
     }
     
     func setlogo() {

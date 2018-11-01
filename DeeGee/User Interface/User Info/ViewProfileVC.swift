@@ -105,6 +105,8 @@ class ViewProfileVC: UIViewController {
         setAgeField()
         setCityField()
         
+        populateFields()
+        
         /*
         view.addSubview(editProfilePhotoLabel)
         view.addSubview(editButton)
@@ -160,6 +162,10 @@ class ViewProfileVC: UIViewController {
     
     func populateFields() {
         
+        profilePhoto.image = myUser?.image
+        nameField.text = myUser?.name
+        ageField.text = myUser?.age
+        cityField.text = myUser?.location
     
     }
     

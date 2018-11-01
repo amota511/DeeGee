@@ -215,13 +215,14 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     
     @objc func profilePhotoButtonClicked() {
         print("photo button clicked")
+        profilePhotoTaken = true
         showPhotoOptions()
     }
     
     @objc func handleRegister() {
         print("register button clicked")
         
-        if profilePhotoTaken {
+        if !profilePhotoTaken {
             
             print("No Profile Photo")
             let CouldNotRegisterAlert = UIAlertController(title: "Take A Profile Photo", message: "Click The Image To Take A Picture", preferredStyle: .alert)
@@ -272,11 +273,9 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             
             self.storeUserData()
             
-            
             self.performSegue(withIdentifier:"RegisterSuccessful", sender: self)
             self.navigationController?.popToRootViewController(animated: true)
         }
- 
     }
     
     func storeUserData() {
@@ -311,7 +310,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     }
 
     func storeProfilePhoto() {
-        
+
         let dataObj: Data = UIImagePNGRepresentation(myUser!.image)!
         
         // Create a reference to the file you want to upload
@@ -333,10 +332,14 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
                 }
                 print("URL", url!.absoluteString)
                 
-                let rootDBRef = Database.database().reference().child("UIDs").child(self.myUser!.uid)
+                let encodedUrl = url!.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.-_"))
                 
-                rootDBRef.child("imageURL").setValue(url!.absoluteString)
-                rootDBRef.child("pushNotif").setValue(self.instanceIDToken)
+                print("ENCODED URL", encodedUrl)
+                
+                Database.database().reference().child("UIDs").child(self.myUser!.uid).setValue(["imageURL": encodedUrl, "pushNotif": self.instanceIDToken])
+                
+                //rootDBRef.child("imageURL").setValue(url!.absoluteString)
+                //rootDBRef.child("pushNotif").setValue(self.instanceIDToken)
             })
         }
     }
@@ -440,8 +443,9 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
             cameraVC.destinationImageView = self.profilePhoto
         } else if segue.identifier == "RegisterSuccessful" {
             let matchVotingVC = (segue.destination as! UINavigationController).topViewController as! MatchVotingVC
-            //MatchVotingVC
+            matchVotingVC.myUser = myUser
         }
     }
 
 }
+

@@ -1,8 +1,9 @@
 //
-//  FullMatch.swift
-//  
+//  Match.swift
+//  DeeGee
 //
-//  Created by amota511 on 7/8/18.
+//  Created by amota511 on 8/6/18.
+//  Copyright © 2018 AaronMotayne. All rights reserved.
 //
 
 import UIKit
@@ -17,33 +18,41 @@ class Match {
     var userOne: User!
     var userTwo: User!
     
-    var computerGeneratedSimilarity: Int!
+    var confidence: Float!
     
+    /*
     var crowdSourcedPositiveVotes: [String]!
     var crowdSourcedNegativeVotes: [String]!
-    
+    */
     
     init(snapshot: DataSnapshot) {
-        let matchID = snapshot.key
+        //let matchID = snapshot.key
         
         let dict = snapshot.value as? NSDictionary
         
-        let ref = Database.database().reference().child("Match").child(matchID)
-        
-        ref.child("user1").observeSingleEvent(of: .value) { (snapshot) in
-            self.userOne = User(snapshot: snapshot)
-        }
-
-        ref.child("user2").observeSingleEvent(of: .value) { (snapshot) in
-            self.userTwo = User(snapshot: snapshot)
+        if let u1 = dict?["user1"] as? String {
+            Database.database().reference().child("Users").child(u1).observeSingleEvent(of: .value) { (snap) in
+                self.userOne = User(snapshot: snap)
+            }
+        }else {
+            self.userOne = nil
         }
         
-        if let comSimilarity = dict?["computerGeneratedSimilarity"] as? Int{
-            self.computerGeneratedSimilarity = comSimilarity
+        if let u2 = dict?["user2"] as? String {
+            Database.database().reference().child("Users").child(u2).observeSingleEvent(of: .value) { (snap) in
+                self.userTwo = User(snapshot: snap)
+            }
+        }else {
+            self.userTwo = nil
+        }
+        
+        if let confidence = dict?["confidence"] as? Float{
+            self.confidence = confidence
         }else{
-            self.computerGeneratedSimilarity = 0
+            self.confidence = 0
         }
         
+        /*
         if let posSimilarity = dict?["crowdSourcedPositiveVotes"] as? [String]{
             self.crowdSourcedPositiveVotes = posSimilarity
         }else{
@@ -55,9 +64,10 @@ class Match {
         }else{
             self.crowdSourcedNegativeVotes = []
         }
+        */
     }
     
     func toAnyObject()-> [String : AnyObject] {
-        return ["matchID": matchID as AnyObject, "userOne": userOne.toAnyObject() as AnyObject, "userTwo": userTwo.toAnyObject() as AnyObject, "computerGeneratedSimilarity": computerGeneratedSimilarity as AnyObject, "crowdSourcedPositiveVotes": crowdSourcedPositiveVotes as AnyObject, "crowdSourcedNegativeVotes": crowdSourcedNegativeVotes as AnyObject]
+        return ["matchID": matchID as AnyObject, "userOne": userOne.uid as AnyObject, "userTwo": userTwo.uid as AnyObject, "confidence": confidence as AnyObject]
     }
 }

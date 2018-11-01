@@ -14,8 +14,15 @@ import FirebaseStorage
 class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var matchesCollectionView: UICollectionView!
+    lazy var noMatchesLabel: UILabel! = {
+        let lb = UILabel()
+        
+        return lb
+    }()
     
-    public var myUser: User? = nil
+    
+    
+    var myUser: User? = nil
     
     override func viewDidLoad() {
         self.title = "Matches"
@@ -23,16 +30,40 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         setRightBarButton()
         setupMatchCV()
-
+        print("checking if myUser == nil")
         if myUser == nil {
+            print("going to enter populate user")
             populateMyUser()
         }
     }
     
     func populateMyUser() {
+        print("inside populate user")
         Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot)  in
-                self.myUser = User(snapshot: snapshot)
+            
+            if(!snapshot.hasChildren()) {
+                print("error with retrieving image url from database")
+            }
+            
+            self.myUser = User(snapshot: snapshot)
+            print("Got basic user data")
+        Database.database().reference().child("UIDs").child(Auth.auth().currentUser!.uid).child("imageURL").observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) -> Void in
+                if(!snapshot.hasChildren()) {
+                    print("error with retrieving image url from database")
+                }
+                print("Got user img url")
+                self.myUser?.imageURL = snapshot.value as? String
+                Storage.storage().reference(forURL: self.myUser!.imageURL).getData(maxSize: 10000000, completion: { (data, err) in
+                    if(err != nil) {
+                        print("error with retrieving image from storage", err.debugDescription)
+                    }
+                    print("Got user img")
+                    self.myUser?.image = UIImage(data: data!)
+                    
+                    print("data")
+                })
             })
+        })
     }
     
     func setupMatchCV() {
@@ -84,21 +115,19 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
         
-        
-        
         let storageRef = Storage.storage().reference()
         //let userImgRef = storageRef.child(myUser!.uid + ".png")
         let userImgRef = storageRef.child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png")
         let uImg1 = cell.userImgOne
-        
+        /*
         userImgRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
-                if let error = error {
-                    print(error)
-                } else {
-                    
-                    uImg1.image = UIImage(data: data!)
-                }
+            if let error = error {
+                print(error)
+            } else {
+                uImg1.image = UIImage(data: data!)
+            }
         }
+        */
         uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
         uImg1.contentMode = .scaleAspectFill
         uImg1.clipsToBounds = true
@@ -109,7 +138,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         //Set User Img 2
         let uImg2 = cell.userImgTwo
-        
+        /*
         Storage.storage().reference().child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png").getData(maxSize: 100 * 1024 * 1024)
             { data, error in
                 if let error = error {
@@ -118,7 +147,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
                     uImg2.image = UIImage(data: data!)
                 }
             }
-        
+        */
         uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
         uImg2.contentMode = .scaleAspectFill
         uImg2.clipsToBounds = true
@@ -284,13 +313,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     @objc func profileButton() {
         print("sup")
         let profileVC = ProfileVC()
+        profileVC.myUser = myUser
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //Assume all segues go to profileVC for now
-        let dest = segue.destination as! ProfileVC
-        dest.myUser = myUser
-    }
-    
+
 }
