@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -39,16 +40,23 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
     }
     
     func populateMatchArray() {
-        Database.database().reference().child("Matches").observe(.value, with: { (snapshot) in
+        
+        Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid).child("matches").observe(.value, with: { (snapshot) in
             if (snapshot.hasChildren() == false) {
-                print("There was an error downloading the matches")
+                print("There was an error downloading the matches. Either the user has no matches yet or the matchs could not be downloading for another reason, possibly due to internet connectivity issues.")
                 return
             }
-            else {
-                for match in snapshot.children {
-                    self.matchesArray.append(Match(snapshot: match as! DataSnapshot))
-                }
-                self.matchesCollectionView.reloadData()
+            for match in snapshot.children {
+                let myMatch = match as! DataSnapshot
+                Database.database().reference().child("Matches").child(myMatch.key).observe(.value, with: { (snap) in
+                    if (snap.hasChildren() == false) {
+                        print("There was an error downloading the matches")
+                        return
+                    } else {
+                        self.matchesArray.append(Match(snapshot: snap))
+                        self.matchesCollectionView.reloadData()
+                    }
+                })
             }
         })
     }

@@ -13,6 +13,7 @@ import FirebaseDatabase
 class ProfileVC: UIViewController {
     
     var myUser: User? = nil
+    var profilePhotoIsSet: Bool = false
 
     lazy var profilePhoto: UIImageView  = {
         let profilePhoto = UIImageView()
@@ -76,6 +77,10 @@ class ProfileVC: UIViewController {
             populateMyUser()
         }
         
+        if(myUser != nil && myUser!.image != nil) {
+            self.profilePhoto.image = myUser!.image
+        }
+        
         view.addSubview(profilePhoto)
         view.addSubview(viewProfileButton)
         view.addSubview(matchesButton)
@@ -85,6 +90,14 @@ class ProfileVC: UIViewController {
         setViewProfileButton()
         setMyMatchesButton()
         setLogoutButton()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if(myUser != nil && myUser!.image != nil && profilePhotoIsSet == false) {
+            self.profilePhoto.image = myUser!.image
+        }
     }
     
     func populateMyUser() {

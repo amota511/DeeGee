@@ -65,7 +65,7 @@ class Match {
         if let u2 = dict?["user2"] as? String {
             userTwoUID = u2
             Database.database().reference().child("Users").child(u2).child("name").observeSingleEvent(of: .value, with: { (snap) in
-                self.userOneName = snap.value as? String
+                self.userTwoName = snap.value as? String
             })
             Storage.storage().reference(withPath: u2 + ".png").getData(maxSize: 10000000, completion: { (data, err) in
                 if(err != nil) {

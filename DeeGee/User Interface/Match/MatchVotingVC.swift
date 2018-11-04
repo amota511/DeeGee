@@ -70,6 +70,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
                 print("error with retrieving user info from database")
                 self.updateTimer.invalidate()
                 self.noMatchesLabel.text = " No Internet Connection "
+                self.noMatchesLabel.contentMode = .center
                 self.noMatchesLabel.adjustsFontSizeToFitWidth = true
                 return
             }
@@ -103,16 +104,24 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
 
         if currentCount == 0 {
             currentCount = 1
-            noMatchesLabel.text = " Loading "
+            if noMatchesLabel != nil {
+                noMatchesLabel.text = " Loading "
+            }
         } else if currentCount == 1 {
             currentCount = 2
-            noMatchesLabel.text = " Loading. "
+            if noMatchesLabel != nil {
+                noMatchesLabel.text = " Loading. "
+            }
         } else if currentCount == 2 {
             currentCount = 3
-            noMatchesLabel.text = " Loading.. "
+            if noMatchesLabel != nil {
+                noMatchesLabel.text = " Loading.. "
+            }
         } else if currentCount == 3 {
             currentCount = 0
-            noMatchesLabel.text = " Loading... "
+            if noMatchesLabel != nil {
+                noMatchesLabel.text = " Loading... "
+            }
         }
 
     }
