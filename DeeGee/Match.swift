@@ -15,8 +15,14 @@ class Match {
     
     var matchID: String!
     
-    var userOne: User!
-    var userTwo: User!
+    var userOneUID: String!
+    var userTwoUID: String!
+    
+    var userOneImg: UIImage!
+    var userTwoImg: UIImage!
+    
+    var userOneName: String!
+    var userTwoName: String!
     
     var confidence: Float!
     
@@ -30,20 +36,54 @@ class Match {
         
         let dict = snapshot.value as? NSDictionary
         
+        matchID = snapshot.key
+        
         if let u1 = dict?["user1"] as? String {
-            Database.database().reference().child("Users").child(u1).observeSingleEvent(of: .value) { (snap) in
-                self.userOne = User(snapshot: snap)
-            }
+            userOneUID = u1
+            Database.database().reference().child("Users").child(u1).child("name").observeSingleEvent(of: .value, with: { (snap) in
+                self.userOneName = snap.value as? String
+            })
+            Storage.storage().reference(withPath: u1 + ".png").getData(maxSize: 10000000, completion: { (data, err) in
+                if(err != nil) {
+                    print("error with retrieving image from storage", err.debugDescription)
+                }
+                guard let photoData = data else {
+                    return
+                }
+                if data!.isEmpty {
+                    return
+                }
+                
+                self.userOneImg = UIImage(data: photoData)
+            })
         }else {
-            self.userOne = nil
+            self.userOneUID = ""
+            self.userOneName = ""
+            self.userOneImg = UIImage()
         }
         
         if let u2 = dict?["user2"] as? String {
-            Database.database().reference().child("Users").child(u2).observeSingleEvent(of: .value) { (snap) in
-                self.userTwo = User(snapshot: snap)
-            }
+            userTwoUID = u2
+            Database.database().reference().child("Users").child(u2).child("name").observeSingleEvent(of: .value, with: { (snap) in
+                self.userOneName = snap.value as? String
+            })
+            Storage.storage().reference(withPath: u2 + ".png").getData(maxSize: 10000000, completion: { (data, err) in
+                if(err != nil) {
+                    print("error with retrieving image from storage", err.debugDescription)
+                }
+                guard let photoData = data else {
+                    return
+                }
+                if data!.isEmpty {
+                    return
+                }
+                
+                self.userTwoImg = UIImage(data: photoData)
+            })
         }else {
-            self.userTwo = nil
+            self.userTwoUID = ""
+            self.userTwoName = ""
+            self.userTwoImg = UIImage()
         }
         
         if let confidence = dict?["confidence"] as? Float{
@@ -67,7 +107,9 @@ class Match {
         */
     }
     
+    /*
     func toAnyObject()-> [String : AnyObject] {
-        return ["matchID": matchID as AnyObject, "userOne": userOne.uid as AnyObject, "userTwo": userTwo.uid as AnyObject, "confidence": confidence as AnyObject]
+        return ["matchID": matchID as AnyObject, "userOne": userOneUID as AnyObject, "userTwo": userTwoUID as AnyObject, "confidence": confidence as AnyObject]
     }
+    */
 }

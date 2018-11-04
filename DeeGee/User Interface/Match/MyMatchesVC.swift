@@ -7,14 +7,17 @@
 //
 
 import UIKit
-
+import FirebaseDatabase
 
 class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
     
     var myUser: User? = nil
+    var matchesArray: [Match] = [Match]()
     var matchesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
+        
+        populateMatchArray()
         
         self.title = "My Matches"
         self.view.backgroundColor = .white
@@ -33,6 +36,21 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
             }))
             self.present(CouldNotRegisterAlert, animated: true, completion: nil)
         }
+    }
+    
+    func populateMatchArray() {
+        Database.database().reference().child("Matches").observe(.value, with: { (snapshot) in
+            if (snapshot.hasChildren() == false) {
+                print("There was an error downloading the matches")
+                return
+            }
+            else {
+                for match in snapshot.children {
+                    self.matchesArray.append(Match(snapshot: match as! DataSnapshot))
+                }
+                self.matchesCollectionView.reloadData()
+            }
+        })
     }
     
     func setupMatchCV() {
@@ -59,7 +77,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return matchesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,6 +97,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
             //Set User Img 1
             let uImg1 = cell.userImgOne
             uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
+            uImg1.image = matchesArray[indexPath.row].userOneImg
             uImg1.contentMode = .scaleAspectFill
             uImg1.clipsToBounds = true
             uImg1.frame.origin = CGPoint(x: 0, y: 0)
@@ -89,6 +108,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
             //Set User Img 2
             let uImg2 = cell.userImgTwo
             uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
+            uImg2.image = matchesArray[indexPath.row].userTwoImg
             uImg2.contentMode = .scaleAspectFill
             uImg2.clipsToBounds = true
             uImg2.frame.origin = CGPoint(x: cell.center.x + 1, y: 0)
@@ -110,6 +130,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
             //Set Username 1
             let uName1 = cell.userNameOne
             uName1.text = "Drake"
+            uName1.text = matchesArray[indexPath.row].userOneName
             uName1.textAlignment = .left
             uName1.textColor = .white
             uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
@@ -122,6 +143,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
             //Set Username 2
             let uName2 = cell.userNameTwo
             uName2.text = "Not Drake"
+            uName2.text = matchesArray[indexPath.row].userTwoName
             uName2.textAlignment = .right
             uName2.textColor = .white
             uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)

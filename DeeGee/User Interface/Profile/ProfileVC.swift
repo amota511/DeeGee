@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class ProfileVC: UIViewController {
     
@@ -70,6 +71,11 @@ class ProfileVC: UIViewController {
         view.backgroundColor = UIColor(r: 240, g: 240, b: 240)
         self.title = "Profile"
         
+        if myUser == nil {
+            print("going to enter populate user")
+            populateMyUser()
+        }
+        
         view.addSubview(profilePhoto)
         view.addSubview(viewProfileButton)
         view.addSubview(matchesButton)
@@ -79,6 +85,22 @@ class ProfileVC: UIViewController {
         setViewProfileButton()
         setMyMatchesButton()
         setLogoutButton()
+    }
+    
+    func populateMyUser() {
+        print("inside populate user")
+        Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot)  in
+            
+            if(!snapshot.hasChildren()) {
+                print("error with retrieving user info from database")
+                return
+            }
+            print(Auth.auth().currentUser!.uid)
+            
+            self.myUser = User(snapshot: snapshot)
+            print("Got basic user data")
+            self.profilePhoto.image = self.myUser?.image
+        })
     }
     
     func setProfilePhotoView() {

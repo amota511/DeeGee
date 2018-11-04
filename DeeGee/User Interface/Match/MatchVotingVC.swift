@@ -15,23 +15,24 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     var matchesCollectionView: UICollectionView!
     
+    var matchesArray: [Match] = [Match]()
+    
     lazy var noMatchesLabel: UILabel! = {
         let lb = UILabel()
-        lb.text = " Loading... "
+        lb.text = ""
         lb.textColor = .lightGray
         lb.textAlignment = .left
-        lb.layer.borderWidth = 2
-        lb.layer.borderColor = UIColor.lightGray.cgColor
-        lb.layer.cornerRadius = 7
-        lb.adjustsFontSizeToFitWidth = true
-        lb.clipsToBounds = true
+        lb.adjustsFontSizeToFitWidth = false
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
 
+    var currentCount = 0
+    var updateTimer: Timer = Timer()
     var myUser: User? = nil
     
     override func viewDidLoad() {
+        populateMatchArray()
         self.title = "Matches"
         self.view.backgroundColor = .white
         
@@ -46,35 +47,39 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         }
     }
     
+    func populateMatchArray() {
+        Database.database().reference().child("Matches").observe(.value, with: { (snapshot) in
+            if (snapshot.hasChildren() == false) {
+                print("There was an error downloading the matches")
+                return
+            }
+            else {
+                for match in snapshot.children {
+                    self.matchesArray.append(Match(snapshot: match as! DataSnapshot))
+                }
+                self.matchesCollectionView.reloadData()
+            }
+        })
+    }
+    
     func populateMyUser() {
         print("inside populate user")
         Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot)  in
             
             if(!snapshot.hasChildren()) {
-                print("error with retrieving image url from database")
+                print("error with retrieving user info from database")
+                self.updateTimer.invalidate()
+                self.noMatchesLabel.text = " No Internet Connection "
+                self.noMatchesLabel.adjustsFontSizeToFitWidth = true
+                return
             }
+            print(Auth.auth().currentUser!.uid)
             
             self.myUser = User(snapshot: snapshot)
             print("Got basic user data")
-        Database.database().reference().child("UIDs").child(Auth.auth().currentUser!.uid).child("imageURL").observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) -> Void in
-                if(!snapshot.hasChildren()) {
-                    print("error with retrieving image url from database")
-                    return
-                }
-                print("Got user img url")
-                self.myUser?.imageURL = snapshot.value as? String
-                Storage.storage().reference(forURL: self.myUser!.imageURL).getData(maxSize: 10000000, completion: { (data, err) in
-                    if(err != nil) {
-                        print("error with retrieving image from storage", err.debugDescription)
-                        return
-                    }
-                    print("Got user img")
-                    guard let data = data else {return}
-                    self.myUser?.image = UIImage(data: data)
-                    
-                    print("data")
-                })
-            })
+            
+            self.noMatchesLabel.removeFromSuperview()
+            self.noMatchesLabel = nil
         })
     }
     
@@ -84,25 +89,32 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
 
         noMatchesLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         noMatchesLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        noMatchesLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/6).isActive = true
-        noMatchesLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        noMatchesLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2).isActive = true
+        noMatchesLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        UIView.animate(withDuration: 6.0, delay: 0.0, options: [.repeat,.autoreverse], animations: {
-            self.noMatchesLabel.text = " Loading "
-            self.noMatchesLabel.text = " Loading. "
-        }) { (complete) in
-//            UIView.animate(withDuration: 1.0, animations: {
-//                self.noMatchesLabel.text = " Loading. "
-//            }, completion: { (compl) in
-//                UIView.animate(withDuration: 1.0, animations: {
-//                    self.noMatchesLabel.text = " Loading.. "
-//                }, completion: { (com) in
-//                    UIView.animate(withDuration: 1.0, animations: {
-//                        self.noMatchesLabel.text = " Loading... "
-//                    })
-//                })
-//            })
+        /// Start Timer
+        DispatchQueue.main.async {
+            self.currentCount = 0
+            self.updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabel), userInfo: nil, repeats: true)
         }
+    }
+    
+    @objc func updateLabel() {
+
+        if currentCount == 0 {
+            currentCount = 1
+            noMatchesLabel.text = " Loading "
+        } else if currentCount == 1 {
+            currentCount = 2
+            noMatchesLabel.text = " Loading. "
+        } else if currentCount == 2 {
+            currentCount = 3
+            noMatchesLabel.text = " Loading.. "
+        } else if currentCount == 3 {
+            currentCount = 0
+            noMatchesLabel.text = " Loading... "
+        }
+
     }
     
     func setupMatchCV() {
@@ -131,7 +143,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return matchesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -154,20 +166,9 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
         
-        let storageRef = Storage.storage().reference()
-        //let userImgRef = storageRef.child(myUser!.uid + ".png")
-        let userImgRef = storageRef.child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png")
         let uImg1 = cell.userImgOne
-        /*
-        userImgRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
-            if let error = error {
-                print(error)
-            } else {
-                uImg1.image = UIImage(data: data!)
-            }
-        }
-        */
         uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
+        uImg1.image = matchesArray[indexPath.row].userOneImg
         uImg1.contentMode = .scaleAspectFill
         uImg1.clipsToBounds = true
         uImg1.frame.origin = CGPoint(x: 0, y: 0)
@@ -175,19 +176,9 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         cell.addSubview(uImg1)
         
-        //Set User Img 2
         let uImg2 = cell.userImgTwo
-        /*
-        Storage.storage().reference().child("VdRz6VoLnQgwdxzAYMQf9NUiJBK2.png").getData(maxSize: 100 * 1024 * 1024)
-            { data, error in
-                if let error = error {
-                    print(error)
-                } else {
-                    uImg2.image = UIImage(data: data!)
-                }
-            }
-        */
         uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
+        uImg2.image = matchesArray[indexPath.row].userTwoImg
         uImg2.contentMode = .scaleAspectFill
         uImg2.clipsToBounds = true
         uImg2.frame.origin = CGPoint(x: cell.frame.width / 2 + CGFloat(1), y: 0)
@@ -209,6 +200,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         //Set Username 1
         let uName1 = cell.userNameOne
         uName1.text = "Drake"
+        uName1.text = matchesArray[indexPath.row].userOneName
         uName1.textAlignment = .left
         uName1.textColor = .white
         uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
@@ -221,6 +213,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         //Set Username 2
         let uName2 = cell.userNameTwo
         uName2.text = "Not Drake"
+        uName2.text = matchesArray[indexPath.row].userTwoName
         uName2.textAlignment = .right
         uName2.textColor = .white
         uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)
