@@ -15,7 +15,10 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     var matchesCollectionView: UICollectionView!
     
+    var matchDataArray: [DataSnapshot] = [DataSnapshot]()
     var matchesArray: [Match] = [Match]()
+    
+    var numberOfCellsOnceDataIsFullyLoaded = 0
     
     lazy var noMatchesLabel: UILabel! = {
         let lb = UILabel()
@@ -54,12 +57,39 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
                 return
             }
             else {
-                for match in snapshot.children {
-                    self.matchesArray.append(Match(snapshot: match as! DataSnapshot))
+
+                self.matchDataArray = snapshot.children.allObjects as! [DataSnapshot]
+                self.numberOfCellsOnceDataIsFullyLoaded = self.matchDataArray.count
+                DispatchQueue.main.async {
+                    self.matchesCollectionView.reloadData()
                 }
-                self.matchesCollectionView.reloadData()
+                self.loadNextMatch()
+                /*
+                var index = 0
+                for match in snapshot.children {
+                    let newMatch = Match(snapshot: match as! DataSnapshot)
+                    newMatch.hostCollectionView = self.matchesCollectionView
+                    newMatch.cellNumber = index
+                    self.matchesArray.append(newMatch)
+                    index += 1
+                }
+                DispatchQueue.main.async{
+                    self.matchesArray.reverse()
+                    self.matchesCollectionView.reloadData()
+                }
+                 */
             }
         })
+    }
+    
+    func loadNextMatch() {
+        if (!matchDataArray.isEmpty) {
+            let newMatchData = matchDataArray.popLast()
+            let newMatch = Match(snapshot: newMatchData!)
+            newMatch.hostCollectionView = self.matchesCollectionView
+            newMatch.cellNumber = matchesArray.count
+            matchesArray.append(newMatch)
+        }
     }
     
     func populateMyUser() {
@@ -152,7 +182,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return matchesArray.count
+        return numberOfCellsOnceDataIsFullyLoaded
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -162,6 +192,13 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         cell.contentView.clipsToBounds = true
         cell.clipsToBounds = true
 
+        var correspondingDataModelNotLoadedYet = true
+        if indexPath.row >= matchesArray.count {
+            correspondingDataModelNotLoadedYet = true
+        } else {
+            correspondingDataModelNotLoadedYet = false
+        }
+        
         //Set Separator Line
         let separator = cell.separator
         separator.backgroundColor = .gray
@@ -176,8 +213,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         cell.clipsToBounds = true
         
         let uImg1 = cell.userImgOne
-        uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
-        uImg1.image = matchesArray[indexPath.row].userOneImg
+        //uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
+        uImg1.image = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userOneImg
         uImg1.contentMode = .scaleAspectFill
         uImg1.clipsToBounds = true
         uImg1.frame.origin = CGPoint(x: 0, y: 0)
@@ -186,8 +223,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         cell.addSubview(uImg1)
         
         let uImg2 = cell.userImgTwo
-        uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
-        uImg2.image = matchesArray[indexPath.row].userTwoImg
+        //uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
+        uImg2.image = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userTwoImg
         uImg2.contentMode = .scaleAspectFill
         uImg2.clipsToBounds = true
         uImg2.frame.origin = CGPoint(x: cell.frame.width / 2 + CGFloat(1), y: 0)
@@ -208,8 +245,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         //Set Username 1
         let uName1 = cell.userNameOne
-        uName1.text = "Drake"
-        uName1.text = matchesArray[indexPath.row].userOneName
+        //uName1.text = "Drake"
+        uName1.text = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userOneName
         uName1.textAlignment = .left
         uName1.textColor = .white
         uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
@@ -221,8 +258,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         //Set Username 2
         let uName2 = cell.userNameTwo
-        uName2.text = "Not Drake"
-        uName2.text = matchesArray[indexPath.row].userTwoName
+        //uName2.text = "Not Drake"
+        uName2.text = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userTwoName
         uName2.textAlignment = .right
         uName2.textColor = .white
         uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)
@@ -256,6 +293,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.row) was selected!")
+        
         
     }
 

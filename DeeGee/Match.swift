@@ -26,6 +26,10 @@ class Match {
     
     var confidence: Float!
     
+    var numberOfFieldsLoaded = 0
+    var cellNumber = 0
+    var hostCollectionView: UICollectionView? = nil
+    
     /*
     var crowdSourcedPositiveVotes: [String]!
     var crowdSourcedNegativeVotes: [String]!
@@ -42,6 +46,14 @@ class Match {
             userOneUID = u1
             Database.database().reference().child("Users").child(u1).child("name").observeSingleEvent(of: .value, with: { (snap) in
                 self.userOneName = snap.value as? String
+                self.numberOfFieldsLoaded += 1
+                if (self.numberOfFieldsLoaded == 4) {
+                    DispatchQueue.main.async{
+                        //self.hostCollectionView?.reloadData()
+                        self.hostCollectionView?.reloadItems(at: [IndexPath(row: self.cellNumber, section: 0)])
+                        (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                    }
+                }
             })
             Storage.storage().reference(withPath: u1 + ".png").getData(maxSize: 10000000, completion: { (data, err) in
                 if(err != nil) {
@@ -55,6 +67,14 @@ class Match {
                 }
                 
                 self.userOneImg = UIImage(data: photoData)
+                self.numberOfFieldsLoaded += 1
+                if(self.numberOfFieldsLoaded == 4) {
+                    DispatchQueue.main.async{
+                        //self.hostCollectionView?.reloadData()
+                        self.hostCollectionView?.reloadItems(at: [IndexPath(row: self.cellNumber, section: 0)])
+                        (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                    }
+                }
             })
         }else {
             self.userOneUID = ""
@@ -66,6 +86,14 @@ class Match {
             userTwoUID = u2
             Database.database().reference().child("Users").child(u2).child("name").observeSingleEvent(of: .value, with: { (snap) in
                 self.userTwoName = snap.value as? String
+                self.numberOfFieldsLoaded += 1
+                if(self.numberOfFieldsLoaded == 4) {
+                    DispatchQueue.main.async{
+                        //self.hostCollectionView?.reloadData()
+                        self.hostCollectionView?.reloadItems(at: [IndexPath(row: self.cellNumber, section: 0)])
+                        (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                    }
+                }
             })
             Storage.storage().reference(withPath: u2 + ".png").getData(maxSize: 10000000, completion: { (data, err) in
                 if(err != nil) {
@@ -79,6 +107,14 @@ class Match {
                 }
                 
                 self.userTwoImg = UIImage(data: photoData)
+                self.numberOfFieldsLoaded += 1
+                if(self.numberOfFieldsLoaded == 4) {
+                    DispatchQueue.main.async{
+                        //self.hostCollectionView?.reloadData()
+                        self.hostCollectionView?.reloadItems(at: [IndexPath(row: self.cellNumber, section: 0)])
+                        (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                    }
+                }
             })
         }else {
             self.userTwoUID = ""
