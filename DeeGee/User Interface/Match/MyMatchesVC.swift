@@ -13,7 +13,12 @@ import FirebaseAuth
 class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
     
     var myUser: User? = nil
+    
+    var matchDataArray: [DataSnapshot] = [DataSnapshot]()
     var matchesArray: [Match] = [Match]()
+    
+    var numberOfCellsOnceDataIsFullyLoaded = 0
+    
     var matchesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -46,19 +51,50 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
                 print("There was an error downloading the matches. Either the user has no matches yet or the matchs could not be downloading for another reason, possibly due to internet connectivity issues.")
                 return
             }
+            
+            self.numberOfCellsOnceDataIsFullyLoaded = Int(snapshot.childrenCount)
+            var numberOfSuccessfulDataDownloads = 0
+            
             for match in snapshot.children {
                 let myMatch = match as! DataSnapshot
                 Database.database().reference().child("Matches").child(myMatch.key).observe(.value, with: { (snap) in
                     if (snap.hasChildren() == false) {
                         print("There was an error downloading the matches")
-                        return
+                        
+                        self.numberOfCellsOnceDataIsFullyLoaded -= 1
+                        
+                        if(numberOfSuccessfulDataDownloads == self.numberOfCellsOnceDataIsFullyLoaded) {
+                            DispatchQueue.main.async {
+                                self.matchesCollectionView.reloadData()
+                            }
+                            self.loadNextMatch()
+                        }
                     } else {
-                        self.matchesArray.append(Match(snapshot: snap))
-                        self.matchesCollectionView.reloadData()
+                        
+                        self.matchDataArray.append(snap)
+                        
+                        numberOfSuccessfulDataDownloads += 1
+                        
+                        if(numberOfSuccessfulDataDownloads == self.numberOfCellsOnceDataIsFullyLoaded) {
+                            DispatchQueue.main.async {
+                                self.matchesCollectionView.reloadData()
+                            }
+                            self.loadNextMatch()
+                        }
                     }
                 })
             }
         })
+    }
+    
+    func loadNextMatch() {
+        if (!matchDataArray.isEmpty) {
+            let newMatchData = matchDataArray.popLast()
+            let newMatch = Match(snapshot: newMatchData!)
+            newMatch.hostCollectionView = self.matchesCollectionView
+            newMatch.cellNumber = matchesArray.count
+            matchesArray.append(newMatch)
+        }
     }
     
     func setupMatchCV() {
@@ -81,107 +117,108 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         matchesCollectionView.alwaysBounceVertical = true
         matchesCollectionView.bounces = true
         
+        matchesCollectionView.restorationIdentifier = "MyMatchesVC"
+        
         self.view.addSubview(matchesCollectionView)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return matchesArray.count
+        return numberOfCellsOnceDataIsFullyLoaded
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchCell", for: indexPath) as! MatchCVC
         cell.backgroundColor = .gray
+
         
-        //Check for a pre-existing Separator
-        if(!cell.isSet) {
-            //Set Separator Line
-            let separator = cell.separator
-            separator.backgroundColor = .gray
-            separator.frame.size = CGSize(width: 2, height: cell.bounds.height)
-            separator.frame.origin = CGPoint(x: cell.center.x - 1, y: 0)
-            
-            cell.addSubview(separator)
-            
-            //Set User Img 1
-            let uImg1 = cell.userImgOne
-            uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
-            uImg1.image = matchesArray[indexPath.row].userOneImg
-            uImg1.contentMode = .scaleAspectFill
-            uImg1.clipsToBounds = true
-            uImg1.frame.origin = CGPoint(x: 0, y: 0)
-            uImg1.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
-            
-            cell.addSubview(uImg1)
-            
-            //Set User Img 2
-            let uImg2 = cell.userImgTwo
-            uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
-            uImg2.image = matchesArray[indexPath.row].userTwoImg
-            uImg2.contentMode = .scaleAspectFill
-            uImg2.clipsToBounds = true
-            uImg2.frame.origin = CGPoint(x: cell.center.x + 1, y: 0)
-            uImg2.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
-            
-            cell.addSubview(uImg2)
-            
-            //Set Shadow
-            let bottomShadow = cell.frostedBottom
-            bottomShadow.image = #imageLiteral(resourceName: "DeeGee_bottomShadow")
-            bottomShadow.contentMode = .scaleAspectFill
-            bottomShadow.clipsToBounds = true
-            bottomShadow.frame.origin = CGPoint(x: 0, y: cell.bounds.height - cell.bounds.height * 0.25)
-            bottomShadow.frame.size = CGSize(width: cell.bounds.width, height: cell.bounds.height * 0.25)
-            
-            cell.addSubview(bottomShadow)
-            
-            
-            //Set Username 1
-            let uName1 = cell.userNameOne
-            uName1.text = "Drake"
-            uName1.text = matchesArray[indexPath.row].userOneName
-            uName1.textAlignment = .left
-            uName1.textColor = .white
-            uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
-            uName1.frame.origin = CGPoint(x: 2, y: bottomShadow.frame.height - uName1.frame.height)
-            uName1.textRect(forBounds: uName1.bounds, limitedToNumberOfLines: 1)
-            uName1.font = uName1.font.withSize(25)
-            
-            bottomShadow.addSubview(uName1)
-            
-            //Set Username 2
-            let uName2 = cell.userNameTwo
-            uName2.text = "Not Drake"
-            uName2.text = matchesArray[indexPath.row].userTwoName
-            uName2.textAlignment = .right
-            uName2.textColor = .white
-            uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)
-            uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: bottomShadow.frame.height - uName2.frame.height)
-            uName2.textRect(forBounds: uName2.bounds, limitedToNumberOfLines: 1)
-            uName2.font = uName2.font.withSize(25)
-            
-            bottomShadow.addSubview(uName2)
-            
-            
-            let moreButton = cell.moreButton
-            moreButton.image = #imageLiteral(resourceName: "three_dots")
-            moreButton.contentMode = .scaleAspectFit
-            
-            moreButton.frame.size = CGSize(width: uImg1.frame.size.width * 0.2, height: 30)
-            moreButton.frame.origin = CGPoint(x: cell.bounds.width - moreButton.frame.width - 8, y: bottomShadow.bounds.height * 0.1)
-            
-            moreButton.isUserInteractionEnabled = true
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(moreButtonClicked(_:)))
-            moreButton.addGestureRecognizer(gestureRecognizer)
-            
-            moreButton.tag = indexPath.row
-            print("gestureRecognizer.view!.tag = \(indexPath.row)")
-            
-            //cell.addSubview(moreButton)
-            
-            //cell.isSet = true
+        var correspondingDataModelNotLoadedYet = true
+        if indexPath.row >= matchesArray.count {
+            correspondingDataModelNotLoadedYet = true
         } else {
-            
+            correspondingDataModelNotLoadedYet = false
         }
+    
+        //Set Separator Line
+        let separator = cell.separator
+        separator.backgroundColor = .gray
+        separator.frame.size = CGSize(width: 2, height: cell.bounds.height)
+        separator.frame.origin = CGPoint(x: cell.center.x - 1, y: 0)
+        
+        cell.addSubview(separator)
+        
+        //Set User Img 1
+        let uImg1 = cell.userImgOne
+        //uImg1.image = #imageLiteral(resourceName: "DeeGee_Drake1")
+        uImg1.image = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userOneImg
+        uImg1.contentMode = .scaleAspectFill
+        uImg1.clipsToBounds = true
+        uImg1.frame.origin = CGPoint(x: 0, y: 0)
+        uImg1.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
+        
+        cell.addSubview(uImg1)
+        
+        //Set User Img 2
+        let uImg2 = cell.userImgTwo
+        //uImg2.image = #imageLiteral(resourceName: "DeeGee_Drake2")
+        uImg2.image = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userTwoImg
+        uImg2.contentMode = .scaleAspectFill
+        uImg2.clipsToBounds = true
+        uImg2.frame.origin = CGPoint(x: cell.center.x + 1, y: 0)
+        uImg2.frame.size = CGSize(width: (cell.frame.width / 2) - CGFloat(1), height: cell.frame.height)
+        
+        cell.addSubview(uImg2)
+        
+        //Set Shadow
+        let bottomShadow = cell.frostedBottom
+        bottomShadow.image = #imageLiteral(resourceName: "DeeGee_bottomShadow")
+        bottomShadow.contentMode = .scaleAspectFill
+        bottomShadow.clipsToBounds = true
+        bottomShadow.frame.origin = CGPoint(x: 0, y: cell.bounds.height - cell.bounds.height * 0.25)
+        bottomShadow.frame.size = CGSize(width: cell.bounds.width, height: cell.bounds.height * 0.25)
+        
+        cell.addSubview(bottomShadow)
+        
+        
+        //Set Username 1
+        let uName1 = cell.userNameOne
+        //uName1.text = "Drake"
+        uName1.text = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userOneName
+        uName1.textAlignment = .left
+        uName1.textColor = .white
+        uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
+        uName1.frame.origin = CGPoint(x: 2, y: bottomShadow.frame.height - uName1.frame.height)
+        uName1.textRect(forBounds: uName1.bounds, limitedToNumberOfLines: 1)
+        uName1.font = uName1.font.withSize(25)
+        
+        bottomShadow.addSubview(uName1)
+        
+        //Set Username 2
+        let uName2 = cell.userNameTwo
+        //uName2.text = "Not Drake"
+        uName2.text = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userTwoName
+        uName2.textAlignment = .right
+        uName2.textColor = .white
+        uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)
+        uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: bottomShadow.frame.height - uName2.frame.height)
+        uName2.textRect(forBounds: uName2.bounds, limitedToNumberOfLines: 1)
+        uName2.font = uName2.font.withSize(25)
+        
+        bottomShadow.addSubview(uName2)
+        
+        
+        let moreButton = cell.moreButton
+        moreButton.image = #imageLiteral(resourceName: "three_dots")
+        moreButton.contentMode = .scaleAspectFit
+        
+        moreButton.frame.size = CGSize(width: uImg1.frame.size.width * 0.2, height: 30)
+        moreButton.frame.origin = CGPoint(x: cell.bounds.width - moreButton.frame.width - 8, y: bottomShadow.bounds.height * 0.1)
+        
+        moreButton.isUserInteractionEnabled = true
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(moreButtonClicked(_:)))
+        moreButton.addGestureRecognizer(gestureRecognizer)
+        
+        moreButton.tag = indexPath.row
+        print("gestureRecognizer.view!.tag = \(indexPath.row)")
         
         cell.isUserInteractionEnabled = true
         

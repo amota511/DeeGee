@@ -51,7 +51,11 @@ class Match {
                     DispatchQueue.main.async{
                         //self.hostCollectionView?.reloadData()
                         self.hostCollectionView?.reloadItems(at: [IndexPath(row: self.cellNumber, section: 0)])
-                        (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                        if self.hostCollectionView?.restorationIdentifier == "MatchVotingVC" {
+                            (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                        } else if self.hostCollectionView?.restorationIdentifier == "MyMatchesVC"{
+                            (self.hostCollectionView?.delegate as! MyMatchesVC).loadNextMatch()
+                        }
                     }
                 }
             })
@@ -72,7 +76,12 @@ class Match {
                     DispatchQueue.main.async{
                         //self.hostCollectionView?.reloadData()
                         self.hostCollectionView?.reloadItems(at: [IndexPath(row: self.cellNumber, section: 0)])
-                        (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                        if self.hostCollectionView?.restorationIdentifier == "MatchVotingVC" {
+                            (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                        } else if self.hostCollectionView?.restorationIdentifier == "MyMatchesVC"{
+                            (self.hostCollectionView?.delegate as! MyMatchesVC).loadNextMatch()
+                        }
+                        
                     }
                 }
             })
@@ -91,7 +100,11 @@ class Match {
                     DispatchQueue.main.async{
                         //self.hostCollectionView?.reloadData()
                         self.hostCollectionView?.reloadItems(at: [IndexPath(row: self.cellNumber, section: 0)])
-                        (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                        if self.hostCollectionView?.restorationIdentifier == "MatchVotingVC" {
+                            (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                        } else if self.hostCollectionView?.restorationIdentifier == "MyMatchesVC"{
+                            (self.hostCollectionView?.delegate as! MyMatchesVC).loadNextMatch()
+                        }
                     }
                 }
             })
@@ -112,7 +125,11 @@ class Match {
                     DispatchQueue.main.async{
                         //self.hostCollectionView?.reloadData()
                         self.hostCollectionView?.reloadItems(at: [IndexPath(row: self.cellNumber, section: 0)])
-                        (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                        if self.hostCollectionView?.restorationIdentifier == "MatchVotingVC" {
+                            (self.hostCollectionView?.delegate as! MatchVotingVC).loadNextMatch()
+                        } else if self.hostCollectionView?.restorationIdentifier == "MyMatchesVC"{
+                            (self.hostCollectionView?.delegate as! MyMatchesVC).loadNextMatch()
+                        }
                     }
                 }
             })

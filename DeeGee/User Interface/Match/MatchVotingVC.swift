@@ -64,20 +64,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
                     self.matchesCollectionView.reloadData()
                 }
                 self.loadNextMatch()
-                /*
-                var index = 0
-                for match in snapshot.children {
-                    let newMatch = Match(snapshot: match as! DataSnapshot)
-                    newMatch.hostCollectionView = self.matchesCollectionView
-                    newMatch.cellNumber = index
-                    self.matchesArray.append(newMatch)
-                    index += 1
-                }
-                DispatchQueue.main.async{
-                    self.matchesArray.reverse()
-                    self.matchesCollectionView.reloadData()
-                }
-                 */
+
             }
         })
     }
@@ -176,6 +163,8 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         matchesCollectionView.allowsSelection = true
         matchesCollectionView.alwaysBounceVertical = true
         matchesCollectionView.bounces = true
+        
+        matchesCollectionView.restorationIdentifier = "MatchVotingVC"
         
         self.view.addSubview(matchesCollectionView)
     }
