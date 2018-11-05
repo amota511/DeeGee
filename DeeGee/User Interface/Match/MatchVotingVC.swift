@@ -269,11 +269,11 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         guard let cell = matchesCollectionView.cellForItem(at: IndexPath(row: row, section: 0))! as? MatchCVC else { print("morebutton attempt failed"); return }
         print("more button clicked, tag# :", row)
         
-        setupVotingView(cell: cell)
+        setupVotingView(cell: cell, indexPath: row)
         
     }
     
-    func setupVotingView(cell: UIView) {
+    func setupVotingView(cell: UIView, indexPath: Int) {
         let view = cell.superview!
         
         var darkBlur:UIBlurEffect = UIBlurEffect()
@@ -305,7 +305,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         let thumbsUpButton = UIImageView(image: #imageLiteral(resourceName: "thumbs_up_outline"), highlightedImage: #imageLiteral(resourceName: "thumbs_up_filled"))
         thumbsUpButton.frame = CGRect(x: question.frame.midX - 70, y: question.frame.origin.y + question.frame.height + 10, width: 50, height: 50)
-        //thumbsUpButton.isHighlighted = true
+        thumbsUpButton.tag = indexPath + 1
         thumbsUpButton.isUserInteractionEnabled = true
         var gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(thumbsUpButtonClicked(_:)))
         thumbsUpButton.addGestureRecognizer(gestureRecognizer)
@@ -314,7 +314,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         let thumbsDownButton = UIImageView(image: #imageLiteral(resourceName: "thumbs_down_outline"), highlightedImage: #imageLiteral(resourceName: "thumbs_down_filled"))
         thumbsDownButton.frame = CGRect(x: question.frame.midX + 20, y: question.frame.origin.y + question.frame.height + 10, width: 50, height: 50)
-        //thumbsUpButton.isHighlighted = true
+        thumbsDownButton.tag = -(indexPath + 1)
         thumbsDownButton.isUserInteractionEnabled = true
         gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(thumbsDownButtonClicked(_:)))
         thumbsDownButton.addGestureRecognizer(gestureRecognizer)
@@ -328,14 +328,50 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     @objc func thumbsUpButtonClicked(_ sender: AnyObject?) {
         print("thumbs up highlighted")
-        guard let imageview = (sender! as! UITapGestureRecognizer).view as? UIImageView else {print("error on thumbs up"); return }
-        imageview.isHighlighted = !imageview.isHighlighted
+        guard let thumbsUpImageview = (sender! as! UITapGestureRecognizer).view as? UIImageView else {print("error on thumbs up"); return }
+
+        let indexPath = thumbsUpImageview.tag
+        
+        var thumbsDownImageview = UIImageView()
+        
+        let subviews = ((sender! as! UITapGestureRecognizer).view)?.superview?.subviews
+        for sv in subviews! {
+            if(sv.tag == -1 * indexPath) {
+                thumbsDownImageview = (sv as? UIImageView)!
+            }
+        }
+        
+        //thumbsDownImageview = thumbsDownImageview as? UIImageView
+        
+        if(thumbsDownImageview.isHighlighted == true) {
+            thumbsDownImageview.isHighlighted = false
+        }
+        
+        thumbsUpImageview.isHighlighted = !thumbsUpImageview.isHighlighted
     }
     
     @objc func thumbsDownButtonClicked(_ sender: AnyObject?) {
         print("thumbs down highlighted")
-        guard let imageview = (sender! as! UITapGestureRecognizer).view as? UIImageView else {print("error on thumbs up"); return }
-        imageview.isHighlighted = !imageview.isHighlighted
+        guard let thumbsDownImageview = (sender! as! UITapGestureRecognizer).view as? UIImageView else {print("error on thumbs up"); return }
+        
+        let indexPath = thumbsDownImageview.tag
+        
+        var thumbsUpImageview = UIImageView()
+        
+        let subviews = ((sender! as! UITapGestureRecognizer).view)?.superview?.subviews
+        for sv in subviews! {
+            if(sv.tag == -1 * indexPath) {
+                thumbsUpImageview = (sv as? UIImageView)!
+            }
+        }
+        
+        //thumbsDownImageview = thumbsDownImageview as? UIImageView
+        
+        if(thumbsUpImageview.isHighlighted == true) {
+            thumbsUpImageview.isHighlighted = false
+        }
+        
+        thumbsDownImageview.isHighlighted = !thumbsDownImageview.isHighlighted
     }
     
     func setRightBarButton() {
