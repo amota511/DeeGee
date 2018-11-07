@@ -14,6 +14,16 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
     
     var myUser: User? = nil
     
+    lazy var noMatchesLabel: UILabel! = {
+        let lb = UILabel()
+        lb.text = "No Matches Yet"
+        lb.textColor = .lightGray
+        lb.textAlignment = .center
+        lb.adjustsFontSizeToFitWidth = false
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    
     var matchDataArray: [DataSnapshot] = [DataSnapshot]()
     var matchesArray: [Match] = [Match]()
     
@@ -29,6 +39,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         self.view.backgroundColor = .white
         
         setupMatchCV()
+        setupNoMatchesLabel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +55,17 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         }
     }
     
+    func setupNoMatchesLabel() {
+        
+        view.insertSubview(noMatchesLabel, at: view.subviews.count)
+        
+        noMatchesLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        noMatchesLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        noMatchesLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2).isActive = true
+        noMatchesLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+    }
+    
     func populateMatchArray() {
         
         Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid).child("matches").observe(.value, with: { (snapshot) in
@@ -52,12 +74,15 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
                 return
             }
             
+            self.noMatchesLabel.removeFromSuperview()
+            self.noMatchesLabel = nil
+            
             self.numberOfCellsOnceDataIsFullyLoaded = Int(snapshot.childrenCount)
             var numberOfSuccessfulDataDownloads = 0
             
             for match in snapshot.children {
                 let myMatch = match as! DataSnapshot
-                Database.database().reference().child("Matches").child(myMatch.key).observe(.value, with: { (snap) in
+                Database.database().reference().child("Matches").child(myMatch.key).observeSingleEvent(of: .value, with: { (snap) in
                     if (snap.hasChildren() == false) {
                         print("There was an error downloading the matches")
                         
@@ -85,6 +110,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
                 })
             }
         })
+        
     }
     
     func loadNextMatch() {

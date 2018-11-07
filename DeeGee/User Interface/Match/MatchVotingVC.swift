@@ -47,11 +47,15 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         if myUser == nil {
             print("going to enter populate user")
             populateMyUser()
+        } else {
+            self.updateTimer.invalidate()
+            self.noMatchesLabel.removeFromSuperview()
+            self.noMatchesLabel = nil
         }
     }
     
     func populateMatchArray() {
-        Database.database().reference().child("Matches").observe(.value, with: { (snapshot) in
+        Database.database().reference().child("Matches").observeSingleEvent(of: .value, with: { (snapshot) in
             if (snapshot.hasChildren() == false) {
                 print("There was an error downloading the matches")
                 return
@@ -140,7 +144,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
                 noMatchesLabel.text = " Loading... "
             }
         }
-
     }
     
     func setupMatchCV() {
@@ -151,7 +154,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         matchLayout.minimumLineSpacing = 8
         matchLayout.itemSize = CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.35)
         matchLayout.scrollDirection = .vertical
-        
         
         matchesCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: matchLayout)
         matchesCollectionView.dataSource = self
@@ -282,8 +284,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.row) was selected!")
-        
-        
     }
 
     @objc func pressedYes(sender: UIButton) {
@@ -350,7 +350,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     
     @objc func cancelBlurView(sender: UIButton) {
         sender.superview?.superview?.removeFromSuperview()
-        //sender.superview = nil
     }
     
     @objc func thumbsUpButtonClicked(_ sender: AnyObject?) {
@@ -367,8 +366,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
                 thumbsDownImageview = (sv as? UIImageView)!
             }
         }
-        
-        //thumbsDownImageview = thumbsDownImageview as? UIImageView
         
         if(thumbsDownImageview.isHighlighted == true) {
             thumbsDownImageview.isHighlighted = false
@@ -391,9 +388,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
                 thumbsUpImageview = (sv as? UIImageView)!
             }
         }
-        
-        //thumbsDownImageview = thumbsDownImageview as? UIImageView
-        
+
         if(thumbsUpImageview.isHighlighted == true) {
             thumbsUpImageview.isHighlighted = false
         }

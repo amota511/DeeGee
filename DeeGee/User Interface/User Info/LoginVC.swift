@@ -202,8 +202,15 @@ class LoginVC: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
                 return
             }
             print("Successfully logged in user")
+            self.clearLoginFields()
             self.performSegue(withIdentifier: "login", sender: self)
         })
+    }
+    
+    func clearLoginFields() {
+        self.emailTextField.text = ""
+        self.passwordTextField.text = ""
+        self.dissmissKeyboard()
     }
     
     func handleRegister(){
@@ -252,21 +259,18 @@ class LoginVC: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
     }
     
     func dissmissKeyboard(){
+   
+        logoViewYAnchor?.isActive = false
+        logoViewYAnchor = logoView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
+        logoViewYAnchor?.isActive = true
         
-        if  emailTextField.isEditing || passwordTextField.isEditing {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        
+        UIView.animate(withDuration: 1.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
+            self.view.layoutIfNeeded()
+        }) { (completed) in
             
-            logoViewYAnchor?.isActive = false
-            logoViewYAnchor = logoView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
-            logoViewYAnchor?.isActive = true
-            
-            emailTextField.resignFirstResponder()
-            passwordTextField.resignFirstResponder()
-            
-            UIView.animate(withDuration: 1.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
-                self.view.layoutIfNeeded()
-            }) { (completed) in
-                
-            }
         }
     }
     
