@@ -47,10 +47,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         if myUser == nil {
             print("going to enter populate user")
             populateMyUser()
-        } else {
-            self.updateTimer.invalidate()
-            self.noMatchesLabel.removeFromSuperview()
-            self.noMatchesLabel = nil
         }
     }
     
@@ -61,7 +57,11 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
                 return
             }
             else {
-
+                
+                self.updateTimer.invalidate()
+                self.noMatchesLabel.removeFromSuperview()
+                self.noMatchesLabel = nil
+                
                 self.matchDataArray = snapshot.children.allObjects as! [DataSnapshot]
                 self.numberOfCellsOnceDataIsFullyLoaded = self.matchDataArray.count
                 DispatchQueue.main.async {
@@ -100,8 +100,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             self.myUser = User(snapshot: snapshot)
             print("Got basic user data")
             
-            self.noMatchesLabel.removeFromSuperview()
-            self.noMatchesLabel = nil
         })
     }
     
@@ -175,6 +173,12 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfCellsOnceDataIsFullyLoaded
     }
+
+    func nukeAllAnimations() {
+        self.view.subviews.forEach({$0.layer.removeAllAnimations()})
+        self.view.layer.removeAllAnimations()
+        self.view.layoutIfNeeded()
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -186,13 +190,29 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         var correspondingDataModelNotLoadedYet = true
         if indexPath.row >= matchesArray.count {
             correspondingDataModelNotLoadedYet = true
+            
+            let loadingImages = cell.loadingAnimation
+            
+            loadingImages.image = #imageLiteral(resourceName: "white_broken_loading_circle")
+            loadingImages.contentMode = .scaleAspectFill
+            
+            loadingImages.frame.size = CGSize(width: cell.bounds.width / 5, height: cell.bounds.width / 5)
+            loadingImages.frame.origin = CGPoint(x: cell.bounds.width / 2 - cell.bounds.width / 10, y: cell.bounds.height / 2 - cell.bounds.width / 10)
+
+            loadingImages.stopRotating()
+            loadingImages.rotate()
+
+            print("match count", matchesArray.count)
+            cell.addSubview(loadingImages)
         } else {
+            print("match count", matchesArray.count)
             correspondingDataModelNotLoadedYet = false
+            cell.loadingAnimation.removeFromSuperview()
         }
         
         //Set Separator Line
         let separator = cell.separator
-        separator.backgroundColor = .gray
+        separator.backgroundColor = correspondingDataModelNotLoadedYet ? .clear : .gray
         separator.frame.size = CGSize(width: 2, height: cell.bounds.height)
         separator.frame.origin = CGPoint(x: cell.center.x - 1, y: 0)
         
@@ -240,6 +260,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         uName1.text = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userOneName
         uName1.textAlignment = .left
         uName1.textColor = .white
+        uName1.adjustsFontSizeToFitWidth = true
         uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
         uName1.frame.origin = CGPoint(x: 2, y: bottomShadow.frame.height - uName1.frame.height)
         uName1.textRect(forBounds: uName1.bounds, limitedToNumberOfLines: 1)
@@ -253,6 +274,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         uName2.text = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userTwoName
         uName2.textAlignment = .right
         uName2.textColor = .white
+        uName2.adjustsFontSizeToFitWidth = true
         uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)
         uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: bottomShadow.frame.height - uName2.frame.height)
         uName2.textRect(forBounds: uName2.bounds, limitedToNumberOfLines: 1)
@@ -416,4 +438,27 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
 
+}
+
+extension UIView {
+    private static let kRotationAnimationKey = "rotationanimationkey"
+    
+    func rotate(duration: Double = 1) {
+        if layer.animation(forKey: UIView.kRotationAnimationKey) == nil {
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            
+            rotationAnimation.fromValue = 0.0
+            rotationAnimation.toValue = Float.pi * 2.0
+            rotationAnimation.duration = duration
+            rotationAnimation.repeatCount = Float.infinity
+            
+            layer.add(rotationAnimation, forKey: UIView.kRotationAnimationKey)
+        }
+    }
+    
+    func stopRotating() {
+        if layer.animation(forKey: UIView.kRotationAnimationKey) != nil {
+            layer.removeAnimation(forKey: UIView.kRotationAnimationKey)
+        }
+    }
 }

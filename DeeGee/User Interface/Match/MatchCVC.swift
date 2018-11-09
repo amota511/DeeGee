@@ -12,6 +12,8 @@ class MatchCVC: UICollectionViewCell {
     
     var isSet: Bool = false
     
+    let loadingAnimation = UIImageView()
+    
     let userImgOne = UIImageView()
     let separator = UIView()
     let userImgTwo = UIImageView()

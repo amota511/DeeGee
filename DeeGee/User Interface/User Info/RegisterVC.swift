@@ -227,38 +227,45 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
             print("No Profile Photo")
             let CouldNotRegisterAlert = UIAlertController(title: "Take A Profile Photo", message: "Click The Image To Take A Picture", preferredStyle: .alert)
             CouldNotRegisterAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (UIAlertAction) in
+                self.dissmissKeyboard()
                 CouldNotRegisterAlert.dismiss(animated:false, completion: nil)
+                self.profilePhotoButtonClicked()
             }))
             self.present(CouldNotRegisterAlert, animated: true, completion: nil)
             return
         }
         
-        guard let email = emailField.text, let password = passwordField.text, let _ = nameField.text, let _ = ageField.text, let _ = cityField.text else{
+        if emailField.text == "", passwordField.text == "", nameField.text == "", ageField.text == "", cityField.text == "" {
             
             print("Form Is Not Valid")
             let CouldNotRegisterAlert = UIAlertController(title: "Missing Information", message: "Fill Out All Information", preferredStyle: .alert)
             CouldNotRegisterAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                self.dissmissKeyboard()
                 CouldNotRegisterAlert.dismiss(animated:false, completion: nil)
             }))
             self.present(CouldNotRegisterAlert, animated: true, completion: nil)
             return
         }
         
-        if password.count < 6 {
+        if passwordField.text!.count < 6 {
             
             let CouldNotRegisterAlert = UIAlertController(title: "Password Too Short", message: "Password Has To Be Atleast 6 Characters.", preferredStyle: .alert)
             CouldNotRegisterAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                self.dissmissKeyboard()
+                self.passwordField.becomeFirstResponder()
+                self.textFieldShouldBeginEditing(self.passwordField)
                 CouldNotRegisterAlert.dismiss(animated:false, completion: nil)
             }))
             self.present(CouldNotRegisterAlert, animated: true, completion: nil)
         }
  
         
-        Auth.auth().createUser(withEmail: email, password: password) { (usr, err) in
+        Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!) { (usr, err) in
             
             if err != nil {
                 let CouldNotRegisterAlert = UIAlertController(title: "Something Went Wrong", message: "Could Not Create User With This Information", preferredStyle: .alert)
                 CouldNotRegisterAlert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: { (UIAlertAction) in
+                    self.dissmissKeyboard()
                     CouldNotRegisterAlert.dismiss(animated:false, completion: nil)
                 }))
                 self.present(CouldNotRegisterAlert, animated: true, completion: nil)
@@ -346,23 +353,20 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     
     func dissmissKeyboard(){
         
-        if emailField.isEditing || passwordField.isEditing || nameField.isEditing || ageField.isEditing || cityField.isEditing {
+        profilePhotoYAnchor?.isActive = false
+        profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
+        profilePhotoYAnchor?.isActive = true
+        
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        nameField.resignFirstResponder()
+        ageField.resignFirstResponder()
+        cityField.resignFirstResponder()
+        
+        UIView.animate(withDuration: 1.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
+            self.view.layoutIfNeeded()
+        }) { (completed) in
             
-            profilePhotoYAnchor?.isActive = false
-            profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)
-            profilePhotoYAnchor?.isActive = true
-            
-            emailField.resignFirstResponder()
-            passwordField.resignFirstResponder()
-            nameField.resignFirstResponder()
-            ageField.resignFirstResponder()
-            cityField.resignFirstResponder()
-            
-            UIView.animate(withDuration: 1.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
-                self.view.layoutIfNeeded()
-            }) { (completed) in
-                
-            }
         }
     }
     

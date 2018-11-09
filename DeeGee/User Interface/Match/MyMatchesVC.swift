@@ -40,6 +40,12 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         
         setupMatchCV()
         setupNoMatchesLabel()
+        
+        let loadingImages = UIImageView()
+        loadingImages.animationImages = []
+        loadingImages.animationDuration = 2.0
+        loadingImages.animationRepeatCount = Int.max
+        loadingImages.startAnimating()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -158,15 +164,31 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
 
         
         var correspondingDataModelNotLoadedYet = true
-        if indexPath.row >= matchesArray.count {
+        if indexPath.row >= matchesArray.count - 1 {
             correspondingDataModelNotLoadedYet = true
+            
+            let loadingImages = cell.loadingAnimation
+            
+            loadingImages.image = #imageLiteral(resourceName: "white_broken_loading_circle")
+            loadingImages.contentMode = .scaleAspectFill
+            
+            loadingImages.frame.size = CGSize(width: cell.bounds.width / 5, height: cell.bounds.width / 5)
+            loadingImages.frame.origin = CGPoint(x: cell.bounds.width / 2 - cell.bounds.width / 10, y: cell.bounds.height / 2 - cell.bounds.width / 10)
+            
+            loadingImages.stopRotating()
+            loadingImages.rotate()
+            
+            print("match count", matchesArray.count)
+            cell.addSubview(loadingImages)
         } else {
+            print("match count", matchesArray.count)
             correspondingDataModelNotLoadedYet = false
+            cell.loadingAnimation.removeFromSuperview()
         }
     
         //Set Separator Line
         let separator = cell.separator
-        separator.backgroundColor = .gray
+        separator.backgroundColor = correspondingDataModelNotLoadedYet ? .clear : .gray
         separator.frame.size = CGSize(width: 2, height: cell.bounds.height)
         separator.frame.origin = CGPoint(x: cell.center.x - 1, y: 0)
         
@@ -211,6 +233,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         uName1.text = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userOneName
         uName1.textAlignment = .left
         uName1.textColor = .white
+        uName1.adjustsFontSizeToFitWidth = true
         uName1.frame.size = CGSize(width: uImg1.bounds.width - 2, height: bottomShadow.bounds.height * 0.6)
         uName1.frame.origin = CGPoint(x: 2, y: bottomShadow.frame.height - uName1.frame.height)
         uName1.textRect(forBounds: uName1.bounds, limitedToNumberOfLines: 1)
@@ -224,6 +247,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         uName2.text = correspondingDataModelNotLoadedYet ? nil : matchesArray[indexPath.row].userTwoName
         uName2.textAlignment = .right
         uName2.textColor = .white
+        uName2.adjustsFontSizeToFitWidth = true
         uName2.frame.size = CGSize(width: uImg2.bounds.width - 3, height: bottomShadow.bounds.height * 0.6)
         uName2.frame.origin = CGPoint(x: uImg1.bounds.width + 3, y: bottomShadow.frame.height - uName2.frame.height)
         uName2.textRect(forBounds: uName2.bounds, limitedToNumberOfLines: 1)

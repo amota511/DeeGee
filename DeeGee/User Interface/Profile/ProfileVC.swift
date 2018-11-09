@@ -167,7 +167,7 @@ class ProfileVC: UIViewController {
             return
         }
         
-        self.navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     
