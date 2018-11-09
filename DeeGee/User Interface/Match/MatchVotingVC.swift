@@ -24,7 +24,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         let lb = UILabel()
         lb.text = ""
         lb.textColor = .lightGray
-        lb.textAlignment = .left
+        lb.textAlignment = .center
         lb.adjustsFontSizeToFitWidth = false
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
@@ -173,12 +173,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfCellsOnceDataIsFullyLoaded
     }
-
-    func nukeAllAnimations() {
-        self.view.subviews.forEach({$0.layer.removeAllAnimations()})
-        self.view.layer.removeAllAnimations()
-        self.view.layoutIfNeeded()
-    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -307,10 +301,6 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.row) was selected!")
     }
-
-    @objc func pressedYes(sender: UIButton) {
-        print("we ight")
-    }
     
     @IBAction func moreButtonClicked(_ sender: AnyObject?) {
         
@@ -436,6 +426,12 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         let profileVC = ProfileVC()
         profileVC.myUser = myUser
         self.navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        for view in self.view.subviews {
+            view.stopRotating()
+        }
     }
 
 }

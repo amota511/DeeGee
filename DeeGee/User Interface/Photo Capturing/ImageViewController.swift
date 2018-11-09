@@ -23,8 +23,15 @@ class ImageViewController : UIViewController
         imageView.image = image
         imageView.contentMode = .scaleAspectFill
         
+        print("IMAGE SIZE")
+        print("IMAGE WIDTH: ", imageView.image!.size.width)
+        print("IMAGE HEIGHT: ", imageView.image!.size.height)
+        
         imageView.image = imageView.image!.fixOrientation()!
-        imageView.image = imageView.image!.scaleImage(toSize: CGSize(width: imageView.image!.size.width * 0.1, height: imageView.image!.size.height * 0.1))
+
+        print("IMAGE SIZE")
+        print("IMAGE WIDTH: ", imageView.image!.size.width)
+        print("IMAGE HEIGHT: ", imageView.image!.size.height)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,7 +88,16 @@ class ImageViewController : UIViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToRegister" {
             let registerVC = segue.destination as! RegisterVC
-            registerVC.profilePhoto.image = imageView.image
+            
+            if(imageView.image!.size.width * 0.1 > 100) {
+                let scaledHeight = (100 / imageView.image!.size.width) * imageView.image!.size.height
+                registerVC.profilePhoto.image = imageView.image!.scaleImage(toSize: CGSize(width: 100, height: scaledHeight))
+            } else {
+                print("IMAGE WIDTH * 0.1: ", imageView.image!.size.width * 0.1)
+                registerVC.profilePhoto.image = imageView.image!.scaleImage(toSize: CGSize(width: imageView.image!.size.width * 0.1, height: imageView.image!.size.height * 0.1))
+                
+            }
+            //registerVC.profilePhoto.image = imageView.image
             registerVC.profilePhotoTaken = true
         }
     }

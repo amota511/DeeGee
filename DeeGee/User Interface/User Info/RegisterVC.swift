@@ -58,6 +58,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         textField.placeholder = "Password"
         textField.restorationIdentifier = "password"
         textField.textAlignment = .left
+        textField.autocapitalizationType = .none
         textField.backgroundColor = UIColor.white
         textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
