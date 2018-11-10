@@ -164,7 +164,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
 
         
         var correspondingDataModelNotLoadedYet = true
-        if indexPath.row >= matchesArray.count - 1 {
+        if indexPath.row >= matchesArray.count {
             correspondingDataModelNotLoadedYet = true
             
             let loadingImages = cell.loadingAnimation
