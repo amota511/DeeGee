@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,14 +20,15 @@
 		1A0AF8C720D443BD00E26175 /* ViewProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF8C620D443BD00E26175 /* ViewProfileVC.swift */; };
 		1A0AF94420D598A100E26175 /* MatchCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AF94320D598A100E26175 /* MatchCVC.swift */; };
 		1A4579DD21192287004BAD9B /* FaceStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4579DC21192287004BAD9B /* FaceStructure.swift */; };
-		1A5FA08220F3077F00C875FE /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5FA08120F3077F00C875FE /* Match.swift */; };
 		1A81B2E8210C4E9100F48822 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A81B2E7210C4E9100F48822 /* User.swift */; };
 		1A81B2EA210C518600F48822 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A81B2E9210C518600F48822 /* GoogleService-Info.plist */; };
 		1ABEF89820E36E3900F4E004 /* MyMatchesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */; };
 		1ABEF89D20E6A78900F4E004 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89B20E6A78800F4E004 /* CameraViewController.swift */; };
 		1ABEF89E20E6A78900F4E004 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEF89C20E6A78800F4E004 /* ImageViewController.swift */; };
 		1E3D1D7EF892507EB60C07C6 /* Pods_DeeGeeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3813FF4310AC0CD03C493E50 /* Pods_DeeGeeTests.framework */; };
-		93EA5E13B93CC571B026ECD9 /* Pods_DeeGeeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8A0BFE9F7E14849D9538EE /* Pods_DeeGeeUITests.framework */; };
+		376181A3C32F3D4D842D0BBE /* Pods_DeeGee_DeeGeeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8CF92431DCB45DF082D482 /* Pods_DeeGee_DeeGeeUITests.framework */; };
+		A5121FB4235CF602006D0333 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A5121FB3235CF602006D0333 /* Alamofire */; };
+		A565D3C6235BDE470059F429 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = A565D3C5235BDE470059F429 /* Match.swift */; };
 		BBFBAB930DC329D3CF5D6349 /* Pods_DeeGee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9904D0506FBFB9D64702C0C6 /* Pods_DeeGee.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,21 +69,23 @@
 		1A0AF8C620D443BD00E26175 /* ViewProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewProfileVC.swift; sourceTree = "<group>"; };
 		1A0AF94320D598A100E26175 /* MatchCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCVC.swift; sourceTree = "<group>"; };
 		1A4579DC21192287004BAD9B /* FaceStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceStructure.swift; sourceTree = "<group>"; };
-		1A5FA08120F3077F00C875FE /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Match.swift; path = /Users/amota511/Coding/DeeGee/DeeGee/Match.swift; sourceTree = "<absolute>"; };
 		1A81B2E7210C4E9100F48822 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1A81B2E9210C518600F48822 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1A9DB004215399860010118B /* DeeGee.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeeGee.entitlements; sourceTree = "<group>"; };
 		1ABEF89720E36E3900F4E004 /* MyMatchesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchesVC.swift; sourceTree = "<group>"; };
 		1ABEF89B20E6A78800F4E004 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		1ABEF89C20E6A78800F4E004 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		259D6A570C8370307E9C480A /* Pods-DeeGee-DeeGeeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGee-DeeGeeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGee-DeeGeeUITests/Pods-DeeGee-DeeGeeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		29F1CF7330F5EF570D46B51D /* Pods-DeeGeeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGeeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGeeUITests/Pods-DeeGeeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3003B3698499DC266C6EE052 /* Pods-DeeGee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGee.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee.release.xcconfig"; sourceTree = "<group>"; };
 		3813FF4310AC0CD03C493E50 /* Pods_DeeGeeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeeGeeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C6087CB7D260FAEEC838786 /* Pods-DeeGee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee.debug.xcconfig"; sourceTree = "<group>"; };
+		8D8CF92431DCB45DF082D482 /* Pods_DeeGee_DeeGeeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeeGee_DeeGeeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9904D0506FBFB9D64702C0C6 /* Pods_DeeGee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeeGee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A565D3C5235BDE470059F429 /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Match.swift; path = DeeGee/Match.swift; sourceTree = SOURCE_ROOT; };
+		AFC90DFFA2D1B43E6F7F3CCE /* Pods-DeeGee-DeeGeeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGee-DeeGeeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGee-DeeGeeUITests/Pods-DeeGee-DeeGeeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CDD637FFF6E27A554A48EFB8 /* Pods-DeeGeeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGeeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGeeTests/Pods-DeeGeeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CEA9B2C7F7EB0551218854E2 /* Pods-DeeGeeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGeeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGeeTests/Pods-DeeGeeTests.release.xcconfig"; sourceTree = "<group>"; };
-		EE8A0BFE9F7E14849D9538EE /* Pods_DeeGeeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeeGeeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F70D5649D7D4B7B6D89E2EB2 /* Pods-DeeGeeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeGeeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeeGeeUITests/Pods-DeeGeeUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBFBAB930DC329D3CF5D6349 /* Pods_DeeGee.framework in Frameworks */,
+				A5121FB4235CF602006D0333 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93EA5E13B93CC571B026ECD9 /* Pods_DeeGeeUITests.framework in Frameworks */,
+				376181A3C32F3D4D842D0BBE /* Pods_DeeGee_DeeGeeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +214,7 @@
 			children = (
 				1A81B2E7210C4E9100F48822 /* User.swift */,
 				1A4579DC21192287004BAD9B /* FaceStructure.swift */,
-				1A5FA08120F3077F00C875FE /* Match.swift */,
+				A565D3C5235BDE470059F429 /* Match.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -249,7 +253,7 @@
 			children = (
 				9904D0506FBFB9D64702C0C6 /* Pods_DeeGee.framework */,
 				3813FF4310AC0CD03C493E50 /* Pods_DeeGeeTests.framework */,
-				EE8A0BFE9F7E14849D9538EE /* Pods_DeeGeeUITests.framework */,
+				8D8CF92431DCB45DF082D482 /* Pods_DeeGee_DeeGeeUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -263,6 +267,8 @@
 				CEA9B2C7F7EB0551218854E2 /* Pods-DeeGeeTests.release.xcconfig */,
 				29F1CF7330F5EF570D46B51D /* Pods-DeeGeeUITests.debug.xcconfig */,
 				F70D5649D7D4B7B6D89E2EB2 /* Pods-DeeGeeUITests.release.xcconfig */,
+				AFC90DFFA2D1B43E6F7F3CCE /* Pods-DeeGee-DeeGeeUITests.debug.xcconfig */,
+				259D6A570C8370307E9C480A /* Pods-DeeGee-DeeGeeUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -278,13 +284,16 @@
 				1A0AF88520D2EC6700E26175 /* Sources */,
 				1A0AF88620D2EC6700E26175 /* Frameworks */,
 				1A0AF88720D2EC6700E26175 /* Resources */,
-				C24E157102540749529ED373 /* [CP] Embed Pods Frameworks */,
+				E3BD86F7941E8DFD8A063A90 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = DeeGee;
+			packageProductDependencies = (
+				A5121FB3235CF602006D0333 /* Alamofire */,
+			);
 			productName = DeeGee;
 			productReference = 1A0AF88920D2EC6700E26175 /* DeeGee.app */;
 			productType = "com.apple.product-type.application";
@@ -316,6 +325,7 @@
 				1A0AF8A420D2EC6800E26175 /* Sources */,
 				1A0AF8A520D2EC6800E26175 /* Frameworks */,
 				1A0AF8A620D2EC6800E26175 /* Resources */,
+				CF0E7BCF11DE112EE56F93EF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -340,6 +350,7 @@
 					1A0AF88820D2EC6700E26175 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = 22ZGT27U85;
+						LastSwiftMigration = 1110;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -353,12 +364,14 @@
 					1A0AF89C20D2EC6700E26175 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = 22ZGT27U85;
+						LastSwiftMigration = 1110;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1A0AF88820D2EC6700E26175;
 					};
 					1A0AF8A720D2EC6800E26175 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = 22ZGT27U85;
+						LastSwiftMigration = 1110;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1A0AF88820D2EC6700E26175;
 					};
@@ -369,10 +382,14 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = 1A0AF88020D2EC6700E26175;
+			packageReferences = (
+				A5121FB2235CF601006D0333 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 1A0AF88A20D2EC6700E26175 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -442,7 +459,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DeeGeeUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DeeGee-DeeGeeUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -467,16 +484,16 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C24E157102540749529ED373 /* [CP] Embed Pods Frameworks */ = {
+		CF0E7BCF11DE112EE56F93EF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DeeGee-DeeGeeUITests/Pods-DeeGee-DeeGeeUITests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -484,13 +501,39 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeeGee/Pods-DeeGee-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DeeGee-DeeGeeUITests/Pods-DeeGee-DeeGeeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3BD86F7941E8DFD8A063A90 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DeeGee/Pods-DeeGee-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DeeGee/Pods-DeeGee-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -511,8 +554,8 @@
 				1A0AF8C720D443BD00E26175 /* ViewProfileVC.swift in Sources */,
 				1A0AF88D20D2EC6700E26175 /* AppDelegate.swift in Sources */,
 				1ABEF89E20E6A78900F4E004 /* ImageViewController.swift in Sources */,
-				1A5FA08220F3077F00C875FE /* Match.swift in Sources */,
 				1A0AF8C120D301E800E26175 /* MatchVotingVC.swift in Sources */,
+				A565D3C6235BDE470059F429 /* Match.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,7 +699,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -670,11 +714,15 @@
 				CODE_SIGN_ENTITLEMENTS = DeeGee/DeeGee.entitlements;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
 				INFOPLIST_FILE = "$(SRCROOT)/DeeGee/Configuration/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -686,11 +734,15 @@
 				CODE_SIGN_ENTITLEMENTS = DeeGee/DeeGee.entitlements;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
 				INFOPLIST_FILE = "$(SRCROOT)/DeeGee/Configuration/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -702,10 +754,15 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 22ZGT27U85;
 				INFOPLIST_FILE = DeeGeeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGeeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeeGee.app/DeeGee";
 			};
 			name = Debug;
@@ -718,40 +775,55 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 22ZGT27U85;
 				INFOPLIST_FILE = DeeGeeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGeeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeeGee.app/DeeGee";
 			};
 			name = Release;
 		};
 		1A0AF8B820D2EC6800E26175 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29F1CF7330F5EF570D46B51D /* Pods-DeeGeeUITests.debug.xcconfig */;
+			baseConfigurationReference = AFC90DFFA2D1B43E6F7F3CCE /* Pods-DeeGee-DeeGeeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
 				INFOPLIST_FILE = DeeGeeUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGeeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = DeeGee;
 			};
 			name = Debug;
 		};
 		1A0AF8B920D2EC6800E26175 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F70D5649D7D4B7B6D89E2EB2 /* Pods-DeeGeeUITests.release.xcconfig */;
+			baseConfigurationReference = 259D6A570C8370307E9C480A /* Pods-DeeGee-DeeGeeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 22ZGT27U85;
 				INFOPLIST_FILE = DeeGeeUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronMotayne.DeeGeeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = DeeGee;
 			};
 			name = Release;
@@ -796,6 +868,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A5121FB2235CF601006D0333 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A5121FB3235CF602006D0333 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5121FB2235CF601006D0333 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A0AF88120D2EC6700E26175 /* Project object */;
 }

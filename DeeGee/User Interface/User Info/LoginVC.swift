@@ -258,7 +258,7 @@ class LoginVC: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
         registerButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
-    func dissmissKeyboard(){
+    @objc func dissmissKeyboard(){
    
         logoViewYAnchor?.isActive = false
         logoViewYAnchor = logoView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)

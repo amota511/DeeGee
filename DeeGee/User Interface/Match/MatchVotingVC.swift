@@ -316,7 +316,7 @@ class MatchVotingVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         let view = cell.superview!
         
         var darkBlur:UIBlurEffect = UIBlurEffect()
-        darkBlur = UIBlurEffect(style: UIBlurEffectStyle.dark)//prominent,regular,extraLight, light, dark
+        darkBlur = UIBlurEffect(style: UIBlurEffect.Style.dark)//prominent,regular,extraLight, light, dark
         let blurView = UIVisualEffectView(effect: darkBlur)
         blurView.frame = cell.frame //your view that have any objects
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

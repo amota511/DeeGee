@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import DeeGee
+//@testable import DeeGee
 
 class DeeGeeTests: XCTestCase {
     

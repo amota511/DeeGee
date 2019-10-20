@@ -14,7 +14,7 @@ class CameraViewController : UIViewController
     var destinationImageView: UIImageView!
     
     let grayLoadingView = UIView()
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    let activityIndicator = UIActivityIndicatorView(style: .white)
     
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var faceSiloutteView: UIView!
@@ -41,9 +41,9 @@ class CameraViewController : UIViewController
         grayLoadingView.frame = self.view.frame
         grayLoadingView.alpha = 0.65
         
-        captureSession.sessionPreset = AVCaptureSessionPresetPhoto
+        captureSession.sessionPreset = AVCaptureSession.Preset(rawValue: convertFromAVCaptureSessionPreset(AVCaptureSession.Preset.photo))
         
-        let devices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! [AVCaptureDevice]
+        let devices = AVCaptureDevice.devices(for: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video))) 
         for device in devices {
             if device.position == .back {
                 backFacingCamera = device
@@ -60,24 +60,24 @@ class CameraViewController : UIViewController
         stillImageOutput?.outputSettings = [AVVideoCodecKey : AVVideoCodecJPEG]
         
         do {
-            let captureDeviceInput = try AVCaptureDeviceInput(device: currentDevice)
+            let captureDeviceInput = try AVCaptureDeviceInput(device: currentDevice!)
             
             captureSession.addInput(captureDeviceInput)
-            captureSession.addOutput(stillImageOutput)
+            captureSession.addOutput(stillImageOutput!)
             
             // set up the camera preview layer
             cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             view.layer.addSublayer(cameraPreviewLayer!)
-            cameraPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            cameraPreviewLayer?.videoGravity = AVLayerVideoGravity(rawValue: convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspectFill))
             cameraPreviewLayer?.frame = view.layer.frame
             
-            view.bringSubview(toFront: cameraButton)
+            view.bringSubviewToFront(cameraButton)
             
             setupFaceSiloutte()
-            view.bringSubview(toFront: faceSiloutteView)
+            view.bringSubviewToFront(faceSiloutteView)
             
             setupinstructionsView()
-            view.bringSubview(toFront: instructionsView)
+            view.bringSubviewToFront(instructionsView)
             
             captureSession.startRunning()
 
@@ -112,7 +112,7 @@ class CameraViewController : UIViewController
         
         let cameraInput: AVCaptureDeviceInput
         do {
-            cameraInput = try AVCaptureDeviceInput(device: newDevice)
+            cameraInput = try AVCaptureDeviceInput(device: newDevice!)
         } catch let error {
             print(error)
             return
@@ -131,10 +131,10 @@ class CameraViewController : UIViewController
         //place loading UI
         placeLoadingUI()
         
-        let videoConnection = stillImageOutput?.connection(withMediaType: AVMediaTypeVideo)
+        let videoConnection = stillImageOutput?.connection(with: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video))) ?? nil
 
         // capture a still image asynchronously
-        stillImageOutput?.captureStillImageAsynchronously(from: videoConnection, completionHandler: { (imageDataBuffer, error) in
+        stillImageOutput?.captureStillImageAsynchronously(from: videoConnection!, completionHandler: { (imageDataBuffer, error) in
 
             if let imageData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: imageDataBuffer!, previewPhotoSampleBuffer: imageDataBuffer!) {
                 self.stillImage = UIImage(data: imageData)
@@ -200,3 +200,18 @@ class CameraViewController : UIViewController
 }
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVCaptureSessionPreset(_ input: AVCaptureSession.Preset) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVMediaType(_ input: AVMediaType) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
+	return input.rawValue
+}

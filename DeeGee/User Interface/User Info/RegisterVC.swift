@@ -319,7 +319,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
 
     func storeProfilePhoto() {
 
-        let dataObj: Data = UIImagePNGRepresentation(myUser!.image)!
+        let dataObj: Data = myUser!.image.pngData()!
         
         // Create a reference to the file you want to upload
         let userImgRef = Storage.storage().reference().child(myUser!.uid + ".png")
@@ -352,7 +352,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func dissmissKeyboard(){
+    @objc func dissmissKeyboard(){
         
         profilePhotoYAnchor?.isActive = false
         profilePhotoYAnchor = profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.1 + 6)

@@ -293,7 +293,7 @@ class MyMatchesVC: UIViewController , UICollectionViewDelegate, UICollectionView
         let view = cell.superview!
         
         var darkBlur:UIBlurEffect = UIBlurEffect()
-        darkBlur = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        darkBlur = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurView = UIVisualEffectView(effect: darkBlur)
         blurView.frame = cell.frame
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
